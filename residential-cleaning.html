@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>House Cleaning Services San Antonio | Chabod Cleaning Services</title>
+<meta name="description" content="The same trained team, in your home, every visit. San Antonio house cleaning with no contracts and no stranger at your door. Talk to Andrés directly.">
+<meta property="og:title" content="House Cleaning Services San Antonio | Chabod Cleaning Services">
+<meta property="og:description" content="8+ years, dedicated teams, no contracts. The same team who knows your home comes back every time.">
+<meta property="og:type" content="website">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&family=Fredoka:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --blue: #294b9b;
+  --teal-dark: #008eb5;
+  --teal-light: #58bec2;
+  --coral: #eb5c3d;
+  --grey: #ededed;
+  --ink: #23262b;
+  --paper: #ffffff;
+  --line: #e2e2e2;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+strong { font-weight: 800; }
+
+body {
+  overflow-x: hidden;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Manrope', sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: 'Baloo 2', sans-serif;
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--blue);
+}
+
+.wrap { max-width: 480px; width: 100%; margin: 0 auto; }
+.pad { padding: 28px 24px; }
+
+.photo {
+  background: repeating-linear-gradient(135deg, #dbeef0, #dbeef0 10px, #eaf6f7 10px, #eaf6f7 20px);
+  border: 1px solid var(--line);
+  color: #4a7075;
+  font-family: 'Manrope', monospace;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 12px;
+}
+
+/* ===== LOGO BAR ===== */
+.logo-bar {
+  background: #fff;
+  text-align: center;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--line);
+}
+.logo-bar img, .site-logo { height: 38px; width: auto; max-width: 60%; display: block; }
+
+/* ===== HERO (parallax) ===== */
+.hero-parallax { position: relative; height: 430px; overflow: hidden; }
+.hero-bg { position: absolute; inset: -60px 0 -60px 0; will-change: transform; align-items: flex-start; padding-top: 90px; }
+.hero-overlay {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 28px 24px 34px;
+  background: linear-gradient(0deg, rgba(15,25,55,0.94), rgba(15,25,55,0.6) 65%, transparent);
+  color: #fff;
+}
+.hero-overlay h1 { color: #fff; font-size: 31px; margin-bottom: 16px; }
+.hero-overlay p.sub { font-size: 16.5px; color: #dbe3f5; margin-bottom: 18px; max-width: 40ch; }
+.proof { font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 13px; color: var(--teal-light); border-top: 1px solid rgba(255,255,255,0.2); padding-top: 12px; margin-bottom: 22px; letter-spacing: 0.03em; }
+
+/* ===== SCROLL REVEAL ===== */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.in { opacity: 1; transform: translateY(0); }
+
+/* ===== STATS (animated counters) ===== */
+.stats { text-align: center; }
+.stats-row { display: flex; gap: 12px; }
+.stat-block { flex: 1; background: var(--grey); border-radius: 14px; padding: 22px 10px; }
+.stat-num { font-family: 'Baloo 2', sans-serif; font-size: 38px; color: var(--coral); }
+.stat-label { font-size: 13px; color: var(--blue); font-weight: 600; margin-top: 6px; }
+
+.btn {
+  display: inline-block;
+  background: var(--coral);
+  color: #fff;
+  font-family: 'Baloo 2', sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  padding: 16px 18px;
+  border-radius: 8px;
+  text-decoration: none;
+  width: 100%;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+}
+.btn-outline {
+  background: transparent;
+  border: 2px solid var(--blue);
+  color: var(--blue);
+}
+.btn-row { display: flex; flex-direction: column; gap: 12px; }
+
+/* ===== PAIN POINTS ===== */
+.pain h2 { font-size: 27px; margin-bottom: 18px; }
+.pain-item {
+  display: flex;
+  gap: 12px;
+  padding: 14px 0;
+  border-top: 1px solid var(--line);
+  font-size: 17.5px;
+}
+.pain-item:last-child { border-bottom: 1px solid var(--line); }
+.pain-mark { color: var(--coral); font-family: 'Baloo 2', sans-serif; font-size: 19px; flex-shrink: 0; }
+
+/* ===== JOURNEY (distinct visual treatment) ===== */
+.journey { background: #101b3d; color: #fff; position: relative; overflow: hidden; }
+.journey .eyebrow { font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 12.5px; letter-spacing: 0.09em; text-transform: uppercase; color: var(--teal-light); margin-bottom: 10px; }
+.journey h2 { color: #fff; font-size: 25px; margin-bottom: 30px; max-width: 24ch; }
+.journey-track { position: relative; padding-left: 36px; }
+.journey-line {
+  position: absolute; left: 13px; top: 6px; bottom: 6px; width: 2px;
+  background: repeating-linear-gradient(180deg, var(--teal-light) 0, var(--teal-light) 6px, transparent 6px, transparent 12px);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 1.5s ease-out;
+}
+.journey-track.in .journey-line { transform: scaleY(1); }
+.journey-step {
+  position: relative; padding-bottom: 34px;
+  opacity: 0;
+  transform: translateX(-26px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition-delay: var(--stagger, 0s);
+}
+.journey-track.in .journey-step { opacity: 1; transform: translateX(0); }
+.journey-step:last-child { padding-bottom: 0; }
+.journey-dot {
+  position: absolute; left: -36px; top: 0;
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--coral); color: #fff;
+  font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 14px;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 0 5px #101b3d;
+}
+.journey-step.payoff .journey-dot { background: var(--teal-light); color: #101b3d; }
+.journey-step h3 { color: #fff; font-family: 'Baloo 2', sans-serif; font-size: 19px; margin-bottom: 6px; }
+.journey-step p { font-size: 15.5px; color: #c3cbe6; max-width: 38ch; }
+.journey-arrow { font-size: 20px; color: var(--teal-light); position: absolute; left: -30px; top: 34px; }
+
+.journey-cta { margin-top: 30px; padding-top: 26px; border-top: 1px solid rgba(255,255,255,0.18); text-align: center; }
+.journey-cta p { font-size: 15.5px; color: #c3cbe6; margin-bottom: 14px; }
+.btn-journey { background: var(--teal-light); color: #101b3d; }
+
+/* ===== TRUST ===== */
+.trust h2 { font-size: 25px; margin-bottom: 14px; }
+.trust p { font-size: 17.5px; margin-bottom: 16px; }
+.trust-photo { height: 240px; margin-bottom: 20px; }
+.audience-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.audience-chip {
+  border: 1px solid var(--line);
+  background: var(--grey);
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  padding: 7px 11px;
+  border-radius: 20px;
+  color: var(--blue);
+}
+
+/* ===== HONESTY (glassmorphism) ===== */
+.honesty-wrap { position: relative; min-height: 400px; display: flex; align-items: center; justify-content: center; padding: 24px; overflow: hidden; }
+.honesty-bg { position: absolute; inset: 0; height: auto; }
+.honesty-tint { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(41,75,155,0.82), rgba(0,142,181,0.82)); }
+.glass-card {
+  position: relative;
+  background: rgba(255,255,255,0.16);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 20px;
+  padding: 26px 22px;
+  text-align: left;
+}
+.glass-card h2 { color: #fff; font-size: 22px; margin-bottom: 16px; }
+.glass-list { list-style: none; }
+.glass-list li { display: flex; gap: 10px; font-size: 15.5px; color: #f0f3fc; padding: 9px 0; border-top: 1px solid rgba(255,255,255,0.22); }
+.glass-list li:first-child { border-top: none; }
+.glass-list .mark { flex-shrink: 0; }
+
+/* ===== REVIEWS (momentum scroll) ===== */
+.reviews h2 { font-size: 25px; margin-bottom: 10px; }
+.review-scroll { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 10px; -webkit-overflow-scrolling: touch; }
+.review-card {
+  flex: 0 0 78%; scroll-snap-align: center;
+  background: #fff; border: 1px solid var(--line); border-radius: 14px;
+  padding: 18px; box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+  text-align: left;
+}
+.review-card .stars { color: var(--coral); font-size: 14px; margin-bottom: 6px; }
+.review-card p { font-size: 14px; color: #444; }
+.review-card .rname { font-family: 'Baloo 2', sans-serif; font-size: 13px; color: var(--blue); margin-top: 10px; }
+
+/* ===== FAQ ===== */
+.faq h2 { font-size: 23px; margin-bottom: 16px; }
+.faq-item { border-top: 1px solid var(--line); }
+.faq-item:last-child { border-bottom: 1px solid var(--line); }
+.faq-q {
+  font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 17px;
+  padding: 15px 0; cursor: pointer;
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+}
+.faq-q::after { content: '+'; font-family: 'Baloo 2', sans-serif; font-size: 22px; color: var(--coral); flex-shrink: 0; }
+.faq-item.open .faq-q::after { content: '–'; }
+.faq-a { font-size: 16.5px; color: #4a4a4a; padding-bottom: 15px; display: none; max-width: 42ch; }
+.faq-item.open .faq-a { display: block; }
+
+/* ===== FAMILY ===== */
+.family { text-align: center; background: #f2f9fa; }
+.family-photo { height: 260px; margin-bottom: 16px; }
+.family p.line { font-family: 'Baloo 2', sans-serif; font-weight: 500; font-size: 23px; color: var(--blue); }
+
+/* ===== FINAL CTA (animated gradient) ===== */
+.final-text {
+  padding: 32px 24px 44px; text-align: center;
+  background: linear-gradient(-45deg, var(--blue), var(--teal-dark), var(--teal-light), var(--blue));
+  background-size: 300% 300%;
+  animation: gradientShift 10s ease infinite;
+}
+.final-text h2 { color: #fff; font-size: 29px; margin-bottom: 12px; }
+.final-text p.lead { color: #dbe3f5; font-size: 16.5px; margin-bottom: 22px; }
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.note {
+  font-family: 'Manrope', sans-serif; font-size: 12px; color: #8a8a8a;
+  text-align: center; padding: 6px 24px 2px; letter-spacing: 0.02em;
+}
+
+/* ===== HIGHLIGHT (scroll-triggered marker) ===== */
+.hl { position: relative; z-index: 0; display: inline-block; white-space: normal; }
+.hl::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  left: -3px; right: -3px; bottom: 3px; height: 38%;
+  background: var(--coral);
+  opacity: 0.22;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.85s cubic-bezier(.65,0,.35,1);
+}
+.hl.on-dark::after { opacity: 0.9; }
+.hl.in::after { transform: scaleX(1); }
+
+/* Solid blue chip -- for phrases on light backgrounds where text is already blue */
+.hl.solid-blue::after { background: var(--blue); opacity: 1; height: 100%; bottom: -2px; border-radius: 4px; }
+.hl.solid-blue.in { color: #fff; }
+
+/* ===== BOUNCE (text/SMS buttons) ===== */
+@keyframes ctaBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+.btn-bounce { animation: ctaBounce 1.6s ease-in-out infinite; }
+
+
+/* ===== FLOATING NAV ===== */
+.fab-nav { position: fixed; bottom: 22px; right: 20px; z-index: 999; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+.fab-button {
+  width: 58px; height: 58px; border-radius: 50%;
+  background: var(--coral); border: none; cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.28);
+  display: flex; align-items: center; justify-content: center;
+  position: relative; z-index: 2;
+  transition: transform 0.3s ease;
+  padding: 0;
+}
+.fab-icon { position: relative; width: 20px; height: 20px; }
+.fab-icon::before, .fab-icon::after {
+  content: ''; position: absolute; background: #fff; border-radius: 2px;
+  transition: transform 0.3s ease;
+}
+.fab-icon::before { width: 20px; height: 3px; top: 50%; left: 0; transform: translateY(-50%); }
+.fab-icon::after { width: 3px; height: 20px; left: 50%; top: 0; transform: translateX(-50%); }
+.fab-nav.open .fab-button { transform: rotate(90deg) scale(1.05); }
+.fab-nav.open .fab-icon::before { transform: translateY(-50%) rotate(90deg); opacity: 0; }
+.fab-nav.open .fab-icon::after { transform: translateX(-50%) rotate(0deg); }
+
+.fab-menu { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; margin-bottom: 2px; }
+.fab-item {
+  background: #fff; color: var(--blue);
+  font-family: 'Baloo 2', sans-serif; font-weight: 600; font-size: 14px;
+  padding: 10px 18px; border-radius: 22px; text-decoration: none;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+  opacity: 0; transform: translateY(10px) scale(0.9);
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  white-space: nowrap;
+}
+.fab-nav.open .fab-item { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+.fab-nav.open .fab-item:nth-child(1) { transition-delay: 0.03s; }
+.fab-nav.open .fab-item:nth-child(2) { transition-delay: 0.07s; }
+.fab-nav.open .fab-item:nth-child(3) { transition-delay: 0.11s; }
+.fab-nav.open .fab-item:nth-child(4) { transition-delay: 0.15s; }
+.fab-nav.open .fab-item:nth-child(5) { transition-delay: 0.19s; }
+.fab-item.current { background: var(--grey); color: #999; pointer-events: none; }
+
+
+/* ===== DESKTOP / TABLET ===== */
+@media (min-width: 700px) {
+  body { background: #f4f6f8; }
+  .wrap {
+    max-width: 620px;
+    background: var(--paper);
+    box-shadow: 0 0 40px rgba(0,0,0,0.07);
+    min-height: 100vh;
+  }
+  .logo-bar img, .site-logo { height: 44px; }
+  .fab-nav { right: calc(50% - 310px + 20px); }
+}
+</style>
+</head>
+<body>
+<!--
+  PHOTO ALT TEXT REFERENCE (fill in when real images replace placeholders):
+  - Hero background          -> "Chabod Cleaning Services team member cleaning a San Antonio living room"
+  - Trust photo              -> "Same dedicated Chabod cleaning team returning to a San Antonio home"
+  - Honesty background       -> "Chabod Cleaning Services team member making a bed with fresh linens, San Antonio home"
+  - Family photo             -> "Andrés and family, owners of Chabod Cleaning Services San Antonio"
+-->
+
+<div class="wrap">
+
+  <div class="logo-bar">
+    <img src="logo.png" alt="Chabod Cleaning Services logo" class="site-logo">
+  </div>
+
+  <!-- HERO -->
+  <div class="hero-parallax" id="heroParallax">
+    <div class="photo hero-bg" id="heroBg">[ Hero photo: Chabod team member cleaning a bright San Antonio living room, natural light, mid-task ]</div>
+    <div class="hero-overlay">
+      <h1>The Same Team, In Your Home, <span class="hl on-dark">For Years.</span></h1>
+      <p class="sub">Chabod Cleaning Services keeps San Antonio homes at one standard, visit after visit, with the same trained team who actually knows your house. Not a stranger every time.</p>
+      <div class="proof">8+ YEARS IN SAN ANTONIO &bull; DEDICATED TEAMS &bull; NO CONTRACTS</div>
+      <a href="tel:+12104806224" class="btn">Talk to Andrés Directly</a>
+    </div>
+  </div>
+
+  <!-- PAIN POINTS -->
+  <div class="pad pain reveal">
+    <h2>Sound familiar?</h2>
+    <div class="pain-item"><span class="pain-mark">&mdash;</span><span>You've never had a professional cleaner before, and you're not totally sure how it works.</span></div>
+    <div class="pain-item"><span class="pain-mark">&mdash;</span><span>You clean it yourself when you can, but "when you can" keeps shrinking.</span></div>
+    <div class="pain-item"><span class="pain-mark">&mdash;</span><span>The idea of strangers in your home for hours makes you uneasy.</span></div>
+    <div class="pain-item"><span class="pain-mark">&mdash;</span><span>You just want a clean house without losing your whole Saturday to it.</span></div>
+  </div>
+
+  <!-- JOURNEY -->
+  <div class="pad journey">
+    <div class="eyebrow">How it actually starts</div>
+    <h2>From a Google search to watching each other's families grow.</h2>
+    <div class="journey-track" id="journeyTrack">
+      <div class="journey-line"></div>
+      <div class="journey-step" style="--stagger: 0.15s;">
+        <div class="journey-dot">1</div>
+        <h3>Referral or Google Search</h3>
+        <p>Someone tells you about us, or you find us the way most people do &mdash; searching for house cleaning near you.</p>
+      </div>
+      <div class="journey-step" style="--stagger: 0.45s;">
+        <div class="journey-dot">2</div>
+        <h3>First Visit: We Bring Your Home Up To Our Standard</h3>
+        <p>The first clean is a full reset, not a quick touch-up, so it costs and takes a little more than every visit after. We're getting your home to the standard we'll maintain from here on out.</p>
+      </div>
+      <div class="journey-step" style="--stagger: 0.75s;">
+        <div class="journey-dot">3</div>
+        <h3>Every Visit After: We Keep You There</h3>
+        <p>Weekly, biweekly, or monthly &mdash; most people land on biweekly. Same team, same standard, no starting over each time.</p>
+      </div>
+      <div class="journey-step payoff" style="--stagger: 1.05s;">
+        <div class="journey-dot">&hearts;</div>
+        <h3>We Watch Each Other Grow</h3>
+        <p>Years in, our team knows your home and, often, your family. We've watched kids grow up and pets grow old right alongside growing this business.</p>
+      </div>
+    </div>
+    <div class="journey-cta">
+      <p>Questions about how the process works?</p>
+      <a href="sms:+12104806224" class="btn btn-journey btn-bounce">Text Andrés About the Process</a>
+    </div>
+  </div>
+
+  <!-- TRUST -->
+  <div class="pad trust reveal">
+    <div class="photo trust-photo">[ Photo: Same two-person Chabod team arriving at a returning client's front door ]</div>
+    <h2>The same team. Every time. On purpose.</h2>
+    <p>You get a dedicated team assigned to your home, plus a trained backup team who also knows your house if your regulars are ever out. Every visit is logged, so there's always accountability behind what got done.</p>
+    <div class="stats-row" style="margin: 20px 0;">
+      <div class="stat-block">
+        <div class="stat-num" data-count="75">0</div>
+        <div class="stat-label">% of jobs get a 2&ndash;3 person team</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-num" data-count="3">0</div>
+        <div class="stat-label">hrs or less, most visits</div>
+      </div>
+    </div>
+    <p style="margin-bottom: 8px; font-weight: 700; color: var(--blue); font-size: 15px;">A good fit for:</p>
+    <div class="audience-row">
+      <div class="audience-chip">Remote workers</div>
+      <div class="audience-chip">Military &amp; dual-career families</div>
+      <div class="audience-chip">Anyone who wants their weekend back</div>
+    </div>
+  </div>
+
+  <!-- HONESTY (glassmorphism) -->
+  <div class="honesty-wrap">
+    <div class="photo honesty-bg honesty-photo" style="position:absolute; inset:0; height:auto;">[ Background photo: Chabod team member making a bed with fresh linens, soft daylight ]</div>
+    <div class="honesty-tint"></div>
+    <div class="glass-card">
+      <h2>What we do, and what we're upfront about.</h2>
+      <ul class="glass-list">
+        <li><span class="mark">&#10003;</span><span>Every room reset to standard, every visit.</span></li>
+        <li><span class="mark">&#10003;</span><span>Hotel-style bed-making with fresh linens, if you leave them out for us.</span></li>
+        <li><span class="mark">&#10003;</span><span>Dishes go straight in the dishwasher, so our time goes to actually cleaning, not hand-washing.</span></li>
+        <li><span class="mark">&#10007;</span><span>We don't do personal laundry &mdash; just being upfront about it.</span></li>
+        <li><span class="mark">&#10003;</span><span>If something looks off &mdash; like a water stain that shouldn't be there &mdash; we flag it. We had a client whose water softener was leaking, and we caught it before it became a bigger problem.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- REVIEWS -->
+  <div class="pad reviews reveal">
+    <h2>What San Antonio homeowners say</h2>
+    <div class="review-scroll">
+      <div class="review-card">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p>[ Live Google Review placeholder &mdash; pull from Chabod's Google Business Profile ]</p>
+        <div class="rname">&mdash; Google Review</div>
+      </div>
+      <div class="review-card">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p>[ Live Google Review placeholder &mdash; pull from Chabod's Google Business Profile ]</p>
+        <div class="rname">&mdash; Google Review</div>
+      </div>
+      <div class="review-card">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p>[ Live Google Review placeholder &mdash; pull from Chabod's Google Business Profile ]</p>
+        <div class="rname">&mdash; Google Review</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="pad faq reveal">
+    <h2>Common questions</h2>
+    <div class="faq-item">
+      <div class="faq-q">Do I need to have had a cleaning service before?</div>
+      <div class="faq-a">Not at all. Most of our residential clients are hiring a cleaning service for the first time. We'll walk you through exactly how it works before the first visit.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What happens on the first visit?</div>
+      <div class="faq-a">We bring your whole home up to our standard in one full visit &mdash; every room, top to bottom. It costs and takes a bit more than a regular visit since it's a full reset, not a touch-up. Every visit after that is maintaining the standard we just set.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">How often do people book?</div>
+      <div class="faq-a">Most of our clients &mdash; about 60% &mdash; go biweekly. Another 30% go monthly, and about 10% go weekly. We'll help you figure out what fits your home and budget.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Will I get the same cleaners every time?</div>
+      <div class="faq-a">Yes. You get a dedicated team assigned to your home, plus a trained backup team who also knows your house in case your regulars are ever unavailable.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Do you do laundry?</div>
+      <div class="faq-a">We don't handle personal laundry. We do make beds hotel-style with fresh linens if you leave them out for us.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">How long does a visit take?</div>
+      <div class="faq-a">Most visits run 1.5&ndash;3 hours with a team of 2&ndash;3 people, rather than one person there all day.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Is there a contract?</div>
+      <div class="faq-a">No. No contracts, no lock-in fees. You can adjust or stop anytime.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">How does billing work?</div>
+      <div class="faq-a">You're invoiced at the start of the month for that month's scheduled visits, prepaid to lock in your spot on the calendar. Still no contract &mdash; it's just payment in advance for visits already booked, so there are no surprises later.</div>
+    </div>
+  </div>
+
+  <!-- FAMILY -->
+  <div class="pad family reveal">
+    <div class="photo family-photo">[ Photo: Andrés and family ]</div>
+    <p class="line">Family owned since 2019. Still answering <span class="hl solid-blue">with the same care</span>, built for long-lasting relationships with our customers.</p>
+  </div>
+
+  <!-- FINAL CTA -->
+  <div class="final-text">
+    <h2>Ready for the next level?</h2>
+    <p class="lead">Call or text us your address and a bit about your home, and we'll get you scheduled.</p>
+    <div class="btn-row">
+      <a href="tel:+12104806224" class="btn">Call Andrés Now</a>
+      <a href="sms:+12104806224" class="btn btn-bounce" style="background: transparent; border: 2px solid #fff; color: #fff;">Text Us About Your Home</a>
+    </div>
+  </div>
+
+  <div class="note">Mock-up &mdash; placeholder photos, phone number &amp; reviews to be replaced with real assets.</div>
+
+</div>
+
+<script>
+// Scroll reveal
+const revealEls = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
+revealEls.forEach(el => revealObserver.observe(el));
+
+// Parallax hero
+const heroBg = document.getElementById('heroBg');
+const heroParallax = document.getElementById('heroParallax');
+window.addEventListener('scroll', () => {
+  if (!heroBg || !heroParallax) return;
+  const rect = heroParallax.getBoundingClientRect();
+  if (rect.bottom > 0 && rect.top < window.innerHeight) {
+    const offset = rect.top * 0.25;
+    heroBg.style.transform = `translateY(${offset}px)`;
+  }
+});
+
+// Animated counters
+const counters = document.querySelectorAll('.stat-num[data-count]');
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const target = parseInt(el.getAttribute('data-count'), 10);
+      let current = 0;
+      const step = Math.max(1, Math.ceil(target / 40));
+      const timer = setInterval(() => {
+        current += step;
+        if (current >= target) { current = target; clearInterval(timer); }
+        el.textContent = current;
+      }, 25);
+      counterObserver.unobserve(el);
+    }
+  });
+}, { threshold: 0.4 });
+counters.forEach(el => counterObserver.observe(el));
+
+// FAQ accordion
+document.querySelectorAll('.faq-item').forEach(item => {
+  const q = item.querySelector('.faq-q');
+  q.addEventListener('click', () => {
+    item.classList.toggle('open');
+  });
+});
+
+// Highlight marker scroll trigger
+const hlEls = document.querySelectorAll('.hl');
+const hlObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('in'), 450);
+      hlObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+hlEls.forEach(el => hlObserver.observe(el));
+
+// Journey section: sequential step reveal + line draw
+const journeyTrack = document.getElementById('journeyTrack');
+if (journeyTrack) {
+  const journeyObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        journeyObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.25 });
+  journeyObserver.observe(journeyTrack);
+}
+
+
+// Floating nav toggle
+const fabNav = document.getElementById('fabNav');
+const fabButton = document.getElementById('fabButton');
+if (fabNav && fabButton) {
+  fabButton.addEventListener('click', () => {
+    fabNav.classList.toggle('open');
+  });
+}
+</script>
+
+
+  <div class="fab-nav" id="fabNav">
+    <div class="fab-menu">
+      <a href="index.html" class="fab-item">Home</a>
+      <a href="str-cleaning.html" class="fab-item">STR Cleaning</a>
+      <a href="residential-cleaning.html" class="fab-item current">Residential</a>
+      <a href="deep-cleaning.html" class="fab-item">Deep Cleaning</a>
+      <a href="blog.html" class="fab-item">Blog</a>
+    </div>
+    <button class="fab-button" id="fabButton" aria-label="Menu">
+      <span class="fab-icon"></span>
+    </button>
+  </div>
+</body>
+</html>
