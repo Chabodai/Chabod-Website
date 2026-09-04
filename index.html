@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>San Antonio Cleaning Company | Chabod Cleaning Services</title>
+<meta name="description" content="Family-owned San Antonio cleaning company: Airbnb/STR turnovers, residential cleaning, and deep cleaning. 8+ years, 250+ repeat clients, no contracts.">
+<meta property="og:title" content="San Antonio Cleaning Company | Chabod Cleaning Services">
+<meta property="og:description" content="The same trusted team for your home or your rental, every time. 8+ years serving San Antonio.">
+<meta property="og:type" content="website">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&family=Fredoka:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --blue: #294b9b;
+  --teal-dark: #008eb5;
+  --teal-light: #58bec2;
+  --coral: #eb5c3d;
+  --grey: #ededed;
+  --ink: #23262b;
+  --paper: #ffffff;
+  --line: #e2e2e2;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+strong { font-weight: 800; }
+
+body {
+  overflow-x: hidden;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Manrope', sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: 'Baloo 2', sans-serif;
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--blue);
+}
+
+.wrap { max-width: 480px; width: 100%; margin: 0 auto; }
+.pad { padding: 28px 24px; }
+
+.photo {
+  background: repeating-linear-gradient(135deg, #dbeef0, #dbeef0 10px, #eaf6f7 10px, #eaf6f7 20px);
+  border: 1px solid var(--line);
+  color: #4a7075;
+  font-family: 'Manrope', monospace;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 12px;
+}
+
+/* ===== LOGO BAR ===== */
+.logo-bar { background: #fff; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); }
+.logo-bar img, .site-logo { height: 38px; width: auto; max-width: 60%; display: block; }
+.logo-bar .bar-phone {
+  font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 14px;
+  color: var(--blue); text-decoration: none; letter-spacing: 0.01em;
+}
+
+/* ===== HERO ===== */
+.hero { background: var(--blue); padding: 20px 24px 0; text-align: center; position: relative; overflow: hidden; }
+.hero h1 { color: #fff; font-size: 32px; margin-bottom: 14px; }
+.hero p.sub { font-size: 16.5px; color: #dbe3f5; margin-bottom: 20px; max-width: 38ch; margin-left: auto; margin-right: auto; }
+.smile-accent { width: 70px; height: 24px; margin: 0 auto 18px; }
+.proof { font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 12.5px; color: #8fb3f0; letter-spacing: 0.03em; margin-bottom: 22px; }
+.hero .photo { height: 220px; margin: 0 -24px; border-radius: 0; }
+.btn {
+  display: inline-block; background: var(--coral); color: #fff;
+  font-family: 'Baloo 2', sans-serif; font-weight: 600; font-size: 20px;
+  padding: 16px 18px; border-radius: 8px; text-decoration: none;
+  width: 100%; text-align: center; border: none; cursor: pointer;
+}
+.btn-row { display: flex; flex-direction: column; gap: 12px; }
+.hero .btn-wrap { padding: 0 0 26px; }
+
+/* ===== SCROLL REVEAL ===== */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.in { opacity: 1; transform: translateY(0); }
+
+/* ===== TRUST STATS ===== */
+.trust-stats { background: var(--grey); text-align: center; }
+.trust-stats h2 { font-size: 21px; margin-bottom: 20px; }
+.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.stat-block { background: #fff; border-radius: 14px; padding: 20px 8px; border: 1px solid var(--line); }
+.stat-num { font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 46px; line-height: 1; color: var(--coral); }
+.stat-label { font-size: 13.5px; color: var(--blue); font-weight: 700; margin-top: 6px; }
+@media (min-width: 700px) { .stat-num { font-size: 54px; } }
+
+/* ===== AWARDS ===== */
+.awards { background: #fff; text-align: center; padding-top: 30px; padding-bottom: 26px; }
+.awards-label { font-size: 11.5px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase; color: var(--blue); opacity: .65; margin: 0 0 18px; }
+.awards-row { display: flex; justify-content: center; align-items: center; gap: 28px; flex-wrap: wrap; }
+.award-badge { display: block; }
+.award-badge img { height: 92px; width: auto; display: block; filter: grayscale(15%); transition: filter .2s ease, transform .2s ease; }
+.award-badge:active img { transform: scale(0.97); }
+@media (min-width: 700px) {
+  .award-badge img { height: 108px; }
+  .award-badge:hover img { filter: grayscale(0%); transform: translateY(-2px); }
+}
+
+/* ===== SERVICES ===== */
+.services h2 { font-size: 25px; margin-bottom: 6px; text-align: center; }
+.services p.lead { text-align: center; color: #555; font-size: 15.5px; margin-bottom: 22px; }
+.service-card {
+  border: 1px solid var(--line); border-radius: 16px; overflow: hidden; margin-bottom: 18px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+}
+.service-card .photo { height: 160px; border: none; border-radius: 0; }
+.service-card-body { padding: 18px 18px 20px; }
+.service-card h3 { font-size: 20px; margin-bottom: 8px; }
+.service-card p { font-size: 15.5px; color: #4a4a4a; margin-bottom: 14px; }
+.service-link {
+  font-family: 'Baloo 2', sans-serif; font-weight: 600; font-size: 15px;
+  color: var(--coral); text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+}
+
+.mid-cta { text-align: center; border-top: 1px solid var(--line); padding-top: 22px; margin-top: 6px; }
+.mid-cta p { font-size: 15.5px; color: #4a4a4a; margin-bottom: 12px; font-weight: 600; }
+.btn-mid { background: var(--blue); }
+
+/* ===== WHY CHABOD ===== */
+.why { background: var(--blue); color: #fff; }
+.why h2 { color: #fff; font-size: 24px; margin-bottom: 20px; text-align: center; }
+.why-item { display: flex; gap: 14px; padding: 14px 0; border-top: 1px solid rgba(255,255,255,0.18); }
+.why-item:last-child { padding-bottom: 0; }
+.why-mark { font-family: 'Baloo 2', sans-serif; font-size: 20px; color: var(--teal-light); flex-shrink: 0; }
+.why-item p { font-size: 15.5px; color: #dbe3f5; }
+.why-item strong { color: #fff; }
+
+/* ===== REVIEWS (momentum scroll) ===== */
+.reviews h2 { font-size: 24px; margin-bottom: 14px; text-align: center; }
+.review-scroll { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 10px; -webkit-overflow-scrolling: touch; }
+.review-card {
+  flex: 0 0 78%; scroll-snap-align: center;
+  background: #fff; border: 1px solid var(--line); border-radius: 14px;
+  padding: 18px; box-shadow: 0 4px 14px rgba(0,0,0,0.06); text-align: left;
+}
+.review-card .stars { color: var(--coral); font-size: 14px; margin-bottom: 6px; }
+.review-card p { font-size: 14px; color: #444; }
+.review-card .rname { font-family: 'Baloo 2', sans-serif; font-size: 13px; color: var(--blue); margin-top: 10px; }
+
+/* ===== SERVICE AREA ===== */
+.area { background: var(--grey); text-align: center; }
+.area h2 { font-size: 22px; margin-bottom: 8px; }
+.area p.lead { font-size: 15px; color: #555; margin-bottom: 18px; }
+.area-row { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+.area-chip {
+  border: 1px solid var(--line); background: #fff; font-family: 'Manrope', sans-serif;
+  font-weight: 600; font-size: 13px; padding: 7px 12px; border-radius: 20px; color: var(--blue);
+}
+
+/* ===== FAMILY ===== */
+.family { text-align: center; background: #f2f9fa; }
+.family-photo { height: 260px; margin-bottom: 16px; }
+.family p.line { font-family: 'Baloo 2', sans-serif; font-weight: 500; font-size: 23px; color: var(--blue); }
+
+/* ===== FINAL CTA (animated gradient) ===== */
+.final-text {
+  padding: 36px 24px 46px; text-align: center;
+  background: linear-gradient(-45deg, var(--blue), var(--teal-dark), var(--teal-light), var(--blue));
+  background-size: 300% 300%;
+  animation: gradientShift 10s ease infinite;
+}
+.final-text h2 { color: #fff; font-size: 28px; margin-bottom: 12px; }
+.final-text p.lead { color: #dbe3f5; font-size: 16.5px; margin-bottom: 22px; }
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.note {
+  font-family: 'Manrope', sans-serif; font-size: 12px; color: #8a8a8a;
+  text-align: center; padding: 10px 24px 4px; letter-spacing: 0.02em;
+}
+/* ===== HIGHLIGHT (scroll-triggered marker) ===== */
+.hl { position: relative; white-space: normal; }
+.hl::after {
+  content: '';
+  position: absolute;
+  left: -3px; right: -3px; bottom: 3px; height: 38%;
+  background: var(--coral);
+  opacity: 0.22;
+  z-index: -1;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.85s cubic-bezier(.65,0,.35,1);
+}
+.hl.on-dark::after { opacity: 0.9; }
+.hl.in::after { transform: scaleX(1); }
+
+/* ===== BOUNCE (text/SMS buttons) ===== */
+@keyframes ctaBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+.btn-bounce { animation: ctaBounce 1.6s ease-in-out infinite; }
+
+
+/* ===== FLOATING NAV ===== */
+.fab-nav { position: fixed; bottom: 22px; right: 20px; z-index: 999; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+.fab-button {
+  width: 58px; height: 58px; border-radius: 50%;
+  background: var(--coral); border: none; cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.28);
+  display: flex; align-items: center; justify-content: center;
+  position: relative; z-index: 2;
+  transition: transform 0.3s ease;
+  padding: 0;
+}
+.fab-icon { position: relative; width: 20px; height: 20px; }
+.fab-icon::before, .fab-icon::after {
+  content: ''; position: absolute; background: #fff; border-radius: 2px;
+  transition: transform 0.3s ease;
+}
+.fab-icon::before { width: 20px; height: 3px; top: 50%; left: 0; transform: translateY(-50%); }
+.fab-icon::after { width: 3px; height: 20px; left: 50%; top: 0; transform: translateX(-50%); }
+.fab-nav.open .fab-button { transform: rotate(90deg) scale(1.05); }
+.fab-nav.open .fab-icon::before { transform: translateY(-50%) rotate(90deg); opacity: 0; }
+.fab-nav.open .fab-icon::after { transform: translateX(-50%) rotate(0deg); }
+
+.fab-menu { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; margin-bottom: 2px; }
+.fab-item {
+  background: #fff; color: var(--blue);
+  font-family: 'Baloo 2', sans-serif; font-weight: 600; font-size: 14px;
+  padding: 10px 18px; border-radius: 22px; text-decoration: none;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+  opacity: 0; transform: translateY(10px) scale(0.9);
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  white-space: nowrap;
+}
+.fab-nav.open .fab-item { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+.fab-nav.open .fab-item:nth-child(1) { transition-delay: 0.03s; }
+.fab-nav.open .fab-item:nth-child(2) { transition-delay: 0.07s; }
+.fab-nav.open .fab-item:nth-child(3) { transition-delay: 0.11s; }
+.fab-nav.open .fab-item:nth-child(4) { transition-delay: 0.15s; }
+.fab-nav.open .fab-item:nth-child(5) { transition-delay: 0.19s; }
+.fab-item.current { background: var(--grey); color: #999; pointer-events: none; }
+
+
+/* ===== DESKTOP / TABLET ===== */
+@media (min-width: 700px) {
+  body { background: #f4f6f8; }
+  .wrap {
+    max-width: 1100px;
+    background: var(--paper);
+    box-shadow: 0 0 40px rgba(0,0,0,0.07);
+    min-height: 100vh;
+  }
+  .logo-bar img, .site-logo { height: 44px; }
+  .fab-nav { right: calc(50% - 550px + 20px); }
+
+  /* Readable line-length for text-heavy sections */
+  .pad { max-width: 700px; margin-left: auto; margin-right: auto; }
+
+  /* Cap full-width mobile buttons so they don't stretch edge-to-edge */
+  .btn { max-width: 420px; }
+  .btn-row { align-items: center; }
+
+  /* Trust stats: 4 across instead of 2x2 */
+  .pad.trust-stats { max-width: none; width: 100%; }
+  .pad.trust-stats > * { max-width: 960px; margin-left: auto; margin-right: auto; }
+  .stats-grid { grid-template-columns: repeat(4, 1fr); }
+
+  /* Service cards: 3 across */
+  .pad.services { max-width: 960px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; align-items: start; }
+  .pad.services > h2, .pad.services > .lead, .pad.services > .mid-cta { grid-column: 1 / -1; }
+
+  /* Hero: split layout at desktop — text on the left, photo + CTAs on the right (independent-height flex columns, not grid rows) */
+  .hero {
+    display: flex;
+    align-items: center;
+    gap: 56px;
+    text-align: left;
+    padding: 64px 40px;
+  }
+  .hero-text { flex: 1; min-width: 0; }
+  .hero-text h1 { text-align: left; max-width: 46ch; margin: 0 0 20px; font-size: 58px; line-height: 1.08; }
+  .hero-text .smile-accent { margin: 0 0 20px 0; }
+  .hero-text p.sub { text-align: left; max-width: 46ch; margin: 0 0 22px; }
+  .hero-text .proof { text-align: left; margin: 0; }
+  .hero-visual { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+  .hero-visual .photo { flex: 1; max-width: none; width: 100%; min-height: 320px; margin: 0; border-radius: 16px; }
+  .hero-visual .btn-wrap { margin-top: 20px !important; }
+  .hero-visual .btn-wrap.btn-row { align-items: stretch; }
+  .hero .btn { max-width: none; width: 100%; }
+
+  /* Reviews: lay the 3 cards side by side instead of a scroll carousel */
+  .pad.reviews { max-width: 960px; }
+  .review-scroll { overflow-x: visible; }
+  .review-card { flex: 1 1 0; }
+}
+
+/* ===== SITE FOOTER ===== */
+.site-footer { background:#101b3d; color:#c9d4ee; padding:38px 22px 26px; }
+.site-footer .f-logo-pill { background:#fff; border-radius:14px; padding:12px 16px; display:inline-block; margin-bottom:16px; }
+.site-footer .f-logo-pill img { height:36px; width:auto; display:block; }
+.site-footer .f-tag { font-size:14px; line-height:1.6; color:#c9d4ee; margin:0 0 22px; max-width:340px; }
+.site-footer .f-callrow { display:flex; flex-direction:column; gap:10px; margin-bottom:26px; }
+.site-footer .f-phone { font-family:'Baloo 2',cursive; font-weight:700; font-size:26px; color:#fff; text-decoration:none; letter-spacing:.3px; }
+.site-footer .f-phone span { display:block; font-family:'Manrope',sans-serif; font-weight:600; font-size:11px; letter-spacing:1.4px; text-transform:uppercase; color:#58bec2; margin-bottom:2px; }
+.site-footer .f-text-btn { display:inline-block; background:#eb5c3d; color:#fff; text-decoration:none; font-weight:700; font-size:14px; padding:12px 20px; border-radius:30px; align-self:flex-start; }
+.site-footer .f-cols { display:flex; gap:34px; flex-wrap:wrap; margin-bottom:26px; }
+.site-footer .f-col h4 { font-family:'Manrope',sans-serif; font-size:11px; letter-spacing:1.4px; text-transform:uppercase; color:#58bec2; margin:0 0 12px; font-weight:700; }
+.site-footer .f-col a { display:block; color:#dbe4f7; text-decoration:none; font-size:14px; margin-bottom:9px; }
+.site-footer .f-col a:hover { color:#fff; }
+.site-footer .f-areas { border-top:1px solid rgba(255,255,255,.12); padding-top:20px; margin-bottom:20px; }
+.site-footer .f-areas h4 { font-family:'Manrope',sans-serif; font-size:11px; letter-spacing:1.4px; text-transform:uppercase; color:#58bec2; margin:0 0 10px; font-weight:700; }
+.site-footer .f-areas p { font-size:13px; line-height:1.8; color:#a9b8db; margin:0; }
+.site-footer .f-bottom { border-top:1px solid rgba(255,255,255,.12); padding-top:18px; font-size:12px; line-height:1.7; color:#8496bd; }
+.site-footer .f-bottom strong { color:#c9d4ee; font-weight:700; }
+.site-footer .f-legal-links { margin-top: 10px; }
+.site-footer .f-legal-links a { color:#8496bd; text-decoration:none; font-size:12px; }
+.site-footer .f-legal-links a:hover { color:#c9d4ee; text-decoration:underline; }
+.site-footer .f-legal-links span { color:#5a6a91; margin: 0 6px; font-size:12px; }
+@media (min-width:700px){
+  .site-footer {
+    padding: 50px 40px 30px;
+  }
+  .site-footer > * { max-width: 860px; margin-left: auto; margin-right: auto; }
+  .site-footer .f-logo-pill, .site-footer .f-tag, .site-footer .f-callrow, .site-footer .f-cols {
+    max-width: none;
+    margin: 0;
+  }
+  .site-footer .f-top {
+    max-width: 860px; margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    column-gap: 60px;
+    align-items: start;
+  }
+  .site-footer .f-brand { grid-column: 1; }
+  .site-footer .f-tag { max-width: 380px; }
+  .site-footer .f-cols { grid-column: 2; gap: 60px; margin-bottom: 0; }
+}
+
+
+/* ===== DESKTOP NAV ===== */
+.desktop-nav { display: none; }
+@media (min-width: 700px) {
+  .desktop-nav { display: flex; align-items: center; gap: 26px; }
+  .desktop-nav a { font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 14.5px; color: var(--blue); text-decoration: none; opacity: .72; white-space: nowrap; }
+  .desktop-nav a:hover { opacity: 1; }
+  .desktop-nav a.current { opacity: 1; border-bottom: 2px solid var(--coral); padding-bottom: 3px; }
+  .fab-nav { display: none; }
+}
+/* ===== FULL-BLEED BACKGROUND SECTIONS: undo the .pad width cap, keep children readable ===== */
+@media (min-width: 700px) {
+  .area > .btn, .family > .btn, .why > .btn { display: block; margin-left: auto; margin-right: auto; }
+  .area { max-width: none; width: 100%; }
+  .area > * { max-width: 700px; margin-left: auto; margin-right: auto; }
+  .family { max-width: none; width: 100%; }
+  .family > * { max-width: 700px; margin-left: auto; margin-right: auto; }
+  .why { max-width: none; width: 100%; }
+  .why > * { max-width: 700px; margin-left: auto; margin-right: auto; }
+}
+
+
+</style>
+</head>
+<body>
+<!-- DRAFT NOTE: this is a structural first pass for the homepage. Real copy, real photos, and final
+     service-page links (STR, Residential, Deep Cleaning) still need to be wired in. Placeholder text
+     marked is meant to be replaced, not final copy. -->
+
+<div class="wrap">
+
+  <div class="logo-bar">
+    <img src="logo.png" alt="Chabod Cleaning Services logo" class="site-logo">
+    <nav class="desktop-nav">
+      <a href="index.html" class="current">Home</a>
+      <a href="str-cleaning.html">STR Cleaning</a>
+      <a href="residential-cleaning.html">Residential</a>
+      <a href="deep-cleaning.html">Deep Cleaning</a>
+      <a href="blog.html">Blog</a>
+    </nav>
+    <a href="tel:+12104806224" class="bar-phone">(210) 480-6224</a>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-text">
+      <h1>It's Not A Cleaning Fee. It's A <span class="hl on-dark">Peace-Of-Mind Fee.</span></h1>
+      <svg class="smile-accent" viewBox="0 0 70 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2,4 C18,26 52,26 68,4" stroke="#eb5c3d" stroke-width="5" fill="none" stroke-linecap="round"/>
+      </svg>
+      <p class="sub">Chabod Cleaning Services has kept San Antonio homes and Airbnb rentals spotless for 8+ years &mdash; the same dedicated team, every time, no contracts.</p>
+      <div class="proof">5-STAR RATED &bull; 250+ REPEAT CLIENTS &bull; 60+ STR PROPERTIES</div>
+    </div>
+    <div class="hero-visual">
+      <div class="photo">[ Hero photo: Chabod team, family-owned feel, mid-task in a bright San Antonio home ]</div>
+      <div class="btn-wrap btn-row" style="margin-top: 22px;">
+        <a href="tel:+12104806224" class="btn">Call for a Free Quote</a>
+        <a href="sms:+12104806224" class="btn btn-bounce" style="background: transparent; border: 2px solid #fff; color: #fff;">Text Us Instead</a>
+      </div>
+    </div>
+  </div>
+
+  <svg viewBox="0 0 400 60" preserveAspectRatio="none" style="display:block; width:100%; height:56px; ">
+    <rect width="400" height="60" fill="var(--blue)"/>
+    <path d="M0,22 C70,50 140,2 210,18 C280,34 330,8 400,26 L400,60 L0,60 Z" fill="var(--grey)"/>
+  </svg>
+
+  <!-- TRUST STATS -->
+  <div class="pad trust-stats reveal">
+    <h2>Numbers that back it up</h2>
+    <div class="stats-grid">
+      <div class="stat-block">
+        <div class="stat-num" data-count="8">0</div>
+        <div class="stat-label">+ Years in San Antonio</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-num" data-count="250">0</div>
+        <div class="stat-label">+ Repeat Clients</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-num" data-count="60">0</div>
+        <div class="stat-label">+ STR Properties Served</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-num">5&#9733;</div>
+        <div class="stat-label">Rated</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AWARDS / RECOGNITION -->
+  <div class="pad awards reveal">
+    <p class="awards-label">As Recognized By</p>
+    <div class="awards-row">
+      <a href="https://www.expertise.com/" target="_blank" rel="noopener" class="award-badge">
+        <img src="badge-expertise-2025.png" alt="Expertise.com Best House Cleaning Services in San Antonio 2025">
+      </a>
+      <a href="https://www.expertise.com/" target="_blank" rel="noopener" class="award-badge">
+        <img src="badge-expertise-2022.png" alt="Expertise.com Best Office Cleaning Services in San Antonio 2022">
+      </a>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <div class="pad services reveal">
+    <h2>What we do</h2>
+    <p class="lead">Three ways we keep San Antonio spaces clean &mdash; pick the one that fits.</p>
+
+    <div class="service-card">
+      <div class="photo">[ Photo: Airbnb bedroom staged post-turnover ]</div>
+      <div class="service-card-body">
+        <h3>Airbnb &amp; STR Turnovers</h3>
+        <p>Same-day turnovers to a written SOP built for your property, photo-verified every time &mdash; a team that treats your rating like it's their own.</p>
+        <a href="str-cleaning.html" class="service-link">See STR Cleaning &rarr;</a>
+      </div>
+    </div>
+
+    <div class="service-card">
+      <div class="photo">[ Photo: Living room mid-clean, residential home ]</div>
+      <div class="service-card-body">
+        <h3>Residential Cleaning</h3>
+        <p>The same trained team, in your home, every visit &mdash; weekly, biweekly, or monthly.</p>
+        <a href="residential-cleaning.html" class="service-link">See Residential Cleaning &rarr;</a>
+      </div>
+    </div>
+
+    <div class="service-card">
+      <div class="photo">[ Photo: Deep clean detail shot, kitchen or bathroom ]</div>
+      <div class="service-card-body">
+        <h3>Deep Cleaning</h3>
+        <p>A full reset for move-ins, move-outs, or whenever your space needs more than a touch-up.</p>
+        <a href="deep-cleaning.html" class="service-link">See Deep Cleaning &rarr;</a>
+      </div>
+    </div>
+
+    <div class="mid-cta">
+      <p>Not sure which service fits your space?</p>
+      <a href="sms:+12104806224" class="btn btn-mid btn-bounce">Text Us a Few Details</a>
+    </div>
+  </div>
+
+  <svg viewBox="0 0 400 60" preserveAspectRatio="none" style="display:block; width:100%; height:56px; transform: scaleX(-1);">
+    <rect width="400" height="60" fill="var(--paper)"/>
+    <path d="M0,22 C70,50 140,2 210,18 C280,34 330,8 400,26 L400,60 L0,60 Z" fill="var(--blue)"/>
+  </svg>
+
+  <!-- WHY CHABOD -->
+  <div class="pad why reveal">
+    <h2>Why San Antonio picks Chabod</h2>
+    <div class="why-item"><span class="why-mark">&mdash;</span><p><strong>Same team, every time.</strong> Not a rotating cast of strangers.</p></div>
+    <div class="why-item"><span class="why-mark">&mdash;</span><p><strong>No contracts, ever.</strong> Adjust or stop anytime.</p></div>
+    <div class="why-item"><span class="why-mark">&mdash;</span><p><strong>Family-owned since day one.</strong> Still run by the same family, still answering the phone.</p></div>
+    <div class="why-item"><span class="why-mark">&mdash;</span><p><strong>Proactive, not passive.</strong> We flag issues we notice &mdash; we don't just clean around them.</p></div>
+  </div>
+
+  <!-- REVIEWS -->
+  <div class="pad reviews reveal">
+    <h2>What San Antonio says</h2>
+    <div class="review-scroll">
+      <div class="review-card" style="flex:1 1 100%; text-align:center;">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p style="font-weight:700; color:var(--blue); margin:6px 0;">Rated 5.0 on Google</p>
+        <p style="margin:0 0 14px;">Real reviews from real San Antonio clients &mdash; read them straight from our Google Business Profile.</p>
+        <a href="https://www.google.com/search?q=Chabod+Cleaning+Services+LLC+San+Antonio+reviews" target="_blank" rel="noopener" style="display:inline-block; font-weight:700; color:var(--coral); text-decoration:none;">Read Our Reviews on Google &rarr;</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICE AREA -->
+  <div class="pad area reveal">
+    <h2>Where we work</h2>
+    <p class="lead">We clean across San Antonio and the surrounding suburbs &mdash; from downtown condos to family homes in Alamo Heights, Airbnb properties out in Schertz and Cibolo, and everywhere in between. Wherever you are in the city or the suburbs, chances are we already have a team nearby.</p>
+    <div class="area-row">
+      <div class="area-chip">San Antonio</div>
+      <div class="area-chip">Alamo Heights</div>
+      <div class="area-chip">Schertz</div>
+      <div class="area-chip">Cibolo</div>
+      <div class="area-chip">Converse</div>
+      <div class="area-chip">Universal City</div>
+      <div class="area-chip">Live Oak</div>
+      <div class="area-chip">Saint Hedwig</div>
+      <div class="area-chip">Marion</div>
+    </div>
+  </div>
+
+  <!-- FAMILY -->
+  <div class="pad family reveal">
+    <div class="photo family-photo">[ Photo: Andrés and family ]</div>
+    <p class="line">Family owned since 2018. Still answering with the same care, built for long-lasting relationships with our customers.</p>
+  </div>
+
+
+  <!-- FINAL CTA -->
+  <div class="final-text" style="margin-top: 20px;">
+    <h2>Ready to get started?</h2>
+    <p class="lead">Call or text us and tell us a bit about your home or rental &mdash; we'll take it from there.</p>
+    <div class="btn-row">
+      <a href="tel:+12104806224" class="btn">Call Andrés Now</a>
+      <a href="sms:+12104806224" class="btn btn-bounce" style="background: transparent; border: 2px solid #fff; color: #fff;">Text Us</a>
+    </div>
+  </div>
+
+  
+
+</div>
+
+    <!-- SITE FOOTER -->
+  <footer class="site-footer">
+    <div class="f-top">
+      <div class="f-brand">
+        <div class="f-logo-pill"><img src="logo.png" alt="Chabod Cleaning Services logo"></div>
+        <p class="f-tag">Family-owned cleaning for San Antonio homes and short-term rentals. No contracts, no call centers &mdash; you talk to the owner.</p>
+
+        <div class="f-callrow">
+          <a class="f-phone" href="tel:+12104806224"><span>Call or text</span>(210) 480-6224</a>
+          <a class="f-text-btn" href="sms:+12104806224">Text Us for a Quote</a>
+        </div>
+      </div>
+
+      <div class="f-cols">
+        <div class="f-col">
+          <h4>Services</h4>
+          <a href="str-cleaning.html">Airbnb &amp; STR Cleaning</a>
+          <a href="residential-cleaning.html">Residential Cleaning</a>
+          <a href="deep-cleaning.html">Deep Cleaning</a>
+        </div>
+        <div class="f-col">
+          <h4>Company</h4>
+          <a href="index.html">Home</a>
+          <a href="blog.html">Blog</a>
+          <a href="tel:+12104806224">Contact</a>
+          <a href="privacy-policy.html">Privacy Policy</a>
+          <a href="terms-conditions.html">Terms &amp; Conditions</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="f-areas">
+      <h4>Service Areas</h4>
+      <p>San Antonio &middot; Alamo Heights &middot; Schertz &middot; Cibolo &middot; Converse &middot; Universal City &middot; Live Oak &middot; Saint Hedwig &middot; Marion</p>
+    </div>
+
+    <div class="f-bottom">
+      <strong>Chabod Cleaning Services LLC</strong><br>
+      San Antonio, Texas &middot; Family owned and operated<br>
+      &copy; 2026 Chabod Cleaning Services LLC. All rights reserved.
+      <div class="f-legal-links">
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <span>&middot;</span>
+        <a href="terms-conditions.html">Terms &amp; Conditions</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="fab-nav" id="fabNav">
+    <div class="fab-menu">
+      <a href="index.html" class="fab-item current">Home</a>
+      <a href="str-cleaning.html" class="fab-item">STR Cleaning</a>
+      <a href="residential-cleaning.html" class="fab-item">Residential</a>
+      <a href="deep-cleaning.html" class="fab-item">Deep Cleaning</a>
+      <a href="blog.html" class="fab-item">Blog</a>
+    </div>
+
+<script>
+const revealEls = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
+revealEls.forEach(el => revealObserver.observe(el));
+
+const counters = document.querySelectorAll('.stat-num[data-count]');
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const target = parseInt(el.getAttribute('data-count'), 10);
+      let current = 0;
+      const step = Math.max(1, Math.ceil(target / 40));
+      const timer = setInterval(() => {
+        current += step;
+        if (current >= target) { current = target; clearInterval(timer); }
+        el.textContent = current;
+      }, 25);
+      counterObserver.unobserve(el);
+    }
+  });
+}, { threshold: 0.4 });
+counters.forEach(el => counterObserver.observe(el));
+
+// Highlight marker scroll trigger
+const hlEls = document.querySelectorAll('.hl');
+const hlObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('in'), 450);
+      hlObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+hlEls.forEach(el => hlObserver.observe(el));
+
+
+// Floating nav toggle (deferred until DOM is fully parsed, so it works
+// no matter where this script sits relative to the button in the markup)
+document.addEventListener('DOMContentLoaded', function () {
+  const fabNav = document.getElementById('fabNav');
+  const fabButton = document.getElementById('fabButton');
+  if (fabNav && fabButton) {
+    fabButton.addEventListener('click', () => {
+      fabNav.classList.toggle('open');
+    });
+  }
+});
+</script>
+    <button class="fab-button" id="fabButton" aria-label="Menu">
+      <span class="fab-icon"></span>
+    </button>
+  </div>
+</body>
+</html>
