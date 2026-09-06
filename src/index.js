@@ -1,14 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cleaning Tips & San Antonio Home Care | Chabod Cleaning Services Blog</title>
-<meta name="description" content="Tips for San Antonio homeowners and Airbnb hosts \u2014 deep cleaning advice, STR turnover insights, and behind-the-scenes from Chabod Cleaning Services.">
-<meta property="og:title" content="Chabod Cleaning Services Blog">
-<meta property="og:description" content="Cleaning tips, STR host advice, and San Antonio home care \u2014 from the team that actually does the work.">
-<meta property="og:type" content="website">
-<style>
+// ---- Chabod Cleaning Services — KV-backed blog ----
+//
+// This file only handles the blog (/blog and /blog/{slug}). Every other
+// URL falls through to env.ASSETS, which serves the existing static HTML
+// files exactly as before — nothing about the rest of the site changes.
+
+const CATEGORIES = ["All Posts", "STR & Airbnb Hosts", "Residential Tips", "San Antonio Local", "Behind the Scenes"];
+
+// Lifted directly from blog.html's <style> block so the dynamic pages are
+// visually identical to the rest of the site (same fonts, colors, header,
+// footer, floating nav, and responsive breakpoints).
+const SHARED_STYLES = `
 @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap');
 
 :root {
@@ -57,9 +58,8 @@ h1, h2, h3 {
   text-align: center;
   padding: 10px;
 }
-
-.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
-.reveal.in { opacity: 1; transform: translateY(0); }
+.photo img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: inherit; }
+.photo:has(img) { padding: 0; background: none; border: none; }
 
 /* ===== LOGO BAR ===== */
 .logo-bar {
@@ -93,6 +93,7 @@ h1, h2, h3 {
   border-radius: 20px;
   color: var(--blue);
   white-space: nowrap;
+  text-decoration: none;
 }
 .cat-chip.active { background: var(--blue); color: #fff; border-color: var(--blue); }
 
@@ -103,6 +104,9 @@ h1, h2, h3 {
   overflow: hidden;
   border: 1px solid var(--line);
   box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  text-decoration: none;
+  color: inherit;
+  display: block;
 }
 .featured-card .photo { height: 180px; border: none; border-radius: 0; }
 .featured-body { padding: 18px; }
@@ -123,6 +127,8 @@ h1, h2, h3 {
   display: flex; gap: 14px;
   padding: 16px 0;
   border-top: 1px solid var(--line);
+  text-decoration: none;
+  color: inherit;
 }
 .post-card:last-child { border-bottom: 1px solid var(--line); }
 .post-card .photo { width: 100px; height: 100px; flex-shrink: 0; border-radius: 10px; font-size: 10.5px; }
@@ -148,7 +154,6 @@ h1, h2, h3 {
   font-family: 'Manrope', sans-serif; font-size: 12px; color: #8a8a8a;
   text-align: center; padding: 16px 24px; letter-spacing: 0.02em;
 }
-
 
 /* ===== FLOATING NAV ===== */
 .fab-nav { position: fixed; bottom: 22px; right: 20px; z-index: 999; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
@@ -191,7 +196,6 @@ h1, h2, h3 {
 .fab-nav.open .fab-item:nth-child(5) { transition-delay: 0.19s; }
 .fab-item.current { background: var(--grey); color: #999; pointer-events: none; }
 
-
 /* ===== DESKTOP / TABLET ===== */
 @media (min-width: 700px) {
   body { background: #f4f6f8; }
@@ -203,11 +207,7 @@ h1, h2, h3 {
   }
   .logo-bar img, .site-logo { height: 44px; }
   .fab-nav { right: calc(50% - 550px + 20px); }
-
-  /* Readable line-length for text-heavy sections */
   .pad { max-width: 700px; margin-left: auto; margin-right: auto; }
-
-  /* Cap full-width mobile buttons so they don't stretch edge-to-edge */
   .btn { max-width: 420px; }
   .btn-row { align-items: center; }
 }
@@ -235,9 +235,7 @@ h1, h2, h3 {
 .site-footer .f-legal-links a:hover { color:#c9d4ee; text-decoration:underline; }
 .site-footer .f-legal-links span { color:#5a6a91; margin: 0 6px; font-size:12px; }
 @media (min-width:700px){
-  .site-footer {
-    padding: 50px 40px 30px;
-  }
+  .site-footer { padding: 50px 40px 30px; }
   .site-footer > * { max-width: 860px; margin-left: auto; margin-right: auto; }
   .site-footer .f-logo-pill, .site-footer .f-tag, .site-footer .f-callrow, .site-footer .f-cols {
     max-width: none;
@@ -254,7 +252,6 @@ h1, h2, h3 {
   .site-footer .f-tag { max-width: 380px; }
   .site-footer .f-cols { grid-column: 2; gap: 60px; margin-bottom: 0; }
 }
-
 
 /* ===== DESKTOP NAV ===== */
 .desktop-nav { display: none; }
@@ -275,166 +272,150 @@ h1, h2, h3 {
   .featured-card { max-width: 960px; margin-left: auto; margin-right: auto; }
 }
 
-</style>
-</head>
-<body>
-<!-- DRAFT: blog index page. Post cards below are placeholder examples showing the structure/categories --
-     each will become a real post once written. Featured post + grid below follow the pattern:
-     STR/host advice, Residential tips, San Antonio local, Behind-the-scenes/trust. -->
+/* ===== INDIVIDUAL POST PAGE ===== */
+.post-hero { background: var(--blue); padding: 20px 24px; }
+.post-hero a { color: #dbe3f5; text-decoration: none; font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 14px; }
+.post-hero a:hover { color: #fff; }
+.article { padding: 28px 24px 8px; max-width: 720px; margin: 0 auto; }
+.article .article-tag {
+  font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 11.5px;
+  letter-spacing: 0.05em; text-transform: uppercase; color: var(--coral); margin-bottom: 10px; display: block;
+}
+.article h1 { font-size: 26px; margin-bottom: 10px; }
+.article .post-meta { margin-bottom: 24px; display: block; }
+.article-body { font-size: 16px; line-height: 1.75; color: #333; }
+.article-body h2 { font-size: 21px; margin: 28px 0 12px; }
+.article-body h3 { font-size: 18px; margin: 22px 0 10px; }
+.article-body p { margin-bottom: 16px; }
+.article-body ul, .article-body ol { margin: 0 0 16px 22px; }
+.article-body li { margin-bottom: 6px; }
+.article-body a { color: var(--teal-dark); }
+.article-body table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14.5px; }
+.article-body th, .article-body td { border: 1px solid var(--line); padding: 10px; text-align: left; }
+.article-body th { background: var(--grey); }
+.article-body img { max-width: 100%; border-radius: 10px; margin: 12px 0; }
+@media (min-width: 700px) { .article { padding: 40px 24px 8px; } }
+`;
 
-<div class="wrap">
+function escapeHtml(value) {
+  return String(value ?? "").replace(/[&<>"']/g, (ch) => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
+  }[ch]));
+}
 
+function siteHeader(current) {
+  const links = [
+    { href: "/index.html", label: "Home" },
+    { href: "/str-cleaning.html", label: "STR Cleaning" },
+    { href: "/residential-cleaning.html", label: "Residential" },
+    { href: "/deep-cleaning.html", label: "Deep Cleaning" },
+    { href: "/blog", label: "Blog" },
+  ];
+  const navHtml = links.map(l =>
+    `<a href="${l.href}"${l.label === current ? ' class="current"' : ""}>${l.label}</a>`
+  ).join("\n      ");
+
+  return `
   <div class="logo-bar">
-    <img src="logo.png" alt="Chabod Cleaning Services logo" class="site-logo">
+    <img src="/logo.png" alt="Chabod Cleaning Services logo" class="site-logo">
     <nav class="desktop-nav">
-      <a href="index.html">Home</a>
-      <a href="str-cleaning.html">STR Cleaning</a>
-      <a href="residential-cleaning.html">Residential</a>
-      <a href="deep-cleaning.html">Deep Cleaning</a>
-      <a href="blog.html" class="current">Blog</a>
+      ${navHtml}
     </nav>
     <a href="tel:+12104806224" class="bar-phone">(210) 480-6224</a>
-  </div>
+  </div>`;
+}
 
-  <!-- HERO -->
-  <div class="blog-hero">
-    <h1>The Chabod Blog</h1>
-    <p>Cleaning tips, STR host advice, and San Antonio home care \u2014 from the team that actually does the work.</p>
-  </div>
+function floatingNav(current) {
+  const links = [
+    { href: "/index.html", label: "Home" },
+    { href: "/str-cleaning.html", label: "STR Cleaning" },
+    { href: "/residential-cleaning.html", label: "Residential" },
+    { href: "/deep-cleaning.html", label: "Deep Cleaning" },
+    { href: "/blog", label: "Blog" },
+  ];
+  const itemsHtml = links.map(l =>
+    `<a href="${l.href}" class="fab-item${l.label === current ? " current" : ""}">${l.label}</a>`
+  ).join("\n      ");
 
-  <!-- CATEGORY CHIPS -->
-  <div class="cat-row">
-    <div class="cat-chip active">All Posts</div>
-    <div class="cat-chip">STR &amp; Airbnb Hosts</div>
-    <div class="cat-chip">Residential Tips</div>
-    <div class="cat-chip">San Antonio Local</div>
-    <div class="cat-chip">Behind the Scenes</div>
-  </div>
-
-  <!-- FEATURED POST -->
-  <div class="featured reveal">
-    <div class="featured-card">
-      <div class="photo">[ FEATURED POST PHOTO ]</div>
-      <div class="featured-body">
-        <span class="featured-tag">STR &amp; Airbnb Hosts</span>
-        <h2>What Guests Actually Notice In The First 5 Minutes</h2>
-        <p>The details that make or break a 5-star review \u2014 and the ones hosts usually miss entirely.</p>
-        <div class="post-meta">6 min read \u2014 </div>
-      </div>
+  return `
+  <div class="fab-nav" id="fabNav">
+    <div class="fab-menu">
+      ${itemsHtml}
     </div>
-  </div>
+    <button class="fab-button" id="fabButton" aria-label="Menu">
+      <span class="fab-icon"></span>
+    </button>
+  </div>`;
+}
 
-  <!-- POST LIST -->
-  <div class="post-list reveal">
-    <h2>Recent Posts</h2>
-
-    <div class="post-card">
-      <div class="photo">[ PHOTO ]</div>
-      <div class="post-card-body">
-        <div class="post-card-tag">Residential Tips</div>
-        <h3>Deep Clean vs. Regular Clean: What's Actually Different</h3>
-        <p>A breakdown of what gets done \u2014 and skipped \u2014 in each type of visit.</p>
-        <div class="post-meta">4 min read</div>
-      </div>
-    </div>
-
-    <div class="post-card">
-      <div class="photo">[ PHOTO ]</div>
-      <div class="post-card-body">
-        <div class="post-card-tag">San Antonio Local</div>
-        <h3>Why San Antonio Homes Need a Different Cleaning Schedule</h3>
-        <p>Humidity, dust, and pollen season \u2014 what our climate actually does to a home.</p>
-        <div class="post-meta">5 min read</div>
-      </div>
-    </div>
-
-    <div class="post-card">
-      <div class="photo">[ PHOTO ]</div>
-      <div class="post-card-body">
-        <div class="post-card-tag">Behind the Scenes</div>
-        <h3>Why We Report Problems Instead of Just Cleaning Around Them</h3>
-        <p>The story behind Chabod's proactive reporting \u2014 and a few things we've caught.</p>
-        <div class="post-meta">3 min read</div>
-      </div>
-    </div>
-
-    <div class="post-card">
-      <div class="photo">[ PHOTO ]</div>
-      <div class="post-card-body">
-        <div class="post-card-tag">STR &amp; Airbnb Hosts</div>
-        <h3>How To Prep Your Airbnb For Back-To-Back Bookings</h3>
-        <p>What actually needs to happen between a checkout at 11am and a check-in at 3pm.</p>
-        <div class="post-meta">5 min read</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- CTA STRIP -->
-  <div class="blog-cta reveal">
-    <h2>Have a topic you want covered?</h2>
-    <p>Text us what you're curious about \u2014 we might write about it.</p>
-    <a href="sms:+12104806224" class="btn">Text Us an Idea</a>
-  </div>
-
-  </div>
-
-    <!-- SITE FOOTER -->
+function siteFooter() {
+  return `
   <footer class="site-footer">
     <div class="f-top">
       <div class="f-brand">
-        <div class="f-logo-pill"><img src="logo.png" alt="Chabod Cleaning Services logo"></div>
+        <div class="f-logo-pill"><img src="/logo.png" alt="Chabod Cleaning Services logo"></div>
         <p class="f-tag">Family-owned cleaning for San Antonio homes and short-term rentals. No contracts, no call centers &mdash; you talk to the owner.</p>
-
         <div class="f-callrow">
           <a class="f-phone" href="tel:+12104806224"><span>Call or text</span>(210) 480-6224</a>
           <a class="f-text-btn" href="sms:+12104806224">Text Us for a Quote</a>
         </div>
       </div>
-
       <div class="f-cols">
         <div class="f-col">
           <h4>Services</h4>
-          <a href="str-cleaning.html">Airbnb &amp; STR Cleaning</a>
-          <a href="residential-cleaning.html">Residential Cleaning</a>
-          <a href="deep-cleaning.html">Deep Cleaning</a>
+          <a href="/str-cleaning.html">Airbnb &amp; STR Cleaning</a>
+          <a href="/residential-cleaning.html">Residential Cleaning</a>
+          <a href="/deep-cleaning.html">Deep Cleaning</a>
         </div>
         <div class="f-col">
           <h4>Company</h4>
-          <a href="index.html">Home</a>
-          <a href="blog.html">Blog</a>
+          <a href="/index.html">Home</a>
+          <a href="/blog">Blog</a>
           <a href="tel:+12104806224">Contact</a>
-          <a href="privacy-policy.html">Privacy Policy</a>
-          <a href="terms-conditions.html">Terms &amp; Conditions</a>
+          <a href="/privacy-policy.html">Privacy Policy</a>
+          <a href="/terms-conditions.html">Terms &amp; Conditions</a>
         </div>
       </div>
     </div>
-
     <div class="f-areas">
       <h4>Service Areas</h4>
       <p>San Antonio &middot; Alamo Heights &middot; Schertz &middot; Cibolo &middot; Converse &middot; Universal City &middot; Live Oak &middot; Saint Hedwig &middot; Marion</p>
     </div>
-
     <div class="f-bottom">
       <strong>Chabod Cleaning Services LLC</strong><br>
       San Antonio, Texas &middot; Family owned and operated<br>
       &copy; 2026 Chabod Cleaning Services LLC. All rights reserved.
       <div class="f-legal-links">
-        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="/privacy-policy.html">Privacy Policy</a>
         <span>&middot;</span>
-        <a href="terms-conditions.html">Terms &amp; Conditions</a>
+        <a href="/terms-conditions.html">Terms &amp; Conditions</a>
       </div>
     </div>
-  </footer>
+  </footer>`;
+}
 
-  <div class="fab-nav" id="fabNav">
-    <div class="fab-menu">
-      <a href="index.html" class="fab-item">Home</a>
-      <a href="str-cleaning.html" class="fab-item">STR Cleaning</a>
-      <a href="residential-cleaning.html" class="fab-item">Residential</a>
-      <a href="deep-cleaning.html" class="fab-item">Deep Cleaning</a>
-      <a href="blog.html" class="fab-item current">Blog</a>
-    </div>
-
+function pageShell({ title, description, current, bodyHtml, canonicalPath }) {
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>${escapeHtml(title)}</title>
+<link rel="canonical" href="https://chabodcleaningservices.com${canonicalPath}">
+<link rel="icon" type="image/png" href="/favicon.png">
+<meta name="description" content="${escapeHtml(description)}">
+<meta property="og:title" content="${escapeHtml(title)}">
+<meta property="og:description" content="${escapeHtml(description)}">
+<meta property="og:type" content="website">
+<style>${SHARED_STYLES}</style>
+</head>
+<body>
+<div class="wrap">
+${siteHeader(current)}
+${bodyHtml}
+</div>
+${siteFooter()}
+${floatingNav(current)}
 <script>
 const revealEls = document.querySelectorAll('.reveal');
 const revealObserver = new IntersectionObserver((entries) => {
@@ -447,9 +428,6 @@ const revealObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.15 });
 revealEls.forEach(el => revealObserver.observe(el));
 
-
-// Floating nav toggle (deferred until DOM is fully parsed, so it works
-// no matter where this script sits relative to the button in the markup)
 document.addEventListener('DOMContentLoaded', function () {
   const fabNav = document.getElementById('fabNav');
   const fabButton = document.getElementById('fabButton');
@@ -460,9 +438,164 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 });
 </script>
-    <button class="fab-button" id="fabButton" aria-label="Menu">
-      <span class="fab-icon"></span>
-    </button>
-  </div>
 </body>
-</html>
+</html>`;
+}
+
+function photoBoxHtml(image, alt, placeholderText) {
+  return image
+    ? `<div class="photo"><img src="${escapeHtml(image)}" alt="${escapeHtml(alt)}"></div>`
+    : `<div class="photo">${placeholderText}</div>`;
+}
+
+function postCardHtml(post) {
+  return `
+    <a href="/blog/${encodeURIComponent(post.slug)}" class="post-card">
+      ${photoBoxHtml(post.image, post.title, "[ PHOTO ]")}
+      <div class="post-card-body">
+        <div class="post-card-tag">${escapeHtml(post.category)}</div>
+        <h3>${escapeHtml(post.title)}</h3>
+        <p>${escapeHtml(post.excerpt)}</p>
+        <div class="post-meta">${escapeHtml(post.read_time)}</div>
+      </div>
+    </a>`;
+}
+
+async function renderBlogIndex(request, env) {
+  const url = new URL(request.url);
+  const selectedCategory = url.searchParams.get("category") || "All Posts";
+
+  const indexRaw = await env.BLOG_POSTS.get("index");
+  const allPosts = indexRaw ? JSON.parse(indexRaw) : [];
+
+  const posts = selectedCategory === "All Posts"
+    ? allPosts
+    : allPosts.filter(p => p.category === selectedCategory);
+
+  const sorted = [...posts].sort((a, b) => new Date(b.date_published) - new Date(a.date_published));
+  const featured = sorted.find(p => p.featured);
+  const recent = sorted.filter(p => p !== featured);
+
+  const chipsHtml = CATEGORIES.map(c => {
+    const href = c === "All Posts" ? "/blog" : `/blog?category=${encodeURIComponent(c)}`;
+    const activeClass = c === selectedCategory ? " active" : "";
+    return `<a href="${href}" class="cat-chip${activeClass}">${escapeHtml(c)}</a>`;
+  }).join("\n    ");
+
+  const featuredHtml = featured ? `
+  <div class="featured reveal">
+    <a href="/blog/${encodeURIComponent(featured.slug)}" class="featured-card">
+      ${photoBoxHtml(featured.image, featured.title, "[ FEATURED POST PHOTO ]")}
+      <div class="featured-body">
+        <span class="featured-tag">${escapeHtml(featured.category)}</span>
+        <h2>${escapeHtml(featured.title)}</h2>
+        <p>${escapeHtml(featured.excerpt)}</p>
+        <div class="post-meta">${escapeHtml(featured.read_time)}</div>
+      </div>
+    </a>
+  </div>` : "";
+
+  const postsHtml = recent.length
+    ? recent.map(postCardHtml).join("\n")
+    : `<p style="padding: 0 0 20px; color: #888;">No posts in this category yet.</p>`;
+
+  const body = `
+  <div class="blog-hero">
+    <h1>The Chabod Blog</h1>
+    <p>Cleaning tips, STR host advice, and San Antonio home care &mdash; from the team that actually does the work.</p>
+  </div>
+
+  <div class="cat-row">
+    ${chipsHtml}
+  </div>
+${featuredHtml}
+  <div class="post-list reveal">
+    <h2>${selectedCategory === "All Posts" ? "Recent Posts" : escapeHtml(selectedCategory)}</h2>
+    ${postsHtml}
+  </div>
+
+  <div class="blog-cta reveal">
+    <h2>Have a topic you want covered?</h2>
+    <p>Text us what you're curious about &mdash; we might write about it.</p>
+    <a href="sms:+12104806224" class="btn">Text Us an Idea</a>
+  </div>`;
+
+  return new Response(
+    pageShell({
+      title: "Cleaning Tips & San Antonio Home Care | Chabod Cleaning Services Blog",
+      description: "Tips for San Antonio homeowners and Airbnb hosts — deep cleaning advice, STR turnover insights, and behind-the-scenes from Chabod Cleaning Services.",
+      current: "Blog",
+      bodyHtml: body,
+      canonicalPath: "/blog",
+    }),
+    { headers: { "content-type": "text/html;charset=UTF-8" } }
+  );
+}
+
+async function renderBlogPost(env, slug) {
+  const raw = await env.BLOG_POSTS.get(`post:${slug}`);
+  if (!raw) {
+    const body = `
+    <div class="pad" style="text-align:center; padding-top: 60px; padding-bottom: 60px;">
+      <h1>Post Not Found</h1>
+      <p style="margin: 16px 0;">We couldn't find that blog post.</p>
+      <a href="/blog" class="btn">Back to Blog</a>
+    </div>`;
+    return new Response(
+      pageShell({ title: "Post Not Found | Chabod Cleaning Services Blog", description: "This post could not be found.", current: "Blog", bodyHtml: body, canonicalPath: "/blog" }),
+      { status: 404, headers: { "content-type": "text/html;charset=UTF-8" } }
+    );
+  }
+
+  const post = JSON.parse(raw);
+
+  const body = `
+  <div class="post-hero">
+    <a href="/blog">&larr; Back to Blog</a>
+  </div>
+  <article class="article">
+    <span class="article-tag">${escapeHtml(post.category)}</span>
+    <h1>${escapeHtml(post.title)}</h1>
+    <div class="post-meta">${escapeHtml(post.read_time)}</div>
+    <div class="article-body">
+      ${post.content_html}
+    </div>
+  </article>
+  <div class="blog-cta reveal" style="margin-top: 20px;">
+    <h2>Have a topic you want covered?</h2>
+    <p>Text us what you're curious about &mdash; we might write about it.</p>
+    <a href="sms:+12104806224" class="btn">Text Us an Idea</a>
+  </div>`;
+
+  return new Response(
+    pageShell({
+      title: `${post.title} | Chabod Cleaning Services Blog`,
+      description: post.meta_description || post.excerpt || post.title,
+      current: "Blog",
+      bodyHtml: body,
+      canonicalPath: `/blog/${slug}`,
+    }),
+    { headers: { "content-type": "text/html;charset=UTF-8" } }
+  );
+}
+
+export default {
+  async fetch(request, env) {
+    const url = new URL(request.url);
+
+    if (url.pathname === "/blog" || url.pathname === "/blog/") {
+      return renderBlogIndex(request, env);
+    }
+
+    if (url.pathname.startsWith("/blog/images/")) {
+      return env.ASSETS.fetch(request);
+    }
+
+    if (url.pathname.startsWith("/blog/")) {
+      const slug = decodeURIComponent(url.pathname.slice("/blog/".length)).replace(/\/$/, "");
+      if (slug) return renderBlogPost(env, slug);
+    }
+
+    return env.ASSETS.fetch(request);
+  },
+};

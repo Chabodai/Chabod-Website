@@ -1,8 +1,17 @@
 {
   "name": "chabod-website",
   "compatibility_date": "2026-08-14",
+  "main": "./src/index.js",
   "assets": {
-    "directory": "./",
-    "not_found_handling": "404-page"
-  }
+    "directory": "./public",
+    "not_found_handling": "404-page",
+    "binding": "ASSETS",
+    "run_worker_first": ["/blog", "/blog/*"]
+  },
+  "kv_namespaces": [
+    {
+      "binding": "BLOG_POSTS",
+      "id": "a341e599bb73492395165f5afbc1fd14"
+    }
+  ]
 }
