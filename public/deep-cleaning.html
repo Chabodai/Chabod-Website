@@ -4,12 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Deep Cleaning Services San Antonio | Chabod Cleaning Services</title>
+<link rel="canonical" href="https://chabodcleaningservices.com/deep-cleaning">
+<link rel="icon" type="image/png" href="/favicon.png">
 <meta name="description" content="Deep cleaning in San Antonio that goes further than a regular clean, timestamped video and photo proof included. Move-out, move-in, or a one-time reset. Call for a quote.">
 <meta property="og:title" content="Deep Cleaning Services San Antonio | Chabod Cleaning Services">
 <meta property="og:description" content="No skips, no shortcuts, no exceptions. San Antonio's deep cleaning team, with documented proof of every job.">
 <meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
 
 :root {
   --blue: #294b9b;
@@ -56,6 +60,8 @@ h1, h2, h3 {
   justify-content: center;
   text-align: center;
   padding: 12px;
+  object-fit: cover;
+  width: 100%;
 }
 
 /* ===== LOGO BAR ===== */
@@ -72,12 +78,17 @@ h1, h2, h3 {
   .logo-bar .bar-phone { display: block; font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 14px; color: var(--blue); text-decoration: none; }
 }
 
-/* ===== HERO ===== */
-.hero-parallax { position: relative; }
-.hero-bg { height: 360px; }
-.hero-text { padding: 32px 24px 40px; background: var(--coral); color: #fff; }
-.hero-text h1 { color: #fff; font-size: 35px; margin-bottom: 16px; }
-.hero-text p.sub { font-size: 18.5px; color: #ffe5dd; margin-bottom: 18px; max-width: 40ch; }
+/* ===== HERO (parallax) ===== */
+.hero-parallax { position: relative; height: 400px; overflow: hidden; }
+.hero-bg { position: absolute; inset: -60px 0 -60px 0; will-change: transform; align-items: flex-start; padding-top: 90px; }
+.hero-overlay {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 28px 24px 34px;
+  background: linear-gradient(0deg, rgba(15,25,55,0.94), rgba(15,25,55,0.6) 65%, transparent);
+  color: #fff;
+}
+.hero-overlay h1 { color: #fff; font-size: 31px; margin-bottom: 16px; }
+.hero-overlay p.sub { font-size: 16.5px; color: #dbe3f5; margin-bottom: 18px; max-width: 40ch; }
 
 @media (min-width: 700px) {
   /* Split hero: text left, photo right — matching the STR and Residential pages */
@@ -89,22 +100,30 @@ h1, h2, h3 {
     background: var(--coral);
   }
   .hero-bg {
+    position: relative;
+    inset: auto;
     order: 2;
     flex: 1 1 50%;
+    width: auto;
     height: auto;
     min-width: 0;
+    padding-top: 0;
+    align-items: center;
   }
-  .hero-text {
+  .hero-overlay {
+    position: relative;
     order: 1;
     flex: 1 1 50%;
+    inset: auto;
+    background: none;
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding: 56px 48px;
   }
-  .hero-text h1 { font-size: 42px; max-width: 18ch; }
-  .hero-text p.sub { max-width: 42ch; }
-  .hero-text .btn { max-width: 340px; width: auto; }
+  .hero-overlay h1 { font-size: 42px; max-width: 18ch; }
+  .hero-overlay p.sub { max-width: 42ch; }
+  .hero-overlay .btn { max-width: 340px; width: auto; }
 }
 
 .btn {
@@ -339,11 +358,11 @@ h1, h2, h3 {
 .site-footer .f-phone span { display:block; font-family:'Manrope',sans-serif; font-weight:600; font-size:11px; letter-spacing:1.4px; text-transform:uppercase; color:#58bec2; margin-bottom:2px; }
 .site-footer .f-text-btn { display:inline-block; background:#eb5c3d; color:#fff; text-decoration:none; font-weight:700; font-size:14px; padding:12px 20px; border-radius:30px; align-self:flex-start; }
 .site-footer .f-cols { display:flex; gap:34px; flex-wrap:wrap; margin-bottom:26px; }
-.site-footer .f-col h4 { font-family:'Manrope',sans-serif; font-size:11px; letter-spacing:1.4px; text-transform:uppercase; color:#58bec2; margin:0 0 12px; font-weight:700; }
+.site-footer .f-col h3 { font-family:'Manrope',sans-serif; font-size:11px; letter-spacing:1.4px; text-transform:uppercase; color:#58bec2; margin:0 0 12px; font-weight:700; }
 .site-footer .f-col a { display:block; color:#dbe4f7; text-decoration:none; font-size:14px; margin-bottom:9px; }
 .site-footer .f-col a:hover { color:#fff; }
 .site-footer .f-areas { border-top:1px solid rgba(255,255,255,.12); padding-top:20px; margin-bottom:20px; }
-.site-footer .f-areas h4 { font-family:'Manrope',sans-serif; font-size:11px; letter-spacing:1.4px; text-transform:uppercase; color:#58bec2; margin:0 0 10px; font-weight:700; }
+.site-footer .f-areas h3 { font-family:'Manrope',sans-serif; font-size:11px; letter-spacing:1.4px; text-transform:uppercase; color:#58bec2; margin:0 0 10px; font-weight:700; }
 .site-footer .f-areas p { font-size:13px; line-height:1.8; color:#a9b8db; margin:0; }
 .site-footer .f-bottom { border-top:1px solid rgba(255,255,255,.12); padding-top:18px; font-size:12px; line-height:1.7; color:#8496bd; }
 .site-footer .f-bottom strong { color:#c9d4ee; font-weight:700; }
@@ -399,6 +418,29 @@ h1, h2, h3 {
 
 
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HousekeepingService",
+  "name": "Chabod Cleaning Services LLC",
+  "image": "https://chabodcleaningservices.com/logo.png",
+  "telephone": "+1-210-480-6224",
+  "email": "home@chabodcleaningservices.com",
+  "url": "https://chabodcleaningservices.com/deep-cleaning",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "523 White Cyn",
+    "addressLocality": "San Antonio",
+    "addressRegion": "TX",
+    "postalCode": "78260",
+    "addressCountry": "US"
+  },
+  "areaServed": [
+    "San Antonio, TX", "Alamo Heights, TX", "Schertz, TX", "Cibolo, TX",
+    "Converse, TX", "Universal City, TX", "Live Oak, TX", "Saint Hedwig, TX", "Marion, TX"
+  ]
+}
+</script>
 </head>
 <body>
 <!--
@@ -418,15 +460,15 @@ h1, h2, h3 {
       <a href="str-cleaning.html">STR Cleaning</a>
       <a href="residential-cleaning.html">Residential</a>
       <a href="deep-cleaning.html" class="current">Deep Cleaning</a>
-      <a href="blog.html">Blog</a>
+      <a href="/blog">Blog</a>
     </nav>
     <a href="tel:+12104806224" class="bar-phone">(210) 480-6224</a>
   </div>
 
-  <div class="hero-parallax">
-    <div class="photo hero-bg">[ HERO PHOTO — vertical — mid-scrub, hands-on, high effort ]</div>
-    <div class="hero-text">
-      <h1>Deep Cleaning That Actually <span class="hl on-coral">Gets Deep</span></h1>
+  <div class="hero-parallax" id="heroParallax">
+    <div class="photo hero-bg" id="heroBg">[ HERO PHOTO — vertical — mid-scrub, hands-on, high effort ]</div>
+    <div class="hero-overlay">
+      <h1>Deep Cleaning That Actually <span class="hl on-dark">Gets Deep</span></h1>
       <p class="sub">Move-outs, move-ins, and resets that go past what a regular cleaning ever touches — done fast, documented, and proven.</p>
       <a class="btn btn-bounce" href="tel:+12104806224">Call for a Quote</a>
     </div>
@@ -567,15 +609,15 @@ h1, h2, h3 {
 
       <div class="f-cols">
         <div class="f-col">
-          <h4>Services</h4>
+          <h3>Services</h3>
           <a href="str-cleaning.html">Airbnb &amp; STR Cleaning</a>
           <a href="residential-cleaning.html">Residential Cleaning</a>
           <a href="deep-cleaning.html">Deep Cleaning</a>
         </div>
         <div class="f-col">
-          <h4>Company</h4>
+          <h3>Company</h3>
           <a href="index.html">Home</a>
-          <a href="blog.html">Blog</a>
+          <a href="/blog">Blog</a>
           <a href="tel:+12104806224">Contact</a>
           <a href="privacy-policy.html">Privacy Policy</a>
           <a href="terms-conditions.html">Terms &amp; Conditions</a>
@@ -584,7 +626,7 @@ h1, h2, h3 {
     </div>
 
     <div class="f-areas">
-      <h4>Service Areas</h4>
+      <h3>Service Areas</h3>
       <p>San Antonio &middot; Alamo Heights &middot; Schertz &middot; Cibolo &middot; Converse &middot; Universal City &middot; Live Oak &middot; Saint Hedwig &middot; Marion</p>
     </div>
 
@@ -606,9 +648,9 @@ h1, h2, h3 {
       <a href="str-cleaning.html" class="fab-item">STR Cleaning</a>
       <a href="residential-cleaning.html" class="fab-item">Residential</a>
       <a href="deep-cleaning.html" class="fab-item current">Deep Cleaning</a>
-      <a href="blog.html" class="fab-item">Blog</a>
+      <a href="/blog" class="fab-item">Blog</a>
     </div>
-    <button class="fab-button" id="fabButton" aria-label="Menu">
+    <button class="fab-button" id="fabButton" aria-label="Menu" aria-expanded="false">
       <span class="fab-icon"></span>
     </button>
 
@@ -637,6 +679,18 @@ const revealObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.15 });
 revealEls.forEach(el => revealObserver.observe(el));
 
+// Parallax hero
+const heroBg = document.getElementById('heroBg');
+const heroParallax = document.getElementById('heroParallax');
+window.addEventListener('scroll', () => {
+  if (!heroBg || !heroParallax || window.innerWidth >= 700) return;
+  const rect = heroParallax.getBoundingClientRect();
+  if (rect.bottom > 0 && rect.top < window.innerHeight) {
+    const offset = rect.top * 0.25;
+    heroBg.style.transform = `translateY(${offset}px)`;
+  }
+});
+
 
 // Floating nav toggle (deferred until DOM is fully parsed, so it works
 // no matter where this script sits relative to the button in the markup)
@@ -645,7 +699,8 @@ document.addEventListener('DOMContentLoaded', function () {
   const fabButton = document.getElementById('fabButton');
   if (fabNav && fabButton) {
     fabButton.addEventListener('click', () => {
-      fabNav.classList.toggle('open');
+      const isOpen = fabNav.classList.toggle('open');
+      fabButton.setAttribute('aria-expanded', isOpen);
     });
   }
 });
