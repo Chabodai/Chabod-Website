@@ -3,13 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>House Cleaning Services San Antonio | Chabod Cleaning Services</title>
+<title>House Cleaning Services San Antonio | Chabod Cleaning</title>
 <link rel="canonical" href="https://chabodcleaningservices.com/residential-cleaning">
 <link rel="icon" type="image/png" href="/favicon.png">
-<meta name="description" content="The same trained team, in your home, every visit. San Antonio house cleaning with no contracts and no stranger at your door. Talk to Andrés directly.">
-<meta property="og:title" content="House Cleaning Services San Antonio | Chabod Cleaning Services">
-<meta property="og:description" content="8+ years, dedicated teams, no contracts. The same team who knows your home comes back every time.">
+<meta name="description" content="Trusted house cleaning services in San Antonio, TX. Same team every visit, flat pricing, no contracts. Book your recurring or one-time clean today.">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="Chabod Cleaning Services">
+<meta property="og:title" content="House Cleaning Services San Antonio | Chabod Cleaning">
+<meta property="og:description" content="Trusted house cleaning services in San Antonio, TX. Same team every visit, flat pricing, no contracts. Book your recurring or one-time clean today.">
+<meta property="og:url" content="https://chabodcleaningservices.com/residential-cleaning">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="House Cleaning Services San Antonio | Chabod Cleaning">
+<meta name="twitter:description" content="Trusted house cleaning services in San Antonio, TX. Same team every visit, flat pricing, no contracts. Book your recurring or one-time clean today.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap">
@@ -63,6 +68,9 @@ h1, h2, h3 {
   object-fit: cover;
   width: 100%;
 }
+/* Real photos share the .photo class with the old placeholder boxes above —
+   strip the placeholder's stripe/border/padding once an actual <img> is in place. */
+img.photo { background: none; border: none; padding: 0; }
 
 /* ===== LOGO BAR ===== */
 .logo-bar {
@@ -80,7 +88,7 @@ h1, h2, h3 {
 
 /* ===== HERO (parallax) ===== */
 .hero-parallax { position: relative; height: 430px; overflow: hidden; }
-.hero-bg { position: absolute; inset: -60px 0 -60px 0; will-change: transform; align-items: flex-start; padding-top: 90px; }
+.hero-bg { position: absolute; inset: -60px 0 -60px 0; will-change: transform; width: 100%; height: calc(100% + 120px); object-fit: cover; object-position: center 15%; padding: 0; margin: 0; display: block; }
 .hero-overlay {
   position: absolute; bottom: 0; left: 0; right: 0;
   padding: 28px 24px 34px;
@@ -107,8 +115,7 @@ h1, h2, h3 {
     width: auto;
     height: auto;
     min-width: 0;
-    padding-top: 0;
-    align-items: center;
+    object-position: center 20%;
   }
   .hero-overlay {
     position: relative;
@@ -229,7 +236,7 @@ h1, h2, h3 {
 
 /* ===== HONESTY (glassmorphism) ===== */
 .honesty-wrap { position: relative; min-height: 400px; display: flex; align-items: center; justify-content: center; padding: 24px; overflow: hidden; }
-.honesty-bg { position: absolute; inset: 0; height: auto; }
+.honesty-bg { position: absolute; inset: 0; height: 100%; }
 .honesty-tint { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(41,75,155,0.82), rgba(0,142,181,0.82)); }
 .glass-card {
   position: relative;
@@ -475,12 +482,11 @@ h1, h2, h3 {
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "HousekeepingService",
-  "name": "Chabod Cleaning Services LLC",
+  "@type": "HomeAndConstructionBusiness",
+  "name": "Chabod Cleaning Services",
   "image": "https://chabodcleaningservices.com/logo.png",
-  "telephone": "+1-210-480-6224",
+  "telephone": "+12104806224",
   "email": "home@chabodcleaningservices.com",
-  "url": "https://chabodcleaningservices.com/residential-cleaning",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "523 White Cyn",
@@ -489,10 +495,17 @@ h1, h2, h3 {
     "postalCode": "78260",
     "addressCountry": "US"
   },
-  "areaServed": [
-    "San Antonio, TX", "Alamo Heights, TX", "Schertz, TX", "Cibolo, TX",
-    "Converse, TX", "Universal City, TX", "Live Oak, TX", "Saint Hedwig, TX", "Marion, TX"
-  ]
+  "areaServed": {
+    "@type": "City",
+    "name": "San Antonio"
+  },
+  "priceRange": "$$",
+  "founder": {
+    "@type": "Person",
+    "name": "Andrés"
+  },
+  "foundingDate": "2018",
+  "url": "https://chabodcleaningservices.com/residential-cleaning"
 }
 </script>
 </head>
@@ -521,9 +534,9 @@ h1, h2, h3 {
 
   <!-- HERO -->
   <div class="hero-parallax" id="heroParallax">
-    <div class="photo hero-bg" id="heroBg">[ Hero photo: Chabod team member cleaning a bright San Antonio living room, natural light, mid-task ]</div>
+    <img class="photo hero-bg" id="heroBg" src="residential-hero-livingroom.webp" alt="Chabod Cleaning Services team member cleaning a San Antonio living room" width="1122" height="1402">
     <div class="hero-overlay">
-      <h1>The Same Team, In Your Home, <span class="hl on-dark">For Years.</span></h1>
+      <h1>The Same Team, Cleaning Your San Antonio Home, <span class="hl on-dark">For Years.</span></h1>
       <p class="sub">Chabod Cleaning Services keeps San Antonio homes at one standard, visit after visit, with the same trained team who actually knows your house. Not a stranger every time.</p>
       <div class="proof">8+ YEARS IN SAN ANTONIO &bull; DEDICATED TEAMS &bull; NO CONTRACTS</div>
       <a href="tel:+12104806224" class="btn">Talk to Andrés Directly</a>
@@ -574,7 +587,7 @@ h1, h2, h3 {
 
   <!-- TRUST -->
   <div class="pad trust reveal">
-    <div class="photo trust-photo">[ Photo: Same two-person Chabod team arriving at a returning client's front door ]</div>
+    <img class="photo trust-photo" src="residential-team-arriving.webp" alt="Chabod Cleaning Services team arriving at a returning client's San Antonio home with cleaning supplies" loading="lazy" width="1600" height="900">
     <h2>The same team. Every time. On purpose.</h2>
     <p>You get a dedicated team assigned to your home, plus a trained backup team who also knows your house if your regulars are ever out. Every visit is logged, so there's always accountability behind what got done.</p>
     <div class="stats-row" style="margin: 20px 0;">
@@ -597,7 +610,7 @@ h1, h2, h3 {
 
   <!-- HONESTY (glassmorphism) -->
   <div class="honesty-wrap">
-    <div class="photo honesty-bg honesty-photo" style="position:absolute; inset:0; height:auto;">[ Background photo: Chabod team member making a bed with fresh linens, soft daylight ]</div>
+    <img class="photo honesty-bg honesty-photo" src="residential-making-bed.webp" alt="Chabod Cleaning Services team member making a bed with fresh linens, San Antonio home" loading="lazy" width="1600" height="900" style="position:absolute; inset:0;">
     <div class="honesty-tint"></div>
     <div class="glass-card">
       <h2>What we do, and what we're upfront about.</h2>
@@ -662,7 +675,8 @@ h1, h2, h3 {
   </div>
 
   <!-- FAMILY -->
-  <div class="pad family reveal">
+  <!-- TEMP: hidden until real family photo is ready — remove style to re-enable -->
+  <div class="pad family reveal" style="display:none;">
     <div class="photo family-photo">[ Photo: Andrés and family ]</div>
     <p class="line">Family owned since 2018. Still answering <span class="hl solid-blue">with the same care</span>, built for long-lasting relationships with our customers.</p>
   </div>

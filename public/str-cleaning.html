@@ -3,13 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Airbnb Cleaning San Antonio | STR Turnover Service — Chabod Cleaning</title>
+<title>Airbnb Cleaning San Antonio | Chabod Cleaning Services</title>
 <link rel="canonical" href="https://chabodcleaningservices.com/str-cleaning">
 <link rel="icon" type="image/png" href="/favicon.png">
-<meta name="description" content="Reliable Airbnb cleaning in San Antonio for hosts who can't afford a bad review. Same-day turnovers, photo-verified checks, no contracts. Talk to Andrés directly.">
-<meta property="og:title" content="Airbnb Cleaning San Antonio | Chabod Cleaning Services">
-<meta property="og:description" content="The eyes on your property when you can't be there. San Antonio's dedicated STR turnover team — 8+ years, 13+ trained teams, no contracts.">
+<meta name="description" content="Reliable Airbnb & STR turnover cleaning in San Antonio. Same-day availability, guest-ready every time. Text Andrés directly: (210) 480-6224.">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="Chabod Cleaning Services">
+<meta property="og:title" content="Airbnb Cleaning San Antonio | Chabod Cleaning Services">
+<meta property="og:description" content="Reliable Airbnb & STR turnover cleaning in San Antonio. Same-day availability, guest-ready every time. Text Andrés directly: (210) 480-6224.">
+<meta property="og:url" content="https://chabodcleaningservices.com/str-cleaning">
+<meta property="og:image" content="https://chabodcleaningservices.com/str-hero.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Airbnb Cleaning San Antonio | Chabod Cleaning Services">
+<meta name="twitter:description" content="Reliable Airbnb & STR turnover cleaning in San Antonio. Same-day availability, guest-ready every time. Text Andrés directly: (210) 480-6224.">
+<meta name="twitter:image" content="https://chabodcleaningservices.com/str-hero.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap">
@@ -63,6 +70,9 @@ h1, h2, h3 {
   object-fit: cover;
   width: 100%;
 }
+/* Real photos share the .photo class with the old placeholder boxes above —
+   strip the placeholder's stripe/border/padding once an actual <img> is in place. */
+img.photo { background: none; border: none; padding: 0; }
 
 /* ===== LOGO BAR ===== */
 .logo-bar {
@@ -529,12 +539,11 @@ h1, h2, h3 {
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "HousekeepingService",
-  "name": "Chabod Cleaning Services LLC",
+  "@type": "HomeAndConstructionBusiness",
+  "name": "Chabod Cleaning Services",
   "image": "https://chabodcleaningservices.com/logo.png",
-  "telephone": "+1-210-480-6224",
+  "telephone": "+12104806224",
   "email": "home@chabodcleaningservices.com",
-  "url": "https://chabodcleaningservices.com/str-cleaning",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "523 White Cyn",
@@ -543,10 +552,17 @@ h1, h2, h3 {
     "postalCode": "78260",
     "addressCountry": "US"
   },
-  "areaServed": [
-    "San Antonio, TX", "Alamo Heights, TX", "Schertz, TX", "Cibolo, TX",
-    "Converse, TX", "Universal City, TX", "Live Oak, TX", "Saint Hedwig, TX", "Marion, TX"
-  ]
+  "areaServed": {
+    "@type": "City",
+    "name": "San Antonio"
+  },
+  "priceRange": "$$",
+  "founder": {
+    "@type": "Person",
+    "name": "Andrés"
+  },
+  "foundingDate": "2018",
+  "url": "https://chabodcleaningservices.com/str-cleaning"
 }
 </script>
 </head>
@@ -629,7 +645,7 @@ h1, h2, h3 {
   </div>
 
   <div class="consist pad">
-    <div class="photo consist-photo">[ CONSISTENCY PHOTO — vertical — team cleaning ]</div>
+    <img class="photo consist-photo" src="str-team-cleaning.webp" alt="Chabod Cleaning Services team making a bed and dusting during an Airbnb turnover in San Antonio" loading="lazy" width="1122" height="1402">
     <h2>The same trained team, every time.</h2>
     <p>Most properties get one <strong>dedicated team</strong> handling the vast majority of cleanings, with a trained backup ready if needed. Every team works from the <strong><span class="hl2">same written SOP</span></strong>, built personally by Andrés for your property, so quality never depends on who shows up.</p>
   </div>
@@ -703,7 +719,8 @@ h1, h2, h3 {
     </div>
   </div>
 
-  <div class="family pad">
+  <!-- TEMP: hidden until real family photo is ready — remove style to re-enable -->
+  <div class="family pad" style="display:none;">
     <div class="photo family-photo">[ FAMILY PHOTO — horizontal — Andrés &amp; family ]</div>
     <p class="line">Family owned since 2018. Still answering <span class="hl2">with the same care</span>, built for long-lasting relationships with our customers.</p>
   </div>

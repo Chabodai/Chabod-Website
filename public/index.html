@@ -6,10 +6,17 @@
 <title>San Antonio Cleaning Company | Chabod Cleaning Services</title>
 <link rel="canonical" href="https://chabodcleaningservices.com/">
 <link rel="icon" type="image/png" href="/favicon.png">
-<meta name="description" content="Family-owned San Antonio cleaning company: Airbnb/STR turnovers, residential cleaning, and deep cleaning. 8+ years, 250+ repeat clients, no contracts.">
-<meta property="og:title" content="San Antonio Cleaning Company | Chabod Cleaning Services">
-<meta property="og:description" content="The same trusted team for your home or your rental, every time. 8+ years serving San Antonio.">
+<meta name="description" content="Family-owned cleaning company in San Antonio, TX since 2018. STR turnover, deep cleaning & residential cleaning. Call (210) 480-6224.">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="Chabod Cleaning Services">
+<meta property="og:title" content="San Antonio Cleaning Company | Chabod Cleaning Services">
+<meta property="og:description" content="Family-owned cleaning company in San Antonio, TX since 2018. STR turnover, deep cleaning & residential cleaning. Call (210) 480-6224.">
+<meta property="og:url" content="https://chabodcleaningservices.com/">
+<meta property="og:image" content="https://chabodcleaningservices.com/str-card-home.webp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="San Antonio Cleaning Company | Chabod Cleaning Services">
+<meta name="twitter:description" content="Family-owned cleaning company in San Antonio, TX since 2018. STR turnover, deep cleaning & residential cleaning. Call (210) 480-6224.">
+<meta name="twitter:image" content="https://chabodcleaningservices.com/str-card-home.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap">
@@ -63,6 +70,9 @@ h1, h2, h3 {
   object-fit: cover;
   width: 100%;
 }
+/* Real photos share the .photo class with the old placeholder boxes above —
+   strip the placeholder's stripe/border/padding once an actual <img> is in place. */
+img.photo { background: none; border: none; padding: 0; }
 
 /* ===== LOGO BAR ===== */
 .logo-bar { background: #fff; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); }
@@ -376,12 +386,11 @@ h1, h2, h3 {
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "HousekeepingService",
-  "name": "Chabod Cleaning Services LLC",
+  "@type": "HomeAndConstructionBusiness",
+  "name": "Chabod Cleaning Services",
   "image": "https://chabodcleaningservices.com/logo.png",
-  "telephone": "+1-210-480-6224",
+  "telephone": "+12104806224",
   "email": "home@chabodcleaningservices.com",
-  "url": "https://chabodcleaningservices.com/",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "523 White Cyn",
@@ -390,10 +399,17 @@ h1, h2, h3 {
     "postalCode": "78260",
     "addressCountry": "US"
   },
-  "areaServed": [
-    "San Antonio, TX", "Alamo Heights, TX", "Schertz, TX", "Cibolo, TX",
-    "Converse, TX", "Universal City, TX", "Live Oak, TX", "Saint Hedwig, TX", "Marion, TX"
-  ]
+  "areaServed": {
+    "@type": "City",
+    "name": "San Antonio"
+  },
+  "priceRange": "$$",
+  "founder": {
+    "@type": "Person",
+    "name": "Andrés"
+  },
+  "foundingDate": "2018",
+  "url": "https://chabodcleaningservices.com/"
 }
 </script>
 </head>
@@ -427,7 +443,7 @@ h1, h2, h3 {
       <div class="proof">5-STAR RATED &bull; 250+ REPEAT CLIENTS &bull; 60+ STR PROPERTIES</div>
     </div>
     <div class="hero-visual">
-      <div class="photo">[ Hero photo: Chabod team, family-owned feel, mid-task in a bright San Antonio home ]</div>
+      <img class="photo" src="homepage-hero-fridge.webp" alt="Chabod Cleaning Services team member cleaning inside a refrigerator in a San Antonio home" width="1600" height="900">
       <div class="btn-wrap btn-row" style="margin-top: 22px;">
         <a href="tel:+12104806224" class="btn">Call for a Free Quote</a>
         <a href="sms:+12104806224" class="btn btn-bounce" style="background: transparent; border: 2px solid #fff; color: #fff;">Text Us Instead</a>
@@ -491,7 +507,7 @@ h1, h2, h3 {
     </div>
 
     <div class="service-card">
-      <div class="photo">[ Photo: Living room mid-clean, residential home ]</div>
+      <img class="photo" src="residential-hero-livingroom.webp" alt="Chabod Cleaning Services team member cleaning a San Antonio living room" loading="lazy" width="1122" height="1402" style="object-position: center 25%;">
       <div class="service-card-body">
         <h3>Residential Cleaning</h3>
         <p>The same trained team, in your home, every visit &mdash; weekly, biweekly, or monthly.</p>
@@ -500,7 +516,7 @@ h1, h2, h3 {
     </div>
 
     <div class="service-card">
-      <div class="photo">[ Photo: Deep clean detail shot, kitchen or bathroom ]</div>
+      <img class="photo" src="homepage-deep-clean-detail.webp" alt="Chabod Cleaning Services team member deep cleaning a stovetop in a San Antonio kitchen" loading="lazy" width="1600" height="900">
       <div class="service-card-body">
         <h3>Deep Cleaning</h3>
         <p>A full reset for move-ins, move-outs, or whenever your space needs more than a touch-up.</p>
@@ -559,7 +575,8 @@ h1, h2, h3 {
   </div>
 
   <!-- FAMILY -->
-  <div class="pad family reveal">
+  <!-- TEMP: hidden until real family photo is ready — remove style to re-enable -->
+  <div class="pad family reveal" style="display:none;">
     <div class="photo family-photo">[ Photo: Andrés and family ]</div>
     <p class="line">Family owned since 2018. Still answering with the same care, built for long-lasting relationships with our customers.</p>
   </div>

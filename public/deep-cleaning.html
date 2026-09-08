@@ -3,13 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Deep Cleaning Services San Antonio | Chabod Cleaning Services</title>
+<title>Deep Cleaning Services San Antonio | Chabod Cleaning</title>
 <link rel="canonical" href="https://chabodcleaningservices.com/deep-cleaning">
 <link rel="icon" type="image/png" href="/favicon.png">
-<meta name="description" content="Deep cleaning in San Antonio that goes further than a regular clean, timestamped video and photo proof included. Move-out, move-in, or a one-time reset. Call for a quote.">
-<meta property="og:title" content="Deep Cleaning Services San Antonio | Chabod Cleaning Services">
-<meta property="og:description" content="No skips, no shortcuts, no exceptions. San Antonio's deep cleaning team, with documented proof of every job.">
+<meta name="description" content="Professional deep cleaning in San Antonio — grout, baseboards, appliances, the stuff regular cleanings skip. See real before/after results.">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="Chabod Cleaning Services">
+<meta property="og:title" content="Deep Cleaning Services San Antonio | Chabod Cleaning">
+<meta property="og:description" content="Professional deep cleaning in San Antonio — grout, baseboards, appliances, the stuff regular cleanings skip. See real before/after results.">
+<meta property="og:url" content="https://chabodcleaningservices.com/deep-cleaning">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Deep Cleaning Services San Antonio | Chabod Cleaning">
+<meta name="twitter:description" content="Professional deep cleaning in San Antonio — grout, baseboards, appliances, the stuff regular cleanings skip. See real before/after results.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap">
@@ -63,6 +68,9 @@ h1, h2, h3 {
   object-fit: cover;
   width: 100%;
 }
+/* Real photos share the .photo class with the old placeholder boxes above —
+   strip the placeholder's stripe/border/padding once an actual <img> is in place. */
+img.photo { background: none; border: none; padding: 0; }
 
 /* ===== LOGO BAR ===== */
 .logo-bar {
@@ -80,7 +88,7 @@ h1, h2, h3 {
 
 /* ===== HERO (parallax) ===== */
 .hero-parallax { position: relative; height: 400px; overflow: hidden; }
-.hero-bg { position: absolute; inset: -60px 0 -60px 0; will-change: transform; align-items: flex-start; padding-top: 90px; }
+.hero-bg { position: absolute; inset: -60px 0 -60px 0; will-change: transform; width: 100%; height: calc(100% + 120px); object-fit: cover; object-position: center 20%; padding: 0; margin: 0; display: block; }
 .hero-overlay {
   position: absolute; bottom: 0; left: 0; right: 0;
   padding: 28px 24px 34px;
@@ -107,8 +115,7 @@ h1, h2, h3 {
     width: auto;
     height: auto;
     min-width: 0;
-    padding-top: 0;
-    align-items: center;
+    object-position: center 25%;
   }
   .hero-overlay {
     position: relative;
@@ -421,12 +428,11 @@ h1, h2, h3 {
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "HousekeepingService",
-  "name": "Chabod Cleaning Services LLC",
+  "@type": "HomeAndConstructionBusiness",
+  "name": "Chabod Cleaning Services",
   "image": "https://chabodcleaningservices.com/logo.png",
-  "telephone": "+1-210-480-6224",
+  "telephone": "+12104806224",
   "email": "home@chabodcleaningservices.com",
-  "url": "https://chabodcleaningservices.com/deep-cleaning",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "523 White Cyn",
@@ -435,10 +441,17 @@ h1, h2, h3 {
     "postalCode": "78260",
     "addressCountry": "US"
   },
-  "areaServed": [
-    "San Antonio, TX", "Alamo Heights, TX", "Schertz, TX", "Cibolo, TX",
-    "Converse, TX", "Universal City, TX", "Live Oak, TX", "Saint Hedwig, TX", "Marion, TX"
-  ]
+  "areaServed": {
+    "@type": "City",
+    "name": "San Antonio"
+  },
+  "priceRange": "$$",
+  "founder": {
+    "@type": "Person",
+    "name": "Andrés"
+  },
+  "foundingDate": "2018",
+  "url": "https://chabodcleaningservices.com/deep-cleaning"
 }
 </script>
 </head>
@@ -466,9 +479,9 @@ h1, h2, h3 {
   </div>
 
   <div class="hero-parallax" id="heroParallax">
-    <div class="photo hero-bg" id="heroBg">[ HERO PHOTO — vertical — mid-scrub, hands-on, high effort ]</div>
+    <img class="photo hero-bg" id="heroBg" src="deep-cleaning-hero-oven.webp" alt="Chabod Cleaning Services team member deep cleaning inside a heavily soiled oven in San Antonio" width="1095" height="1369">
     <div class="hero-overlay">
-      <h1>Deep Cleaning That Actually <span class="hl on-dark">Gets Deep</span></h1>
+      <h1>San Antonio Deep Cleaning That Actually <span class="hl on-dark">Gets Deep</span></h1>
       <p class="sub">Move-outs, move-ins, and resets that go past what a regular cleaning ever touches — done fast, documented, and proven.</p>
       <a class="btn btn-bounce" href="tel:+12104806224">Call for a Quote</a>
     </div>
@@ -512,7 +525,7 @@ h1, h2, h3 {
   <div class="docs pad reveal">
     <h2>Proof, not promises.</h2>
     <p>Every deep clean comes with the paperwork to back it up: a <strong>timestamped video walkthrough</strong>, timestamped photos, and a detailed invoice breaking down exactly what was done — enough for any landlord, property manager, or your own peace of mind.</p>
-    <div class="photo docs-photo">[ DOCUMENTATION PHOTO — vertical — phone recording walkthrough ]</div>
+    <img class="photo docs-photo" src="deep-cleaning-documentation.webp" alt="Chabod Cleaning Services team member recording a timestamped video walkthrough after a San Antonio deep clean" loading="lazy" width="1122" height="1402">
   </div>
 
   <div class="cases pad">
@@ -584,12 +597,13 @@ h1, h2, h3 {
     </div>
   </div>
 
-  <div class="family pad reveal">
+  <!-- TEMP: hidden until real family photo is ready — remove style to re-enable -->
+  <div class="family pad reveal" style="display:none;">
     <div class="photo family-photo">[ FAMILY PHOTO — horizontal — Andrés &amp; family ]</div>
     <p class="line">Family owned since 2018. Still answering <span class="hl solid-blue">with the same care</span>, built for long-lasting relationships with our customers.</p>
   </div>
 
-  <div class="photo final-photo">[ FINAL PHOTO — horizontal — finished space reveal ]</div>
+  <img class="photo final-photo" src="deep-cleaning-final-reveal.webp" alt="Sparkling clean oven after a Chabod Cleaning Services deep clean in San Antonio" loading="lazy" width="1600" height="900">
   <div class="final-text">
     <h2>Ready to get it done right?</h2>
     <p>Call now and tell us what you're working with. We'll quote it fast and get you scheduled.</p>
