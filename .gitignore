@@ -1,2 +1,5 @@
 .wrangler/
 node_modules/
+
+# Local agent/editor tooling
+.claude/
