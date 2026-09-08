@@ -342,7 +342,7 @@ function floatingNav(current) {
     <div class="fab-menu">
       ${itemsHtml}
     </div>
-    <button class="fab-button" id="fabButton" aria-label="Menu">
+    <button class="fab-button" id="fabButton" aria-label="Menu" aria-expanded="false">
       <span class="fab-icon"></span>
     </button>
   </div>`;
@@ -394,19 +394,58 @@ function siteFooter() {
   </footer>`;
 }
 
-function pageShell({ title, description, current, bodyHtml, canonicalPath }) {
+function pageShell({ title, description, current, bodyHtml, canonicalPath, image }) {
+  const url = `https://chabodcleaningservices.com${canonicalPath}`;
+  const imageUrl = image ? `https://chabodcleaningservices.com${image}` : null;
+  const imageTags = imageUrl
+    ? `<meta property="og:image" content="${imageUrl}">\n<meta name="twitter:image" content="${imageUrl}">\n`
+    : "";
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${escapeHtml(title)}</title>
-<link rel="canonical" href="https://chabodcleaningservices.com${canonicalPath}">
+<link rel="canonical" href="${url}">
 <link rel="icon" type="image/png" href="/favicon.png">
 <meta name="description" content="${escapeHtml(description)}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Chabod Cleaning Services">
 <meta property="og:title" content="${escapeHtml(title)}">
 <meta property="og:description" content="${escapeHtml(description)}">
-<meta property="og:type" content="website">
+<meta property="og:url" content="${url}">
+${imageTags}<meta name="twitter:card" content="${imageUrl ? "summary_large_image" : "summary"}">
+<meta name="twitter:title" content="${escapeHtml(title)}">
+<meta name="twitter:description" content="${escapeHtml(description)}">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HomeAndConstructionBusiness",
+  "name": "Chabod Cleaning Services",
+  "image": "https://chabodcleaningservices.com/logo.png",
+  "telephone": "+12104806224",
+  "email": "home@chabodcleaningservices.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "523 White Cyn",
+    "addressLocality": "San Antonio",
+    "addressRegion": "TX",
+    "postalCode": "78260",
+    "addressCountry": "US"
+  },
+  "areaServed": {
+    "@type": "City",
+    "name": "San Antonio"
+  },
+  "priceRange": "$$",
+  "founder": {
+    "@type": "Person",
+    "name": "Andrés"
+  },
+  "foundingDate": "2018",
+  "url": "${url}"
+}
+</script>
 <style>${SHARED_STYLES}</style>
 </head>
 <body>
@@ -433,7 +472,8 @@ document.addEventListener('DOMContentLoaded', function () {
   const fabButton = document.getElementById('fabButton');
   if (fabNav && fabButton) {
     fabButton.addEventListener('click', () => {
-      fabNav.classList.toggle('open');
+      const isOpen = fabNav.classList.toggle('open');
+      fabButton.setAttribute('aria-expanded', isOpen);
     });
   }
 });
@@ -451,7 +491,7 @@ function photoBoxHtml(image, alt, placeholderText) {
 function postCardHtml(post) {
   return `
     <a href="/blog/${encodeURIComponent(post.slug)}" class="post-card">
-      ${photoBoxHtml(post.image, post.title, "[ PHOTO ]")}
+      ${photoBoxHtml(post.image, post.image_alt || post.title, "[ PHOTO ]")}
       <div class="post-card-body">
         <div class="post-card-tag">${escapeHtml(post.category)}</div>
         <h3>${escapeHtml(post.title)}</h3>
@@ -485,7 +525,7 @@ async function renderBlogIndex(request, env) {
   const featuredHtml = featured ? `
   <div class="featured reveal">
     <a href="/blog/${encodeURIComponent(featured.slug)}" class="featured-card">
-      ${photoBoxHtml(featured.image, featured.title, "[ FEATURED POST PHOTO ]")}
+      ${photoBoxHtml(featured.image, featured.image_alt || featured.title, "[ FEATURED POST PHOTO ]")}
       <div class="featured-body">
         <span class="featured-tag">${escapeHtml(featured.category)}</span>
         <h2>${escapeHtml(featured.title)}</h2>
@@ -522,11 +562,12 @@ ${featuredHtml}
 
   return new Response(
     pageShell({
-      title: "Cleaning Tips & San Antonio Home Care | Chabod Cleaning Services Blog",
-      description: "Tips for San Antonio homeowners and Airbnb hosts — deep cleaning advice, STR turnover insights, and behind-the-scenes from Chabod Cleaning Services.",
+      title: "San Antonio Cleaning Tips & STR Host Advice | Chabod Blog",
+      description: "Cleaning advice, STR host tips, and San Antonio-specific guides from Chabod Cleaning Services — deep cleaning, turnover prep, and more.",
       current: "Blog",
       bodyHtml: body,
       canonicalPath: "/blog",
+      image: featured ? featured.image : null,
     }),
     { headers: { "content-type": "text/html;charset=UTF-8" } }
   );
@@ -574,6 +615,7 @@ async function renderBlogPost(env, slug) {
       current: "Blog",
       bodyHtml: body,
       canonicalPath: `/blog/${slug}`,
+      image: post.image || null,
     }),
     { headers: { "content-type": "text/html;charset=UTF-8" } }
   );
