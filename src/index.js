@@ -305,10 +305,10 @@ function escapeHtml(value) {
 
 function siteHeader(current) {
   const links = [
-    { href: "/index.html", label: "Home" },
-    { href: "/str-cleaning.html", label: "STR Cleaning" },
-    { href: "/residential-cleaning.html", label: "Residential" },
-    { href: "/deep-cleaning.html", label: "Deep Cleaning" },
+    { href: "/", label: "Home" },
+    { href: "/str-cleaning", label: "STR Cleaning" },
+    { href: "/residential-cleaning", label: "Residential" },
+    { href: "/deep-cleaning", label: "Deep Cleaning" },
     { href: "/blog", label: "Blog" },
   ];
   const navHtml = links.map(l =>
@@ -327,10 +327,10 @@ function siteHeader(current) {
 
 function floatingNav(current) {
   const links = [
-    { href: "/index.html", label: "Home" },
-    { href: "/str-cleaning.html", label: "STR Cleaning" },
-    { href: "/residential-cleaning.html", label: "Residential" },
-    { href: "/deep-cleaning.html", label: "Deep Cleaning" },
+    { href: "/", label: "Home" },
+    { href: "/str-cleaning", label: "STR Cleaning" },
+    { href: "/residential-cleaning", label: "Residential" },
+    { href: "/deep-cleaning", label: "Deep Cleaning" },
     { href: "/blog", label: "Blog" },
   ];
   const itemsHtml = links.map(l =>
