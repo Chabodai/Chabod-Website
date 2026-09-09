@@ -502,8 +502,9 @@ img.photo { background: none; border: none; padding: 0; display: block; max-widt
 {
   "@context": "https://schema.org",
   "@type": "HomeAndConstructionBusiness",
+  "@id": "https://chabodcleaningservices.com/#business",
   "name": "Chabod Cleaning Services",
-  "image": "https://chabodcleaningservices.com/logo.png",
+  "image": "https://chabodcleaningservices.com/logo.webp",
   "telephone": "+12104806224",
   "email": "home@chabodcleaningservices.com",
   "address": {
@@ -534,6 +535,129 @@ img.photo { background: none; border: none; padding: 0; display: block; max-widt
   "url": "https://chabodcleaningservices.com/residential-cleaning"
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Residential House Cleaning",
+  "serviceType": "House cleaning",
+  "description": "Recurring and one-time house cleaning in San Antonio. The same trained team every visit, flat pricing, and no contracts.",
+  "url": "https://chabodcleaningservices.com/residential-cleaning",
+  "provider": {
+    "@id": "https://chabodcleaningservices.com/#business"
+  },
+  "areaServed": [
+    {
+      "@type": "City",
+      "name": "San Antonio"
+    },
+    {
+      "@type": "City",
+      "name": "Alamo Heights"
+    },
+    {
+      "@type": "City",
+      "name": "Schertz"
+    },
+    {
+      "@type": "City",
+      "name": "Cibolo"
+    },
+    {
+      "@type": "City",
+      "name": "Converse"
+    },
+    {
+      "@type": "City",
+      "name": "Universal City"
+    },
+    {
+      "@type": "City",
+      "name": "Live Oak"
+    },
+    {
+      "@type": "City",
+      "name": "Saint Hedwig"
+    },
+    {
+      "@type": "City",
+      "name": "Marion"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Do I need to have had a cleaning service before?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not at all. Most of our residential clients are hiring a cleaning service for the first time. We'll walk you through exactly how it works before the first visit."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens on the first visit?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We bring your whole home up to our standard in one full visit — every room, top to bottom. It costs and takes a bit more than a regular visit since it's a full reset, not a touch-up. Every visit after that is maintaining the standard we just set."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How often do people book?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most of our clients — about 60% — go biweekly. Another 30% go monthly, and about 10% go weekly. We'll help you figure out what fits your home and budget."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Will I get the same cleaners every time?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. You get a dedicated team assigned to your home, plus a trained backup team who also knows your house in case your regulars are ever unavailable."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you do laundry?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We don't handle personal laundry. We do make beds hotel-style with fresh linens if you leave them out for us."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long does a visit take?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most visits run 1.5–3 hours with a team of 2–3 people, rather than one person there all day."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is there a contract?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. No contracts, no lock-in fees. You can adjust or stop anytime."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does billing work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You're invoiced at the start of the month for that month's scheduled visits, prepaid to lock in your spot on the calendar. Still no contract — it's just payment in advance for visits already booked, so there are no surprises later."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <!--
@@ -547,12 +671,12 @@ img.photo { background: none; border: none; padding: 0; display: block; max-widt
 <div class="wrap">
 
   <div class="logo-bar">
-    <img src="logo.png" alt="Chabod Cleaning Services logo" class="site-logo">
+    <img src="logo.webp" alt="Chabod Cleaning Services logo" class="site-logo">
     <nav class="desktop-nav">
-      <a href="index.html">Home</a>
-      <a href="str-cleaning.html">STR Cleaning</a>
-      <a href="residential-cleaning.html" class="current">Residential</a>
-      <a href="deep-cleaning.html">Deep Cleaning</a>
+      <a href="/">Home</a>
+      <a href="/str-cleaning">STR Cleaning</a>
+      <a href="/residential-cleaning" class="current">Residential</a>
+      <a href="/deep-cleaning">Deep Cleaning</a>
       <a href="/blog">Blog</a>
     </nav>
     <a href="tel:+12104806224" class="bar-phone">(210) 480-6224</a>
@@ -725,7 +849,7 @@ img.photo { background: none; border: none; padding: 0; display: block; max-widt
   <footer class="site-footer">
     <div class="f-top">
       <div class="f-brand">
-        <div class="f-logo-pill"><img src="logo.png" alt="Chabod Cleaning Services logo"></div>
+        <div class="f-logo-pill"><img src="logo.webp" alt="Chabod Cleaning Services logo"></div>
         <p class="f-tag">Family-owned cleaning for San Antonio homes and short-term rentals. No contracts, no call centers &mdash; you talk to the owner.</p>
 
         <div class="f-callrow">
@@ -737,17 +861,17 @@ img.photo { background: none; border: none; padding: 0; display: block; max-widt
       <div class="f-cols">
         <div class="f-col">
           <h3>Services</h3>
-          <a href="str-cleaning.html">Airbnb &amp; STR Cleaning</a>
-          <a href="residential-cleaning.html">Residential Cleaning</a>
-          <a href="deep-cleaning.html">Deep Cleaning</a>
+          <a href="/str-cleaning">Airbnb &amp; STR Cleaning</a>
+          <a href="/residential-cleaning">Residential Cleaning</a>
+          <a href="/deep-cleaning">Deep Cleaning</a>
         </div>
         <div class="f-col">
           <h3>Company</h3>
-          <a href="index.html">Home</a>
+          <a href="/">Home</a>
           <a href="/blog">Blog</a>
           <a href="tel:+12104806224">Contact</a>
-          <a href="privacy-policy.html">Privacy Policy</a>
-          <a href="terms-conditions.html">Terms &amp; Conditions</a>
+          <a href="/privacy-policy">Privacy Policy</a>
+          <a href="/terms-conditions">Terms &amp; Conditions</a>
         </div>
       </div>
     </div>
@@ -762,19 +886,19 @@ img.photo { background: none; border: none; padding: 0; display: block; max-widt
       San Antonio, Texas &middot; Family owned and operated<br>
       &copy; 2026 Chabod Cleaning Services LLC. All rights reserved.
       <div class="f-legal-links">
-        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="/privacy-policy">Privacy Policy</a>
         <span>&middot;</span>
-        <a href="terms-conditions.html">Terms &amp; Conditions</a>
+        <a href="/terms-conditions">Terms &amp; Conditions</a>
       </div>
     </div>
   </footer>
 
   <div class="fab-nav" id="fabNav">
     <div class="fab-menu">
-      <a href="index.html" class="fab-item">Home</a>
-      <a href="str-cleaning.html" class="fab-item">STR Cleaning</a>
-      <a href="residential-cleaning.html" class="fab-item current">Residential</a>
-      <a href="deep-cleaning.html" class="fab-item">Deep Cleaning</a>
+      <a href="/" class="fab-item">Home</a>
+      <a href="/str-cleaning" class="fab-item">STR Cleaning</a>
+      <a href="/residential-cleaning" class="fab-item current">Residential</a>
+      <a href="/deep-cleaning" class="fab-item">Deep Cleaning</a>
       <a href="/blog" class="fab-item">Blog</a>
     </div>
 

@@ -317,7 +317,7 @@ function siteHeader(current) {
 
   return `
   <div class="logo-bar">
-    <img src="/logo.png" alt="Chabod Cleaning Services logo" class="site-logo">
+    <img src="/logo.webp" alt="Chabod Cleaning Services logo" class="site-logo">
     <nav class="desktop-nav">
       ${navHtml}
     </nav>
@@ -353,7 +353,7 @@ function siteFooter() {
   <footer class="site-footer">
     <div class="f-top">
       <div class="f-brand">
-        <div class="f-logo-pill"><img src="/logo.png" alt="Chabod Cleaning Services logo"></div>
+        <div class="f-logo-pill"><img src="/logo.webp" alt="Chabod Cleaning Services logo"></div>
         <p class="f-tag">Family-owned cleaning for San Antonio homes and short-term rentals. No contracts, no call centers &mdash; you talk to the owner.</p>
         <div class="f-callrow">
           <a class="f-phone" href="tel:+12104806224"><span>Call or text</span>(210) 480-6224</a>
@@ -363,17 +363,17 @@ function siteFooter() {
       <div class="f-cols">
         <div class="f-col">
           <h4>Services</h4>
-          <a href="/str-cleaning.html">Airbnb &amp; STR Cleaning</a>
-          <a href="/residential-cleaning.html">Residential Cleaning</a>
-          <a href="/deep-cleaning.html">Deep Cleaning</a>
+          <a href="/str-cleaning">Airbnb &amp; STR Cleaning</a>
+          <a href="/residential-cleaning">Residential Cleaning</a>
+          <a href="/deep-cleaning">Deep Cleaning</a>
         </div>
         <div class="f-col">
           <h4>Company</h4>
-          <a href="/index.html">Home</a>
+          <a href="/">Home</a>
           <a href="/blog">Blog</a>
           <a href="tel:+12104806224">Contact</a>
-          <a href="/privacy-policy.html">Privacy Policy</a>
-          <a href="/terms-conditions.html">Terms &amp; Conditions</a>
+          <a href="/privacy-policy">Privacy Policy</a>
+          <a href="/terms-conditions">Terms &amp; Conditions</a>
         </div>
       </div>
     </div>
@@ -386,16 +386,19 @@ function siteFooter() {
       San Antonio, Texas &middot; Family owned and operated<br>
       &copy; 2026 Chabod Cleaning Services LLC. All rights reserved.
       <div class="f-legal-links">
-        <a href="/privacy-policy.html">Privacy Policy</a>
+        <a href="/privacy-policy">Privacy Policy</a>
         <span>&middot;</span>
-        <a href="/terms-conditions.html">Terms &amp; Conditions</a>
+        <a href="/terms-conditions">Terms &amp; Conditions</a>
       </div>
     </div>
   </footer>`;
 }
 
-function pageShell({ title, description, current, bodyHtml, canonicalPath, image }) {
+function pageShell({ title, description, current, bodyHtml, canonicalPath, image, extraSchema }) {
   const url = `https://chabodcleaningservices.com${canonicalPath}`;
+  const extraSchemaTag = extraSchema
+    ? `<script type="application/ld+json">\n${JSON.stringify(extraSchema, null, 2)}\n</script>\n`
+    : "";
   const imageUrl = image ? `https://chabodcleaningservices.com${image}` : null;
   const imageTags = imageUrl
     ? `<meta property="og:image" content="${imageUrl}">\n<meta name="twitter:image" content="${imageUrl}">\n`
@@ -421,8 +424,9 @@ ${imageTags}<meta name="twitter:card" content="${imageUrl ? "summary_large_image
 {
   "@context": "https://schema.org",
   "@type": "HomeAndConstructionBusiness",
+  "@id": "https://chabodcleaningservices.com/#business",
   "name": "Chabod Cleaning Services",
-  "image": "https://chabodcleaningservices.com/logo.png",
+  "image": "https://chabodcleaningservices.com/logo.webp",
   "telephone": "+12104806224",
   "email": "home@chabodcleaningservices.com",
   "address": {
@@ -453,7 +457,7 @@ ${imageTags}<meta name="twitter:card" content="${imageUrl ? "summary_large_image
   "url": "${url}"
 }
 </script>
-<style>${SHARED_STYLES}</style>
+${extraSchemaTag}<style>${SHARED_STYLES}</style>
 </head>
 <body>
 <div class="wrap">
@@ -622,15 +626,51 @@ async function renderBlogPost(env, slug) {
       current: "Blog",
       bodyHtml: body,
       canonicalPath: `/blog/${slug}`,
+      extraSchema: {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": post.title,
+        "description": post.meta_description || post.excerpt || post.title,
+        "datePublished": post.date_published,
+        "author": { "@id": "https://chabodcleaningservices.com/#business" },
+        "publisher": { "@id": "https://chabodcleaningservices.com/#business" },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": `https://chabodcleaningservices.com/blog/${slug}`,
+        },
+        ...(post.image ? { image: `https://chabodcleaningservices.com${post.image}` } : {}),
+        ...(post.category ? { articleSection: post.category } : {}),
+      },
       image: post.image || null,
     }),
     { headers: { "content-type": "text/html;charset=UTF-8" } }
   );
 }
 
+// Permanent redirects. Cloudflare's asset handler already sends *.html to the
+// extensionless URL, but as a 307 — search engines treat that as temporary and
+// keep the .html version in the index. These paths are listed in
+// wrangler.jsonc's run_worker_first so the worker can answer with a 301 first.
+const PERMANENT_REDIRECTS = {
+  "/index.html": "/",
+  "/str-cleaning.html": "/str-cleaning",
+  "/residential-cleaning.html": "/residential-cleaning",
+  "/deep-cleaning.html": "/deep-cleaning",
+  "/privacy-policy.html": "/privacy-policy",
+  "/terms-conditions.html": "/terms-conditions",
+  // Legacy URL from the previous site, still indexed and currently 404ing.
+  "/en/home": "/",
+  "/en/home/": "/",
+};
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+
+    const redirectTo = PERMANENT_REDIRECTS[url.pathname];
+    if (redirectTo) {
+      return Response.redirect(new URL(redirectTo + url.search, url.origin).toString(), 301);
+    }
 
     if (url.pathname === "/blog" || url.pathname === "/blog/") {
       return renderBlogIndex(request, env);

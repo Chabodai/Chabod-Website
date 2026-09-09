@@ -448,8 +448,9 @@ img.photo { background: none; border: none; padding: 0; display: block; max-widt
 {
   "@context": "https://schema.org",
   "@type": "HomeAndConstructionBusiness",
+  "@id": "https://chabodcleaningservices.com/#business",
   "name": "Chabod Cleaning Services",
-  "image": "https://chabodcleaningservices.com/logo.png",
+  "image": "https://chabodcleaningservices.com/logo.webp",
   "telephone": "+12104806224",
   "email": "home@chabodcleaningservices.com",
   "address": {
@@ -480,6 +481,121 @@ img.photo { background: none; border: none; padding: 0; display: block; max-widt
   "url": "https://chabodcleaningservices.com/deep-cleaning"
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Deep Cleaning",
+  "serviceType": "Deep cleaning",
+  "description": "Detailed deep cleaning in San Antonio for move-outs, move-ins, and resets — grout, baseboards, and appliances that a regular cleaning does not reach, documented with timestamped photos and video.",
+  "url": "https://chabodcleaningservices.com/deep-cleaning",
+  "provider": {
+    "@id": "https://chabodcleaningservices.com/#business"
+  },
+  "areaServed": [
+    {
+      "@type": "City",
+      "name": "San Antonio"
+    },
+    {
+      "@type": "City",
+      "name": "Alamo Heights"
+    },
+    {
+      "@type": "City",
+      "name": "Schertz"
+    },
+    {
+      "@type": "City",
+      "name": "Cibolo"
+    },
+    {
+      "@type": "City",
+      "name": "Converse"
+    },
+    {
+      "@type": "City",
+      "name": "Universal City"
+    },
+    {
+      "@type": "City",
+      "name": "Live Oak"
+    },
+    {
+      "@type": "City",
+      "name": "Saint Hedwig"
+    },
+    {
+      "@type": "City",
+      "name": "Marion"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What's actually included that isn't in a regular cleaning?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The level of scrubbing. Showers cleaned to a streak-free finish, baseboards throughout, corner-level dusting with zero cobwebs, full oven degreasing, outside cabinet degreasing, moving the fridge and stove when needed, and grout work in every bathroom. None of that is part of a standard recurring visit."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long does a deep clean take?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Usually four to six hours with a team of two to four people. We adjust crew size and hours depending on urgency and how much notice we get."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need to be home for it?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. We just need a way in — a key left on-site or a temporary access code works fine."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you clean inside cabinets and the fridge?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "If the property is vacant and cleared out, yes, fully, inside and out. If it's still occupied with belongings in place, we clean around your things but won't go inside personal food storage — purely a liability precaution. Clear the shelves and we'll go inside."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you provide documentation or proof for landlords?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Every deep clean includes a timestamped video walkthrough, timestamped photos, and a detailed invoice breaking down the work performed."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How far in advance do I need to book?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sometimes we can accommodate same-day. Worst case, next-day. We understand move-outs come with hard deadlines, so we'll flex crew size and hours to make it work, as long as timing, access, and pricing line up."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is this a one-time service, or do I have to commit to more?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Totally one-off, no contracts, no strings attached. Fair warning though — once you see the results, Andrés will absolutely try to charm you into becoming part of the Chabod family."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <!--
@@ -493,12 +609,12 @@ img.photo { background: none; border: none; padding: 0; display: block; max-widt
 <div class="wrap">
 
   <div class="logo-bar">
-    <img src="logo.png" alt="Chabod Cleaning Services logo" class="site-logo">
+    <img src="logo.webp" alt="Chabod Cleaning Services logo" class="site-logo">
     <nav class="desktop-nav">
-      <a href="index.html">Home</a>
-      <a href="str-cleaning.html">STR Cleaning</a>
-      <a href="residential-cleaning.html">Residential</a>
-      <a href="deep-cleaning.html" class="current">Deep Cleaning</a>
+      <a href="/">Home</a>
+      <a href="/str-cleaning">STR Cleaning</a>
+      <a href="/residential-cleaning">Residential</a>
+      <a href="/deep-cleaning" class="current">Deep Cleaning</a>
       <a href="/blog">Blog</a>
     </nav>
     <a href="tel:+12104806224" class="bar-phone">(210) 480-6224</a>
@@ -647,7 +763,7 @@ img.photo { background: none; border: none; padding: 0; display: block; max-widt
   <footer class="site-footer">
     <div class="f-top">
       <div class="f-brand">
-        <div class="f-logo-pill"><img src="logo.png" alt="Chabod Cleaning Services logo"></div>
+        <div class="f-logo-pill"><img src="logo.webp" alt="Chabod Cleaning Services logo"></div>
         <p class="f-tag">Family-owned cleaning for San Antonio homes and short-term rentals. No contracts, no call centers &mdash; you talk to the owner.</p>
 
         <div class="f-callrow">
@@ -659,17 +775,17 @@ img.photo { background: none; border: none; padding: 0; display: block; max-widt
       <div class="f-cols">
         <div class="f-col">
           <h3>Services</h3>
-          <a href="str-cleaning.html">Airbnb &amp; STR Cleaning</a>
-          <a href="residential-cleaning.html">Residential Cleaning</a>
-          <a href="deep-cleaning.html">Deep Cleaning</a>
+          <a href="/str-cleaning">Airbnb &amp; STR Cleaning</a>
+          <a href="/residential-cleaning">Residential Cleaning</a>
+          <a href="/deep-cleaning">Deep Cleaning</a>
         </div>
         <div class="f-col">
           <h3>Company</h3>
-          <a href="index.html">Home</a>
+          <a href="/">Home</a>
           <a href="/blog">Blog</a>
           <a href="tel:+12104806224">Contact</a>
-          <a href="privacy-policy.html">Privacy Policy</a>
-          <a href="terms-conditions.html">Terms &amp; Conditions</a>
+          <a href="/privacy-policy">Privacy Policy</a>
+          <a href="/terms-conditions">Terms &amp; Conditions</a>
         </div>
       </div>
     </div>
@@ -684,19 +800,19 @@ img.photo { background: none; border: none; padding: 0; display: block; max-widt
       San Antonio, Texas &middot; Family owned and operated<br>
       &copy; 2026 Chabod Cleaning Services LLC. All rights reserved.
       <div class="f-legal-links">
-        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="/privacy-policy">Privacy Policy</a>
         <span>&middot;</span>
-        <a href="terms-conditions.html">Terms &amp; Conditions</a>
+        <a href="/terms-conditions">Terms &amp; Conditions</a>
       </div>
     </div>
   </footer>
 
   <div class="fab-nav" id="fabNav">
     <div class="fab-menu">
-      <a href="index.html" class="fab-item">Home</a>
-      <a href="str-cleaning.html" class="fab-item">STR Cleaning</a>
-      <a href="residential-cleaning.html" class="fab-item">Residential</a>
-      <a href="deep-cleaning.html" class="fab-item current">Deep Cleaning</a>
+      <a href="/" class="fab-item">Home</a>
+      <a href="/str-cleaning" class="fab-item">STR Cleaning</a>
+      <a href="/residential-cleaning" class="fab-item">Residential</a>
+      <a href="/deep-cleaning" class="fab-item current">Deep Cleaning</a>
       <a href="/blog" class="fab-item">Blog</a>
     </div>
     <button class="fab-button" id="fabButton" aria-label="Menu" aria-expanded="false">

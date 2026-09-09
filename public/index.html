@@ -88,7 +88,12 @@ img.photo { background: none; border: none; padding: 0; display: block; max-widt
 .hero p.sub { font-size: 16.5px; color: #dbe3f5; margin-bottom: 20px; max-width: 38ch; margin-left: auto; margin-right: auto; }
 .smile-accent { width: 70px; height: 24px; margin: 0 auto 18px; }
 .proof { font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 12.5px; color: #8fb3f0; letter-spacing: 0.03em; margin-bottom: 22px; }
-.hero .photo { aspect-ratio: 1.55; height: auto; margin: 0 -24px; border-radius: 0; }
+/* Full-bleed hero photo on mobile. The -24px margins cancel .hero's 24px side
+   padding, but negative margins only SHIFT an element that has an explicit width
+   (.photo sets width:100%) — they don't stretch it. Without the +48px the image
+   renders 48px narrower than the viewport and leaves a blue gap on the right.
+   The 48px must stay in sync with .hero's 24px horizontal padding above. */
+.hero .photo { aspect-ratio: 1.55; height: auto; width: calc(100% + 48px); max-width: none; margin: 0 -24px; border-radius: 0; }
 .btn {
   display: inline-block; background: var(--coral); color: #fff;
   font-family: 'Baloo 2', sans-serif; font-weight: 600; font-size: 20px;
@@ -387,8 +392,9 @@ img.photo { background: none; border: none; padding: 0; display: block; max-widt
 {
   "@context": "https://schema.org",
   "@type": "HomeAndConstructionBusiness",
+  "@id": "https://chabodcleaningservices.com/#business",
   "name": "Chabod Cleaning Services",
-  "image": "https://chabodcleaningservices.com/logo.png",
+  "image": "https://chabodcleaningservices.com/logo.webp",
   "telephone": "+12104806224",
   "email": "home@chabodcleaningservices.com",
   "address": {
@@ -428,12 +434,12 @@ img.photo { background: none; border: none; padding: 0; display: block; max-widt
 <div class="wrap">
 
   <div class="logo-bar">
-    <img src="logo.png" alt="Chabod Cleaning Services logo" class="site-logo">
+    <img src="logo.webp" alt="Chabod Cleaning Services logo" class="site-logo">
     <nav class="desktop-nav">
-      <a href="index.html" class="current">Home</a>
-      <a href="str-cleaning.html">STR Cleaning</a>
-      <a href="residential-cleaning.html">Residential</a>
-      <a href="deep-cleaning.html">Deep Cleaning</a>
+      <a href="/" class="current">Home</a>
+      <a href="/str-cleaning">STR Cleaning</a>
+      <a href="/residential-cleaning">Residential</a>
+      <a href="/deep-cleaning">Deep Cleaning</a>
       <a href="/blog">Blog</a>
     </nav>
     <a href="tel:+12104806224" class="bar-phone">(210) 480-6224</a>
@@ -491,10 +497,10 @@ img.photo { background: none; border: none; padding: 0; display: block; max-widt
     <p class="awards-label">As Recognized By</p>
     <div class="awards-row">
       <a href="https://www.expertise.com/" target="_blank" rel="noopener" class="award-badge">
-        <img src="badge-expertise-2025.png" alt="Expertise.com Best House Cleaning Services in San Antonio 2025">
+        <img src="badge-expertise-2025.webp" alt="Expertise.com Best House Cleaning Services in San Antonio 2025">
       </a>
       <a href="https://www.expertise.com/" target="_blank" rel="noopener" class="award-badge">
-        <img src="badge-expertise-2022.png" alt="Expertise.com Best Office Cleaning Services in San Antonio 2022">
+        <img src="badge-expertise-2022.webp" alt="Expertise.com Best Office Cleaning Services in San Antonio 2022">
       </a>
     </div>
   </div>
@@ -509,7 +515,7 @@ img.photo { background: none; border: none; padding: 0; display: block; max-widt
       <div class="service-card-body">
         <h3>Airbnb &amp; STR Turnovers</h3>
         <p>Same-day turnovers to a written SOP built for your property, photo-verified every time &mdash; a team that treats your rating like it's their own.</p>
-        <a href="str-cleaning.html" class="service-link">See STR Cleaning &rarr;</a>
+        <a href="/str-cleaning" class="service-link">See STR Cleaning &rarr;</a>
       </div>
     </div>
 
@@ -518,7 +524,7 @@ img.photo { background: none; border: none; padding: 0; display: block; max-widt
       <div class="service-card-body">
         <h3>Residential Cleaning</h3>
         <p>The same trained team, in your home, every visit &mdash; weekly, biweekly, or monthly.</p>
-        <a href="residential-cleaning.html" class="service-link">See Residential Cleaning &rarr;</a>
+        <a href="/residential-cleaning" class="service-link">See Residential Cleaning &rarr;</a>
       </div>
     </div>
 
@@ -527,7 +533,7 @@ img.photo { background: none; border: none; padding: 0; display: block; max-widt
       <div class="service-card-body">
         <h3>Deep Cleaning</h3>
         <p>A full reset for move-ins, move-outs, or whenever your space needs more than a touch-up.</p>
-        <a href="deep-cleaning.html" class="service-link">See Deep Cleaning &rarr;</a>
+        <a href="/deep-cleaning" class="service-link">See Deep Cleaning &rarr;</a>
       </div>
     </div>
 
@@ -607,7 +613,7 @@ img.photo { background: none; border: none; padding: 0; display: block; max-widt
   <footer class="site-footer">
     <div class="f-top">
       <div class="f-brand">
-        <div class="f-logo-pill"><img src="logo.png" alt="Chabod Cleaning Services logo"></div>
+        <div class="f-logo-pill"><img src="logo.webp" alt="Chabod Cleaning Services logo"></div>
         <p class="f-tag">Family-owned cleaning for San Antonio homes and short-term rentals. No contracts, no call centers &mdash; you talk to the owner.</p>
 
         <div class="f-callrow">
@@ -619,17 +625,17 @@ img.photo { background: none; border: none; padding: 0; display: block; max-widt
       <div class="f-cols">
         <div class="f-col">
           <h3>Services</h3>
-          <a href="str-cleaning.html">Airbnb &amp; STR Cleaning</a>
-          <a href="residential-cleaning.html">Residential Cleaning</a>
-          <a href="deep-cleaning.html">Deep Cleaning</a>
+          <a href="/str-cleaning">Airbnb &amp; STR Cleaning</a>
+          <a href="/residential-cleaning">Residential Cleaning</a>
+          <a href="/deep-cleaning">Deep Cleaning</a>
         </div>
         <div class="f-col">
           <h3>Company</h3>
-          <a href="index.html">Home</a>
+          <a href="/">Home</a>
           <a href="/blog">Blog</a>
           <a href="tel:+12104806224">Contact</a>
-          <a href="privacy-policy.html">Privacy Policy</a>
-          <a href="terms-conditions.html">Terms &amp; Conditions</a>
+          <a href="/privacy-policy">Privacy Policy</a>
+          <a href="/terms-conditions">Terms &amp; Conditions</a>
         </div>
       </div>
     </div>
@@ -644,19 +650,19 @@ img.photo { background: none; border: none; padding: 0; display: block; max-widt
       San Antonio, Texas &middot; Family owned and operated<br>
       &copy; 2026 Chabod Cleaning Services LLC. All rights reserved.
       <div class="f-legal-links">
-        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="/privacy-policy">Privacy Policy</a>
         <span>&middot;</span>
-        <a href="terms-conditions.html">Terms &amp; Conditions</a>
+        <a href="/terms-conditions">Terms &amp; Conditions</a>
       </div>
     </div>
   </footer>
 
   <div class="fab-nav" id="fabNav">
     <div class="fab-menu">
-      <a href="index.html" class="fab-item current">Home</a>
-      <a href="str-cleaning.html" class="fab-item">STR Cleaning</a>
-      <a href="residential-cleaning.html" class="fab-item">Residential</a>
-      <a href="deep-cleaning.html" class="fab-item">Deep Cleaning</a>
+      <a href="/" class="fab-item current">Home</a>
+      <a href="/str-cleaning" class="fab-item">STR Cleaning</a>
+      <a href="/residential-cleaning" class="fab-item">Residential</a>
+      <a href="/deep-cleaning" class="fab-item">Deep Cleaning</a>
       <a href="/blog" class="fab-item">Blog</a>
     </div>
 
