@@ -477,6 +477,25 @@ img.photo { background: none; border: none; padding: 0; }
   .trust h2 { text-align: center; }
 }
 
+@media (min-width: 700px) {
+  /* Give the hero photo real visual treatment: the photo itself fades into
+     the blue panel via a CSS mask (not a gradient painted on top of it), so
+     it dissolves cleanly into --blue with nothing bleeding onto the text
+     panel next to it. Plus a slow cinematic zoom instead of a flat parallax.
+     Matches the treatment on the STR and Deep Cleaning hero photos. */
+  .hero-parallax { box-shadow: -12px 0 30px rgba(15,25,55,0.15); }
+  .hero-bg {
+    animation: heroSlowZoom 14s ease-in-out infinite alternate;
+    transform-origin: center 20%;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 20%);
+    mask-image: linear-gradient(90deg, transparent 0%, #000 20%);
+  }
+  @keyframes heroSlowZoom {
+    from { transform: scale(1); }
+    to { transform: scale(1.09); }
+  }
+}
+
 
 </style>
 <script type="application/ld+json">
