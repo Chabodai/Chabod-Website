@@ -648,7 +648,7 @@ async function renderBlogPost(env, slug) {
         "@type": "BlogPosting",
         "headline": post.title,
         "description": post.meta_description || post.excerpt || post.title,
-        "datePublished": post.date_published,
+        "datePublished": toCentralIso(post.date_published),
         "author": { "@id": "https://chabodcleaningservices.com/#business" },
         "publisher": { "@id": "https://chabodcleaningservices.com/#business" },
         "mainEntityOfPage": {
@@ -693,6 +693,18 @@ const LEGACY_SLUGS = {
   "terminos-y-condiciones": "/terms-conditions",
   "politicas-de-privacidad": "/privacy-policy",
 };
+
+// Google's Rich Results Test flags a bare "YYYY-MM-DD" datePublished as an
+// invalid datetime with no timezone. Emit midnight San Antonio time with the
+// correct CST/CDT offset for that date (read at 06:00 UTC, i.e. local midnight,
+// so DST switch-over days get the right one).
+function toCentralIso(date) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date || "")) return date;
+  const tzName = new Intl.DateTimeFormat("en-US", { timeZone: "America/Chicago", timeZoneName: "longOffset" })
+    .formatToParts(new Date(`${date}T06:00:00Z`))
+    .find((p) => p.type === "timeZoneName").value;
+  return `${date}T00:00:00${tzName.replace("GMT", "") || "+00:00"}`;
+}
 
 function legacyRedirect(pathname) {
   const m = pathname.match(/^\/(?:(es|en)(?:\/|$))?(.*?)\/?$/);
