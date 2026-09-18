@@ -6,20 +6,49 @@
     "directory": "./public",
     "not_found_handling": "404-page",
     "binding": "ASSETS",
-    // The *.html and /en/home paths run the worker first so it can answer with
-    // a 301; the asset handler would otherwise send a 307 (or a 404 for
-    // /en/home), which search engines treat as temporary.
+    // Everything below except /blog runs the worker first so it can answer with
+    // a 301. Left to the asset handler, *.html and trailing-slash URLs get a 307
+    // (search engines treat that as temporary) and legacy URLs from the old
+    // WordPress site get a 404, so Google keeps their stale snippets around.
+    // Keep this in sync with PERMANENT_REDIRECTS / LEGACY_SLUGS in src/index.js.
     "run_worker_first": [
       "/blog",
       "/blog/*",
+      // *.html -> extensionless
       "/index.html",
       "/str-cleaning.html",
       "/residential-cleaning.html",
       "/deep-cleaning.html",
       "/privacy-policy.html",
       "/terms-conditions.html",
-      "/en/home",
-      "/en/home/"
+      // trailing slash -> no slash
+      "/str-cleaning/",
+      "/residential-cleaning/",
+      "/deep-cleaning/",
+      "/privacy-policy/",
+      "/terms-conditions/",
+      // old WordPress site: whole /es/ and /en/ trees
+      "/es",
+      "/es/*",
+      "/en",
+      "/en/*",
+      // old WordPress site: unprefixed pages
+      "/home",
+      "/home/",
+      "/servicios-limpieza",
+      "/servicios-limpieza/",
+      "/contactanos",
+      "/contactanos/",
+      "/contact-us",
+      "/contact-us/",
+      "/emprende-con-nosotros",
+      "/emprende-con-nosotros/",
+      "/commercial-cleaning",
+      "/commercial-cleaning/",
+      "/terminos-y-condiciones",
+      "/terminos-y-condiciones/",
+      "/politicas-de-privacidad",
+      "/politicas-de-privacidad/"
     ]
   },
   "kv_namespaces": [

@@ -675,18 +675,56 @@ const PERMANENT_REDIRECTS = {
   "/deep-cleaning.html": "/deep-cleaning",
   "/privacy-policy.html": "/privacy-policy",
   "/terms-conditions.html": "/terms-conditions",
-  // Legacy URL from the previous site, still indexed and currently 404ing.
-  "/en/home": "/",
-  "/en/home/": "/",
 };
+
+// Pages from the previous WordPress/Elementor site (bilingual, 2021–2023) that
+// Google still has indexed with stale business info — old phone number, old
+// address, old service areas. That site served the same page with no prefix,
+// under /es/, and under /en/, so slugs are matched with any of those prefixes
+// and with or without a trailing slash. Sources: Search Console, plus the nav
+// of the archived 2023 homepage (web.archive.org).
+const LEGACY_SLUGS = {
+  "home": "/",
+  "servicios-limpieza": "/",
+  "contactanos": "/",
+  "contact-us": "/",
+  "emprende-con-nosotros": "/",
+  "commercial-cleaning": "/",
+  "terminos-y-condiciones": "/terms-conditions",
+  "politicas-de-privacidad": "/privacy-policy",
+};
+
+function legacyRedirect(pathname) {
+  const m = pathname.match(/^\/(?:(es|en)(?:\/|$))?(.*?)\/?$/);
+  if (!m) return null;
+  const [, lang, slug] = m;
+  if (LEGACY_SLUGS[slug]) return LEGACY_SLUGS[slug];
+  // Anything else under the old /es/ or /en/ trees (feeds, unlisted pages,
+  // the bare /es/ root) has no current equivalent — send it home.
+  if (lang) return "/";
+  return null;
+}
+
+function permanentRedirect(url, to, keepQuery) {
+  return Response.redirect(new URL(to + (keepQuery ? url.search : ""), url.origin).toString(), 301);
+}
 
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
     const redirectTo = PERMANENT_REDIRECTS[url.pathname];
-    if (redirectTo) {
-      return Response.redirect(new URL(redirectTo + url.search, url.origin).toString(), 301);
+    if (redirectTo) return permanentRedirect(url, redirectTo, true);
+
+    // Old-site query strings (?p=123, ?lang=es) mean nothing here, so drop them.
+    const legacyTo = legacyRedirect(url.pathname);
+    if (legacyTo) return permanentRedirect(url, legacyTo, false);
+
+    // One canonical form per page: no trailing slash. The asset handler's own
+    // slash-stripping is a 307 (temporary), and the blog would otherwise serve
+    // /blog/ and /blog/<slug>/ as 200 duplicates.
+    if (url.pathname.length > 1 && url.pathname.endsWith("/")) {
+      return permanentRedirect(url, url.pathname.replace(/\/+$/, ""), true);
     }
 
     if (url.pathname === "/blog" || url.pathname === "/blog/") {
