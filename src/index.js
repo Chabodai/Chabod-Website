@@ -466,10 +466,10 @@ ${imageTags}<meta name="twitter:card" content="${imageUrl ? "summary_large_image
     { "@type": "City", "name": "Marion" }
   ],
   "priceRange": "$$",
-  "founder": {
-    "@type": "Person",
-    "name": "Andrés"
-  },
+  "founder": [
+    { "@type": "Person", "name": "Yuliana Martinez" },
+    { "@type": "Person", "name": "Andres Tobon" }
+  ],
   "foundingDate": "2018",
   "url": "${url}"
 }
