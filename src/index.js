@@ -290,6 +290,11 @@ h1, h2, h3 {
 .article-body ul, .article-body ol { margin: 0 0 16px 22px; }
 .article-body li { margin-bottom: 6px; }
 .article-body a { color: var(--teal-dark); }
+/* Wide tables scroll inside their own box instead of pushing the whole page
+   sideways on a phone. A 6-column table needs ~464px and the article column is
+   327px on a 375px screen, so without this the entire page scrolls. */
+.article-body .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 20px 0; }
+.article-body .table-scroll > table { margin: 0; width: auto; min-width: 100%; }
 .article-body table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14.5px; }
 .article-body th, .article-body td { border: 1px solid var(--line); padding: 10px; text-align: left; }
 .article-body th { background: var(--grey); }
@@ -627,7 +632,7 @@ async function renderBlogPost(env, slug) {
     <h1>${escapeHtml(post.title)}</h1>
     <div class="post-meta">${escapeHtml(post.read_time)}</div>
     <div class="article-body">
-      ${post.content_html}
+      ${wrapTables(post.content_html)}
     </div>
   </article>
   <div class="blog-cta reveal" style="margin-top: 20px;">
@@ -698,6 +703,17 @@ const LEGACY_SLUGS = {
 // invalid datetime with no timezone. Emit midnight San Antonio time with the
 // correct CST/CDT offset for that date (read at 06:00 UTC, i.e. local midnight,
 // so DST switch-over days get the right one).
+// Put every post table in a horizontally scrollable box. Done here rather than
+// in the stored content so it covers posts already in KV and anything written
+// later. Already-wrapped tables are left alone.
+function wrapTables(html) {
+  if (!html || !html.includes("<table")) return html;
+  return html
+    .replace(/(<div class="table-scroll">\s*)?<table(\s|>)/g, (m, wrapped, tail) =>
+      wrapped ? m : `<div class="table-scroll"><table${tail}`)
+    .replace(/<\/table>(\s*<\/div>)?/g, (m, closed) => (closed ? m : "</table></div>"));
+}
+
 function toCentralIso(date) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date || "")) return date;
   const tzName = new Intl.DateTimeFormat("en-US", { timeZone: "America/Chicago", timeZoneName: "longOffset" })
