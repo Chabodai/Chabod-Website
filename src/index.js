@@ -1,8 +1,10 @@
 // ---- Chabod Cleaning Services — KV-backed blog ----
 //
-// This file only handles the blog (/blog and /blog/{slug}). Every other
-// URL falls through to env.ASSETS, which serves the existing static HTML
-// files exactly as before — nothing about the rest of the site changes.
+// This file handles the blog (/blog and /blog/{slug}), sitewide redirects,
+// and the Google Business Profile review endpoints. Every other URL falls
+// through to env.ASSETS, which serves the existing static HTML files.
+
+import { handleGbp, scheduledGbpRefresh } from "./gbp-reviews.js";
 
 const CATEGORIES = ["All Posts", "STR & Airbnb Hosts", "Residential Tips", "San Antonio Local", "Behind the Scenes"];
 
@@ -738,8 +740,15 @@ function permanentRedirect(url, to, keepQuery) {
 }
 
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const url = new URL(request.url);
+
+    // Google Business Profile: /api/reviews (public, cache-backed) and the
+    // operator-only /admin/gbp/* endpoints. Returns null for anything else.
+    if (url.pathname === "/api/reviews" || url.pathname.startsWith("/admin/gbp/")) {
+      const handled = await handleGbp(request, url, env, ctx);
+      if (handled) return handled;
+    }
 
     const redirectTo = PERMANENT_REDIRECTS[url.pathname];
     if (redirectTo) return permanentRedirect(url, redirectTo, true);
@@ -769,5 +778,10 @@ export default {
     }
 
     return env.ASSETS.fetch(request);
+  },
+
+  // Keeps the review cache warm. Page loads only ever read the cache.
+  async scheduled(event, env, ctx) {
+    ctx.waitUntil(scheduledGbpRefresh(env));
   },
 };

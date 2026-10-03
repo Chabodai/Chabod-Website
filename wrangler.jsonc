@@ -48,13 +48,24 @@
       "/terminos-y-condiciones",
       "/terminos-y-condiciones/",
       "/politicas-de-privacidad",
-      "/politicas-de-privacidad/"
+      "/politicas-de-privacidad/",
+      // Google Business Profile review feed + operator-only OAuth endpoints.
+      // These aren't files on disk, so the asset handler would 404 them first.
+      "/api/*",
+      "/admin/*"
     ]
   },
   "kv_namespaces": [
     {
+      // Also holds the Google Business Profile refresh token and review cache
+      // under gbp:* keys — the account's API token can't create namespaces.
       "binding": "BLOG_POSTS",
       "id": "a341e599bb73492395165f5afbc1fd14"
     }
-  ]
+  ],
+  // Refresh the cached Google reviews every 6 hours (offset off the hour so
+  // it isn't competing with everyone else's :00 cron).
+  "triggers": {
+    "crons": ["17 3,9,15,21 * * *"]
+  }
 }
