@@ -4,7 +4,7 @@
 // and the Google Business Profile review endpoints. Every other URL falls
 // through to env.ASSETS, which serves the existing static HTML files.
 
-import { handleGbp, scheduledGbpRefresh } from "./gbp-reviews.js";
+import { handleGbp, scheduledGbpRefresh, safeEqual } from "./gbp-reviews.js";
 
 const CATEGORIES = ["All Posts", "STR & Airbnb Hosts", "Residential Tips", "San Antonio Local", "Behind the Scenes"];
 
@@ -536,12 +536,61 @@ function postCardHtml(post) {
     </a>`;
 }
 
+// ---- Scheduled publishing ----
+//
+// A post, and its entry in the KV "index", may carry `publish_at`: an ISO-8601
+// timestamp with a UTC offset, e.g. "2026-10-04T08:00:00-05:00". Until that
+// moment the post behaves as if it does not exist: the 404 page, absent from
+// /blog, absent from /sitemap.xml. It is checked on every request, so going
+// live needs no cron, deploy or cache purge.
+//
+// A publish_at that does not parse stays hidden. An unreadable schedule must
+// never publish early.
+function isLive(item, now = Date.now()) {
+  if (!item || !item.publish_at) return true;
+  const at = Date.parse(item.publish_at);
+  return Number.isFinite(at) && at <= now;
+}
+
+// The site owner can open a scheduled post early with ?preview=<admin key>
+// (the same secret that protects /admin/gbp/*).
+function previewAllowed(url, env) {
+  const key = url.searchParams.get("preview");
+  return Boolean(key && env.GBP_ADMIN_KEY) && safeEqual(key, env.GBP_ADMIN_KEY);
+}
+
+// sitemap.xml is a static file that lists every post, scheduled ones included.
+// Strip the entries for posts that are not live yet, so Google is never pointed
+// at a page that would 404.
+async function serveSitemap(request, env) {
+  const asset = await env.ASSETS.fetch(new Request(request.url, { method: "GET" }));
+  if (!asset.ok) return asset;
+  let xml = await asset.text();
+  try {
+    const raw = await env.BLOG_POSTS.get("index");
+    const hidden = (raw ? JSON.parse(raw) : [])
+      .filter((p) => !isLive(p))
+      .map((p) => `<loc>https://chabodcleaningservices.com/blog/${p.slug}</loc>`);
+    if (hidden.length) {
+      xml = xml.replace(/<url>[\s\S]*?<\/url>\s*/g, (block) => (hidden.some((loc) => block.includes(loc)) ? "" : block));
+    }
+  } catch {
+    // Unreadable index: serve the sitemap exactly as written.
+  }
+  return new Response(xml, {
+    headers: {
+      "content-type": asset.headers.get("content-type") || "application/xml",
+      "cache-control": asset.headers.get("cache-control") || "public, max-age=0, must-revalidate",
+    },
+  });
+}
+
 async function renderBlogIndex(request, env) {
   const url = new URL(request.url);
   const selectedCategory = url.searchParams.get("category") || "All Posts";
 
   const indexRaw = await env.BLOG_POSTS.get("index");
-  const allPosts = indexRaw ? JSON.parse(indexRaw) : [];
+  const allPosts = (indexRaw ? JSON.parse(indexRaw) : []).filter((p) => isLive(p));
 
   const posts = selectedCategory === "All Posts"
     ? allPosts
@@ -608,9 +657,10 @@ ${featuredHtml}
   );
 }
 
-async function renderBlogPost(env, slug) {
+async function renderBlogPost(env, slug, preview = false) {
   const raw = await env.BLOG_POSTS.get(`post:${slug}`);
-  if (!raw) {
+  const post = raw ? JSON.parse(raw) : null;
+  if (!post || (!isLive(post) && !preview)) {
     const body = `
     <div class="pad" style="text-align:center; padding-top: 60px; padding-bottom: 60px;">
       <h1>Post Not Found</h1>
@@ -623,10 +673,19 @@ async function renderBlogPost(env, slug) {
     );
   }
 
-  const post = JSON.parse(raw);
+  // Only reachable before go-live with a valid ?preview= key.
+  const early = !isLive(post);
+  const previewBanner = early
+    ? `<div style="background:#fff3cd;color:#664d03;padding:10px 16px;font:14px/1.4 system-ui,sans-serif;text-align:center;">Preview only. Scheduled to go live ${escapeHtml(post.publish_at)}. Visitors cannot see this page yet.</div>`
+    : "";
+  const postHeaders = { "content-type": "text/html;charset=UTF-8" };
+  if (early) {
+    postHeaders["cache-control"] = "private, no-store";
+    postHeaders["x-robots-tag"] = "noindex";
+  }
 
   const body = `
-  <div class="post-hero">
+  ${previewBanner}<div class="post-hero">
     <a href="/blog">&larr; Back to Blog</a>
   </div>
   <article class="article">
@@ -655,7 +714,7 @@ async function renderBlogPost(env, slug) {
         "@type": "BlogPosting",
         "headline": post.title,
         "description": post.meta_description || post.excerpt || post.title,
-        "datePublished": toCentralIso(post.date_published),
+        "datePublished": toCentralIso(post.publish_at || post.date_published),
         "author": { "@id": "https://chabodcleaningservices.com/#business" },
         "publisher": { "@id": "https://chabodcleaningservices.com/#business" },
         "mainEntityOfPage": {
@@ -667,7 +726,7 @@ async function renderBlogPost(env, slug) {
       },
       image: post.image || null,
     }),
-    { headers: { "content-type": "text/html;charset=UTF-8" } }
+    { headers: postHeaders }
   );
 }
 
@@ -750,6 +809,8 @@ export default {
       if (handled) return handled;
     }
 
+    if (url.pathname === "/sitemap.xml") return serveSitemap(request, env);
+
     const redirectTo = PERMANENT_REDIRECTS[url.pathname];
     if (redirectTo) return permanentRedirect(url, redirectTo, true);
 
@@ -774,7 +835,7 @@ export default {
 
     if (url.pathname.startsWith("/blog/")) {
       const slug = decodeURIComponent(url.pathname.slice("/blog/".length)).replace(/\/$/, "");
-      if (slug) return renderBlogPost(env, slug);
+      if (slug) return renderBlogPost(env, slug, previewAllowed(url, env));
     }
 
     return env.ASSETS.fetch(request);

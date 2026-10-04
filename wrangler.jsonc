@@ -52,7 +52,9 @@
       // Google Business Profile review feed + operator-only OAuth endpoints.
       // These aren't files on disk, so the asset handler would 404 them first.
       "/api/*",
-      "/admin/*"
+      "/admin/*",
+      // Hides scheduled posts from the sitemap until they go live.
+      "/sitemap.xml"
     ]
   },
   "kv_namespaces": [
