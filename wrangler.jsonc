@@ -63,9 +63,12 @@
       "id": "a341e599bb73492395165f5afbc1fd14"
     }
   ],
-  // Refresh the cached Google reviews every 6 hours (offset off the hour so
-  // it isn't competing with everyone else's :00 cron).
+  // Refresh the cached Google reviews. Hourly for now: the legacy
+  // mybusiness.googleapis.com is a Private API and its enablement is still
+  // propagating on Google's side, so this retries by itself until it works.
+  // Drop back to ["17 3,9,15,21 * * *"] (every 6 hours) once reviews are live —
+  // they don't change often enough to justify hourly calls.
   "triggers": {
-    "crons": ["17 3,9,15,21 * * *"]
+    "crons": ["17 * * * *"]
   }
 }
