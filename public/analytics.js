@@ -115,7 +115,7 @@
    * Loads strictly AFTER Google Analytics has finished loading (or failed, or 4s have
    * passed), so the two never compete with each other or with the page.
    * Turn it off on its own with CLARITY_ENABLED = false. */
-  var CLARITY_ENABLED = false; // switched on in its own step, after Google Analytics is measured
+  var CLARITY_ENABLED = true;
   var CLARITY_ID = "ysa4js5f6n";
 
   // Belt and braces: whatever masking mode the Clarity dashboard is set to, every form
