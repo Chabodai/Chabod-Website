@@ -513,6 +513,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 });
 </script>
+<script src="/analytics.js" defer></script>
 </body>
 </html>`;
 }
