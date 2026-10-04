@@ -31,6 +31,9 @@ const MAX_REVIEW_CHARS = 320;
 
 // The existing static link, used as the fallback everywhere.
 const PROFILE_URL = "https://www.google.com/maps/place/?q=place_id:ChIJ2_gm6Y1nXIYRicrHNpNz2sM";
+// Chabod Cleaning Services' own Google place id (the one in PROFILE_URL). Used to
+// pick the right profile when the Google user manages several.
+const CHABOD_PLACE_ID = "ChIJ2_gm6Y1nXIYRicrHNpNz2sM";
 
 const STAR_WORDS = { ONE: 1, TWO: 2, THREE: 3, FOUR: 4, FIVE: 5 };
 
@@ -39,6 +42,7 @@ const K = {
   location: "gbp:location",
   cache: "gbp:cache",
   error: "gbp:last_error",
+  seen: "gbp:locations_seen", // every location the Google user can see, for diagnosing a bad match
   state: (s) => `gbp:state:${s}`,
 };
 
@@ -66,7 +70,7 @@ function page(title, lines) {
 }
 
 // Constant-time-ish compare so the admin key can't be guessed byte by byte.
-function safeEqual(a = "", b = "") {
+export function safeEqual(a = "", b = "") {
   if (typeof a !== "string" || typeof b !== "string" || a.length !== b.length) return false;
   let diff = 0;
   for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
@@ -160,30 +164,81 @@ async function api(token, endpoint) {
   return data;
 }
 
-// "accounts/123/locations/456", resolved once and remembered.
+// Every location the authorized Google user can see, across all accounts.
+async function listAllLocations(token) {
+  const accounts = [];
+  let pageToken = "";
+  do {
+    const r = await api(token, "https://mybusinessaccountmanagement.googleapis.com/v1/accounts?pageSize=20" + (pageToken ? "&pageToken=" + encodeURIComponent(pageToken) : ""));
+    accounts.push(...(r.accounts || []));
+    pageToken = r.nextPageToken || "";
+  } while (pageToken);
+
+  const out = [];
+  for (const account of accounts) {
+    let pt = "";
+    try {
+      do {
+        const r = await api(
+          token,
+          `https://mybusinessbusinessinformation.googleapis.com/v1/${account.name}/locations?readMask=name,title,metadata&pageSize=100` +
+            (pt ? "&pageToken=" + encodeURIComponent(pt) : "")
+        );
+        for (const loc of r.locations || []) {
+          out.push({
+            account: account.name,
+            accountName: account.accountName || "",
+            name: loc.name,
+            title: loc.title || "",
+            placeId: (loc.metadata && loc.metadata.placeId) || "",
+          });
+        }
+        pt = r.nextPageToken || "";
+      } while (pt);
+    } catch (e) {
+      out.push({ account: account.name, accountName: account.accountName || "", error: String(e.message || e).slice(0, 200) });
+    }
+  }
+  return out;
+}
+
+// "accounts/123/locations/456" for CHABOD'S profile, resolved once and remembered.
+// Matches by Google place id, then by a title containing "Chabod". If that does
+// not identify exactly one location it throws instead of guessing: showing the
+// wrong business's reviews is far worse than showing none.
 async function resolveLocation(env, token) {
   const cached = await env.BLOG_POSTS.get(K.location);
   if (cached) return cached;
 
-  const accounts = await api(token, "https://mybusinessaccountmanagement.googleapis.com/v1/accounts");
-  const account = (accounts.accounts || [])[0];
-  if (!account) throw new Error("no Business Profile accounts visible to this Google user");
+  const all = await listAllLocations(token);
+  await env.BLOG_POSTS.put(K.seen, JSON.stringify({ at: new Date().toISOString(), locations: all }));
 
-  const locs = await api(
-    token,
-    `https://mybusinessbusinessinformation.googleapis.com/v1/${account.name}/locations?readMask=name,title&pageSize=100`
-  );
-  const loc = (locs.locations || [])[0];
-  if (!loc) throw new Error(`no locations found under ${account.name}`);
+  const real = all.filter((l) => l.name);
+  let match = real.filter((l) => l.placeId === CHABOD_PLACE_ID);
+  if (match.length === 0) match = real.filter((l) => /chabod/i.test(l.title));
 
-  // v1 returns "locations/456"; the reviews endpoint wants it under the account.
-  const full = `${account.name}/${loc.name}`;
+  if (match.length === 0) {
+    const titles = real.map((l) => `"${l.title || l.name}"`).join(", ") || "none";
+    throw new Error(`Chabod's Business Profile is not among the ${real.length} location(s) this Google user manages (${titles}). Authorize with the Google account that owns the Chabod profile.`);
+  }
+  if (match.length > 1) {
+    throw new Error(`${match.length} locations match Chabod (${match.map((l) => l.name).join(", ")}); refusing to guess.`);
+  }
+
+  const full = `${match[0].account}/${match[0].name}`;
   await env.BLOG_POSTS.put(K.location, full);
   return full;
 }
 
 function cleanText(s = "") {
   return s.replace(/\s+/g, " ").trim();
+}
+
+// For non-English reviews Google appends "(Translated by Google) <English>" to the
+// original text. Keep what the customer actually wrote.
+function stripTranslation(s = "") {
+  const i = s.indexOf("(Translated by Google)");
+  return i > 0 ? s.slice(0, i) : s;
 }
 
 // Google hands back full display names. Show "Maria G." instead — the reviews
@@ -217,7 +272,7 @@ async function fetchReviews(env, token) {
   const reviews = all
     .filter((r) => cleanText(r.comment || "").length > 0)
     .map((r) => {
-      const { text, truncated } = trim(r.comment);
+      const { text, truncated } = trim(stripTranslation(r.comment));
       return {
         author: abbreviateName((r.reviewer && r.reviewer.displayName) || ""),
         rating: STAR_WORDS[r.starRating] || null,
