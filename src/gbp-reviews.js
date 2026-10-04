@@ -26,8 +26,10 @@ const SCOPE = "https://www.googleapis.com/auth/business.manage";
 const REDIRECT_PATH = "/admin/gbp/callback";
 const CACHE_TTL_SECONDS = 6 * 60 * 60; // refresh cadence
 const SERVE_STALE_SECONDS = 7 * 24 * 60 * 60; // keep showing old data this long if refreshes fail
-const MAX_REVIEWS = 6;
-const MAX_REVIEW_CHARS = 320;
+const MAX_REVIEWS = 8;
+// Bump when the shape of the cached payload changes. A cache written by an older
+// version is still served, but triggers a background refresh (see serveReviews).
+const PAYLOAD_VERSION = 2;
 
 // The existing static link, used as the fallback everywhere.
 const PROFILE_URL = "https://www.google.com/maps/place/?q=place_id:ChIJ2_gm6Y1nXIYRicrHNpNz2sM";
@@ -43,6 +45,7 @@ const K = {
   cache: "gbp:cache",
   error: "gbp:last_error",
   seen: "gbp:locations_seen", // every location the Google user can see, for diagnosing a bad match
+  lock: "gbp:refresh_lock", // stops several visitors triggering a refresh at once
   state: (s) => `gbp:state:${s}`,
 };
 
@@ -251,12 +254,43 @@ function abbreviateName(name) {
   return `${parts[0]} ${last[0].toUpperCase()}.`;
 }
 
-function trim(text) {
-  const t = cleanText(text);
-  if (t.length <= MAX_REVIEW_CHARS) return { text: t, truncated: false };
-  const cut = t.slice(0, MAX_REVIEW_CHARS);
-  const at = Math.max(cut.lastIndexOf(". "), cut.lastIndexOf(" "));
-  return { text: cut.slice(0, at > 180 ? at : MAX_REVIEW_CHARS).trim() + "…", truncated: true };
+// ---- which reviews to show ---------------------------------------------------
+// Up to MAX_REVIEWS. Prefer 5-star reviews with real substance, put the
+// short-term-rental ones first (the niche we are trying to win) and mix in a few
+// residential ones. This only chooses and orders; review text is never edited.
+const STR_RE = /\b(airbnb|air ?bnb|vrbo|short[- ]?term|str|turn[- ]?overs?|hosts?|rentals?|check[- ]?(?:in|out)|listings?|superhost)\b/i;
+const RES_RE = /\b(house|home|apartment|condo|spring clean\w*|move[- ]?(?:in|out)|deep clean\w*|bi-?weekly|weekly|family|kids?|pets?)\b/i;
+const RES_MAX = 3;
+
+function hasSubstance(r) {
+  return r.text.length >= 80 && r.text.split(/\s+/).length >= 15;
+}
+// longer (more substantive) first, then newer
+function byQuality(a, b) {
+  return (b.text.length - a.text.length) || (a.date < b.date ? 1 : a.date > b.date ? -1 : 0);
+}
+
+export function selectReviews(items, max = MAX_REVIEWS) {
+  const usable = items.filter((r) => r && r.text && r.rating);
+  const five = usable.filter((r) => r.rating === 5 && hasSubstance(r)).sort(byQuality);
+  const kind = (r) => (STR_RE.test(r.text) ? "str" : RES_RE.test(r.text) ? "res" : "gen");
+
+  const res = five.filter((r) => kind(r) === "res").slice(0, RES_MAX);
+  const base = five.filter((r) => kind(r) !== "res"); // STR and general, best first, STR before general
+  base.sort((a, b) => (kind(a) === "str" ? 0 : 1) - (kind(b) === "str" ? 0 : 1) || byQuality(a, b));
+
+  // First three are STR/general; residential ones are mixed in from the fourth card on.
+  const out = base.slice(0, Math.max(0, max - res.length));
+  res.forEach((r, i) => { out.splice(Math.min(3 + i * 2, out.length), 0, r); });
+
+  // Still room? Next best: other 5-star reviews, then 4-star with substance.
+  if (out.length < max) {
+    const used = new Set(out);
+    const rest = usable.filter((r) => !used.has(r) && (r.rating === 5 || (r.rating === 4 && hasSubstance(r))));
+    rest.sort((a, b) => (b.rating - a.rating) || byQuality(a, b));
+    for (const r of rest) { if (out.length >= max) break; out.push(r); }
+  }
+  return out.slice(0, max);
 }
 
 // Reviews still live on the older v4 surface; they were never moved to the
@@ -269,27 +303,23 @@ async function fetchReviews(env, token) {
   );
 
   const all = data.reviews || [];
-  const reviews = all
+  const items = all
     .filter((r) => cleanText(r.comment || "").length > 0)
-    .map((r) => {
-      const { text, truncated } = trim(stripTranslation(r.comment));
-      return {
-        author: abbreviateName((r.reviewer && r.reviewer.displayName) || ""),
-        rating: STAR_WORDS[r.starRating] || null,
-        text,
-        truncated,
-        date: (r.createTime || r.updateTime || "").slice(0, 10),
-      };
-    })
-    .filter((r) => r.rating !== null)
-    .sort((a, b) => (b.rating - a.rating) || (b.date < a.date ? -1 : 1))
-    .slice(0, MAX_REVIEWS);
+    .map((r) => ({
+      author: abbreviateName((r.reviewer && r.reviewer.displayName) || ""),
+      rating: STAR_WORDS[r.starRating] || null,
+      text: cleanText(stripTranslation(r.comment)), // full text, exactly as written
+      date: (r.createTime || r.updateTime || "").slice(0, 10),
+    }))
+    .filter((r) => r.rating !== null);
+  const reviews = selectReviews(items, MAX_REVIEWS);
 
   const rating = typeof data.averageRating === "number" ? Math.round(data.averageRating * 10) / 10 : null;
   const total = typeof data.totalReviewCount === "number" ? data.totalReviewCount : all.length || null;
 
   return {
     ok: true,
+    v: PAYLOAD_VERSION,
     rating,
     total,
     reviews,
@@ -316,9 +346,31 @@ async function refreshCache(env) {
 
 // ---- public + admin routes ----------------------------------------------
 
-async function serveReviews(env) {
+// Refresh without blocking the visitor who triggered it. Guarded three ways so a
+// busy site cannot hammer Google: a 60-second lock, a 15-minute back-off after a
+// failure, and nothing at all unless the Worker is already authorized.
+async function backgroundRefresh(env) {
+  try {
+    if (!configured(env)) return;
+    if (!(await env.BLOG_POSTS.get(K.token))) return;
+    if (await env.BLOG_POSTS.get(K.lock)) return;
+    const err = await env.BLOG_POSTS.get(K.error);
+    if (err) {
+      try { if (Date.now() - Date.parse(JSON.parse(err).at) < 15 * 60 * 1000) return; } catch { /* ignore */ }
+    }
+    await env.BLOG_POSTS.put(K.lock, "1", { expirationTtl: 60 });
+    await refreshCache(env);
+  } catch {
+    // refreshCache already recorded the failure in gbp:last_error
+  }
+}
+
+async function serveReviews(env, ctx) {
   // Never calls Google inline: a cold or failing API must not slow a page load.
   const raw = await env.BLOG_POSTS.get(K.cache);
+  if (!raw) {
+    if (ctx) ctx.waitUntil(backgroundRefresh(env));
+  }
   if (!raw) return json({ ok: false, reason: "no-data", profileUrl: PROFILE_URL }, 200, { "cache-control": "public, max-age=300" });
 
   let data;
@@ -329,6 +381,9 @@ async function serveReviews(env) {
     // Too old to stand behind — let the page fall back to the plain link.
     return json({ ok: false, reason: "stale", profileUrl: PROFILE_URL });
   }
+  // Serve what we have; if it is older than the refresh interval, or was written by an
+  // older payload version, quietly refresh it for the next visitor.
+  if (ctx && (data.v !== PAYLOAD_VERSION || ageSeconds > CACHE_TTL_SECONDS)) ctx.waitUntil(backgroundRefresh(env));
   return json({ ...data, stale: ageSeconds > CACHE_TTL_SECONDS * 1.5 });
 }
 
@@ -336,7 +391,7 @@ export async function handleGbp(request, url, env, ctx) {
   // public feed
   if (url.pathname === "/api/reviews") {
     if (request.method !== "GET") return json({ ok: false, reason: "method" }, 405);
-    return serveReviews(env);
+    return serveReviews(env, ctx);
   }
 
   if (!url.pathname.startsWith("/admin/gbp/")) return null;

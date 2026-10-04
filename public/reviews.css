@@ -1,0 +1,237 @@
+/* Shared Google reviews component ("gr-"), used by the homepage, /str-cleaning,
+ * /residential-cleaning and /deep-cleaning. One file: change it here and every
+ * page changes. Loaded on demand by /reviews.js when the section is about to
+ * scroll into view, so it is never render-blocking. Every class is gr- prefixed
+ * so it cannot collide with page CSS.
+ *
+ * WebKit notes (iOS Safari): -webkit-line-clamp needs -webkit-box and
+ * -webkit-box-orient; scroll-snap works unprefixed in Safari 11+;
+ * -webkit-overflow-scrolling gives momentum scrolling on older iOS.
+ */
+
+.gr { text-align: center; }
+
+/* ---- header: stars, rating, count, link ---- */
+.gr-summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 0 20px;
+}
+.gr-stars {
+  color: var(--coral, #eb5c3d);
+  font-size: 24px;
+  letter-spacing: 3px;
+  line-height: 1;
+}
+.gr-rating {
+  margin: 8px 0 0;
+  font-family: 'Baloo 2', sans-serif;
+  font-weight: 700;
+  font-size: 21px;
+  line-height: 1.2;
+  color: var(--blue, #294b9b);
+}
+.gr-count {
+  margin: 2px 0 0;
+  font-size: 14.5px;
+  line-height: 1.4;
+  color: #5b5f66;
+}
+.gr-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  margin-top: 12px;
+  padding: 0 22px;
+  border: 1.5px solid var(--coral, #eb5c3d);
+  border-radius: 999px;
+  background: #fff;
+  font-weight: 700;
+  font-size: 14.5px;
+  color: var(--coral, #eb5c3d);
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.gr-link:hover { background: var(--coral, #eb5c3d); color: #fff; }
+
+/* ---- reserved space: keeps the page from jumping when the cards arrive ---- */
+.gr-slot { min-height: 340px; }
+
+/* ---- slider ---- */
+.gr-slider { text-align: left; }
+.gr-viewport { position: relative; }
+
+.gr-track {
+  display: flex;
+  gap: 16px;
+  padding: 4px 2px 20px;
+  margin: 0 -2px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  -webkit-scroll-snap-type: x mandatory;
+  scroll-snap-type: x mandatory;
+  scroll-padding: 0 2px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.gr-track::-webkit-scrollbar { display: none; }
+
+.gr-card {
+  display: flex;
+  flex-direction: column;       /* the name always sits at the bottom, so equal-height cards line up */
+  flex: 0 0 85%;                /* mobile: one card plus a peek of the next */
+  min-width: 0;
+  -webkit-scroll-snap-align: start;
+  scroll-snap-align: start;
+  padding: 22px 22px 18px;
+  background: #fff;
+  border: 1px solid var(--line, #e2e2e2);
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(35, 38, 43, 0.06);
+}
+.gr-card-stars {
+  color: var(--coral, #eb5c3d);
+  font-size: 18px;
+  letter-spacing: 2px;
+  line-height: 1;
+  margin-bottom: 12px;
+}
+.gr-text {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.65;
+  color: #33363b;
+  overflow-wrap: break-word;
+  /* clamp to 5 lines; the "Read more" button lifts it */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  line-clamp: 5;
+  overflow: hidden;
+}
+.gr-card.is-open .gr-text {
+  display: block;
+  -webkit-line-clamp: unset;
+  line-clamp: unset;
+  overflow: visible;
+}
+.gr-more {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin: 0 0 -6px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--blue, #294b9b);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.gr-more[hidden] { display: none; }
+.gr-name {
+  margin: auto 0 0;
+  padding-top: 14px;
+  font-family: 'Baloo 2', sans-serif;
+  font-weight: 600;
+  font-size: 14.5px;
+  line-height: 1.3;
+  color: var(--blue, #294b9b);
+}
+
+/* ---- arrows (tablet and up) ---- */
+.gr-nav { display: none; }
+
+/* ---- dots ---- */
+.gr-dots {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 2px;
+}
+.gr-dot {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.gr-dot::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  border-radius: 50%;
+  background: #c4c8cf;
+  transition: background-color 0.2s, transform 0.2s;
+}
+.gr-dot[aria-current="true"]::before { background: var(--blue, #294b9b); transform: scale(1.3); }
+
+/* ---- focus ---- */
+.gr-track:focus-visible,
+.gr-nav:focus-visible,
+.gr-dot:focus-visible,
+.gr-more:focus-visible,
+.gr-link:focus-visible {
+  outline: 3px solid var(--teal-dark, #008eb5);
+  outline-offset: 3px;
+}
+.gr-track:focus-visible { border-radius: 14px; }
+
+/* ---- phones: let the track run to the screen edge so the peek of the next card reads as a swipe cue.
+   24px is the side padding of .pad on every page that uses this component. ---- */
+@media (max-width: 699px) {
+  .gr-track { margin: 0 -24px; padding: 4px 24px 20px; scroll-padding: 0 24px; }
+}
+
+/* ---- tablet: two cards, arrows appear ---- */
+@media (min-width: 700px) {
+  .gr-card { flex-basis: calc((100% - 16px) / 2); }
+  .gr-nav {
+    position: absolute;
+    top: calc(50% - 32px);
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 1px solid var(--line, #e2e2e2);
+    border-radius: 50%;
+    background: #fff;
+    color: var(--blue, #294b9b);
+    box-shadow: 0 4px 14px rgba(35, 38, 43, 0.14);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .gr-nav svg { display: block; }
+  .gr-prev { left: -22px; }
+  .gr-next { right: -22px; }
+  .gr-nav[disabled] { opacity: 0.35; cursor: default; box-shadow: none; }
+}
+
+/* ---- desktop: three cards ---- */
+@media (min-width: 1000px) {
+  .gr-card { flex-basis: calc((100% - 32px) / 3); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gr-track { scroll-behavior: auto; }
+  .gr-dot::before { transition: none; }
+}

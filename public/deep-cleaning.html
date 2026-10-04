@@ -234,8 +234,6 @@ img.photo { background: none; border: none; padding: 0; display: block; max-widt
 
 /* ===== REVIEWS ===== */
 .reviews h2 { font-size: 25px; margin-bottom: 10px; color: var(--blue); text-align: center; }
-.review-scroll { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 6px; }
-.review-card { flex: 0 0 200px; height: 130px; font-size: 13px; }
 
 /* ===== FAQ ===== */
 .faq h2 { font-size: 23px; margin-bottom: 16px; color: var(--blue); }
@@ -368,8 +366,6 @@ img.photo { background: none; border: none; padding: 0; display: block; max-widt
   /* Hero: keep the coral text block readable instead of stretching across the wide banner */
   /* Reviews: lay the cards side by side instead of a scroll carousel */
   .reviews.pad { max-width: 960px; }
-  .review-scroll { overflow-x: visible; }
-  .review-card { flex: 1 1 0; }
 }
 
 /* ===== SITE FOOTER ===== */
@@ -717,10 +713,15 @@ img.photo { background: none; border: none; padding: 0; display: block; max-widt
   <div class="reviews pad reveal">
     <h2>What clients say</h2>
     
-    <div class="review-scroll">
-      <div class="review-card" style="flex:1 1 100%; text-align:center; background:#fff; border:1px solid var(--line); border-radius:14px; padding:18px; box-shadow:0 4px 14px rgba(0,0,0,0.06);"><div class="stars" style="color:var(--coral); font-size:18px; margin-bottom:6px;">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p style="font-weight:700; color:var(--blue); margin:6px 0;">Rated 5.0 on Google</p><p style="margin:0 0 14px;">Real reviews from real San Antonio clients &mdash; read them straight from our Google Business Profile.</p><a href="https://www.google.com/maps/place/?q=place_id:ChIJ2_gm6Y1nXIYRicrHNpNz2sM" target="_blank" rel="noopener" style="display:inline-block; font-weight:700; color:var(--coral); text-decoration:none;">Read Our Reviews on Google &rarr;</a></div>
-      
-      
+    <div class="gr" data-gr>
+      <div class="gr-summary">
+        <div class="gr-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="gr-rating">5.0 on Google</p>
+        <p class="gr-count">Based on 44 Google reviews</p>
+        <a class="gr-link" href="https://www.google.com/maps/place/?q=place_id:ChIJ2_gm6Y1nXIYRicrHNpNz2sM" target="_blank" rel="noopener">Read our reviews on Google</a>
+      </div>
+      <div class="gr-slot" data-gr-slot style="min-height:340px"></div>
+      <noscript><style>.gr-slot{display:none}.gr-summary{display:flex;flex-direction:column;align-items:center}</style><link rel="stylesheet" href="/reviews.css"></noscript>
     </div>
   </div>
 
