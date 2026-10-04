@@ -6,7 +6,12 @@
 
 import { handleGbp, scheduledGbpRefresh, safeEqual } from "./gbp-reviews.js";
 
-const CATEGORIES = ["All Posts", "STR & Airbnb Hosts", "Residential Tips", "San Antonio Local", "Behind the Scenes"];
+const CATEGORIES = ["All Posts", "STR & Airbnb Hosts", "Residential Tips", "Commercial Cleaning", "San Antonio Local", "Behind the Scenes"];
+
+// Categories listed here stay out of the filter row until at least one LIVE post uses them,
+// so a chip never opens an empty page (e.g. while its first post is still scheduled).
+// The moment that post goes live the chip appears, with no edit or deploy.
+const HIDE_UNTIL_POPULATED = ["Commercial Cleaning"];
 
 // Lifted directly from blog.html's <style> block so the dynamic pages are
 // visually identical to the rest of the site (same fonts, colors, header,
@@ -601,7 +606,7 @@ async function renderBlogIndex(request, env) {
   const featured = sorted.find(p => p.featured);
   const recent = sorted.filter(p => p !== featured);
 
-  const chipsHtml = CATEGORIES.map(c => {
+  const chipsHtml = CATEGORIES.filter(c => !HIDE_UNTIL_POPULATED.includes(c) || c === selectedCategory || allPosts.some(p => p.category === c)).map(c => {
     const href = c === "All Posts" ? "/blog" : `/blog?category=${encodeURIComponent(c)}`;
     const activeClass = c === selectedCategory ? " active" : "";
     return `<a href="${href}" class="cat-chip${activeClass}">${escapeHtml(c)}</a>`;
