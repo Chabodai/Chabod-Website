@@ -32,7 +32,7 @@ const MAX_REVIEWS = 8;
 const PAYLOAD_VERSION = 2;
 
 // The existing static link, used as the fallback everywhere.
-const PROFILE_URL = "https://search.google.com/local/reviews?placeid=ChIJ2_gm6Y1nXIYRicrHNpNz2sM";
+const PROFILE_URL = "https://www.google.com/search?q=Chabod+Cleaning+Services&hl=en&ludocid=14112719458435320457#lrd=0x865c678de926f8db:0xc3da739336c7ca89,1,,,";
 // Chabod Cleaning Services' own Google place id (the one in PROFILE_URL). Used to
 // pick the right profile when the Google user manages several.
 const CHABOD_PLACE_ID = "ChIJ2_gm6Y1nXIYRicrHNpNz2sM";
