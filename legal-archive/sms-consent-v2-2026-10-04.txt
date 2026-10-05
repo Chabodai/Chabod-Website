@@ -1,0 +1,15 @@
+SMS consent text, version sms-consent-v2-2026-10-04
+Fee-calculator form (blog post: airbnb-payout-change-september-2026-san-antonio). Version v1 was never published.
+
+1) Service texts. Shown under the "Send it to me" button:
+By tapping "Send it to me," you agree that Chabod Cleaning Services may text and call you at this number about your request, including your quote, scheduling, and service updates. Message frequency varies. Message and data rates may apply. Reply STOP to opt out and HELP for help. Agreeing to texts is not a condition of buying anything. See our SMS Terms and Privacy Policy.
+
+2) Promotional texts. Separate checkbox, unchecked by default, "SMS Terms" and "Privacy Policy" are links:
+Yes, text me offers and updates from Chabod Cleaning Services LLC at this number. By checking this box I agree to receive automated marketing texts. Message frequency varies. Message and data rates may apply. Reply STOP to opt out or HELP for help. Consent is not a condition of purchase. See our SMS Terms and Privacy Policy.
+
+Fields sent to Formspree with every submission (audit trail):
+consent_text_version  = sms-consent-v2-2026-10-04
+consent_timestamp     = ISO time at submit (set by the page)
+consent_page          = page path at submit (set by the page)
+sms_transactional_ack = disclosed_on_submit
+sms_marketing_optin   = yes | no

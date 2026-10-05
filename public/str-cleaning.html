@@ -3,23 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '578421348357572');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=578421348357572&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
 <title>Airbnb Cleaning San Antonio | Chabod Cleaning Services</title>
 <link rel="canonical" href="https://chabodcleaningservices.com/str-cleaning">
 <link rel="icon" type="image/png" href="/favicon.png">
@@ -34,9 +17,12 @@ src="https://www.facebook.com/tr?id=578421348357572&ev=PageView&noscript=1"
 <meta name="twitter:title" content="Airbnb Cleaning San Antonio | Chabod Cleaning Services">
 <meta name="twitter:description" content="Reliable Airbnb & STR turnover cleaning in San Antonio. Same-day availability, guest-ready every time. Text Andres directly: (210) 480-6224.">
 <meta name="twitter:image" content="https://chabodcleaningservices.com/str-hero.jpg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap">
+<link rel="preload" href="/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/baloo2-latin.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:'Baloo 2';font-style:normal;font-weight:500 800;font-display:swap;src:url(/fonts/baloo2-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:400 800;font-display:swap;src:url(/fonts/manrope-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+</style>
 <style>
 
 :root {
@@ -709,8 +695,20 @@ img.photo { background: none; border: none; padding: 0; display: block; max-widt
   ]
 }
 </script>
+<style>
+#cc{display:none;background:#101b3d;color:#fff;padding:14px 16px;font:14px/1.45 Manrope,system-ui,sans-serif}
+html.cc-wait #cc{display:block}
+#cc[hidden]{display:none!important}
+#cc p{margin:0 0 10px}#cc a{color:#9fe0e3;text-decoration:underline}#cc .b{display:flex;gap:10px}
+#cc button{flex:1;min-height:44px;border:2px solid #fff;border-radius:8px;background:#294b9b;color:#fff;font:700 14px Manrope,system-ui,sans-serif;cursor:pointer;padding:8px}
+#cc button:focus-visible{outline:3px solid #58bec2;outline-offset:2px}
+#cc.cc-pop{display:block;position:fixed;z-index:1001;left:12px;right:12px;bottom:92px;border-radius:14px;box-shadow:0 4px 18px rgba(0,0,0,.3)}
+@media(min-width:700px){html.cc-wait #cc{display:flex;align-items:center;gap:24px;padding:12px 32px}html.cc-wait #cc p{margin:0;flex:1}html.cc-wait #cc .b{flex:none}html.cc-wait #cc button{flex:none;width:200px}#cc.cc-pop{left:20px;right:auto;bottom:20px;width:400px}}
+</style>
+<script>(function(){try{var d=document,h=d.documentElement;if(!/(?:^|; )chabod_cc=/.test(d.cookie)&&!localStorage.getItem("chabod_cc")&&navigator.globalPrivacyControl!==true)h.className+=" cc-wait"}catch(e){}})()</script>
 </head>
 <body>
+<div id="cc" role="dialog" aria-label="Cookie choices"><p>We use cookies and similar tools to count visits, measure our ads, and see how people use this site. &ldquo;Reject non-essential&rdquo; keeps the ad and recording tools off. See our <a href="/privacy-policy#cookies">Privacy Policy</a>.</p><div class="b"><button type="button" data-a="1">Accept all</button><button type="button" data-a="0">Reject non-essential</button></div></div>
 <!--
   PHOTO ALT TEXT REFERENCE (fill in when real images replace placeholders):
   - Hero background          -> "Airbnb host handing over spotless San Antonio rental after Chabod turnover clean"
@@ -829,16 +827,36 @@ img.photo { background: none; border: none; padding: 0; display: block; max-widt
 
   <div class="video-section pad">
     <h2>See a real turnover, start to finish</h2>
+    <style>
+.yt-play{position:absolute;top:0;left:0;width:100%;height:100%;padding:0;border:0;background:#000;cursor:pointer;display:block}
+.yt-play img{width:100%;height:100%;object-fit:cover;display:block}
+.yt-play .yt-btn{position:absolute;top:50%;left:50%;width:68px;height:68px;margin:-34px 0 0 -34px;border-radius:50%;background:rgba(235,92,61,.95);box-shadow:0 4px 16px rgba(0,0,0,.35)}
+.yt-play .yt-btn::after{content:"";position:absolute;top:50%;left:50%;margin:-12px 0 0 -8px;border-style:solid;border-width:12px 0 12px 20px;border-color:transparent transparent transparent #fff}
+.yt-play:focus-visible{outline:3px solid #58bec2;outline-offset:-3px}
+</style>
     <div style="position:relative; width:100%; max-width:400px; aspect-ratio:9/16; margin:0 auto; border-radius:14px; overflow:hidden;">
-      <iframe
-        src="https://www.youtube.com/embed/tvvJKNc8P6k"
-        title="Airbnb turnover checklist — same-day cleaning San Antonio"
-        style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;"
-        loading="lazy"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen>
-      </iframe>
+      <button type="button" class="yt-play" data-yt="tvvJKNc8P6k" data-title="Airbnb turnover checklist — same-day cleaning San Antonio" aria-label="Play video: Airbnb turnover checklist — same-day cleaning San Antonio">
+        <img src="/video-str-cleaning-poster.webp" alt="" width="480" height="853" loading="lazy" decoding="async">
+        <span class="yt-btn" aria-hidden="true"></span>
+      </button>
     </div>
+    <script>
+// Click-to-play: nothing is requested from YouTube until the visitor taps play.
+document.addEventListener("click", function (e) {
+  var b = e.target.closest && e.target.closest(".yt-play");
+  if (!b) return;
+  var id = b.getAttribute("data-yt");
+  b.dispatchEvent(new CustomEvent("chabod-video-play", { bubbles: true, detail: { id: id } }));
+  var f = document.createElement("iframe");
+  f.src = "https://www.youtube-nocookie.com/embed/" + id + "?autoplay=1&rel=0&playsinline=1";
+  f.title = b.getAttribute("data-title");
+  f.allow = "autoplay; encrypted-media; picture-in-picture; web-share";
+  f.allowFullscreen = true;
+  f.style.cssText = "position:absolute;top:0;left:0;width:100%;height:100%;border:0;";
+  b.parentNode.replaceChild(f, b);
+  f.focus();
+});
+</script>
   </div>
 
   <div class="faq pad">
@@ -926,7 +944,9 @@ img.photo { background: none; border: none; padding: 0; display: block; max-widt
           <a href="/blog">Blog</a>
           <a href="tel:+12104806224">Contact</a>
           <a href="/privacy-policy">Privacy Policy</a>
-          <a href="/terms-conditions">Terms &amp; Conditions</a>
+          <a href="/terms-conditions">Terms of Use</a>
+          <a href="/service-terms">Service Terms</a>
+          <a href="/sms-terms">SMS Terms</a>
         </div>
       </div>
     </div>
@@ -941,9 +961,17 @@ img.photo { background: none; border: none; padding: 0; display: block; max-widt
       San Antonio, Texas &middot; Family owned and operated<br>
       &copy; 2026 Chabod Cleaning Services LLC. All rights reserved.
       <div class="f-legal-links">
-        <a href="/privacy-policy">Privacy Policy</a>
+        <a href="/privacy-policy">Privacy Policy</a>
         <span>&middot;</span>
-        <a href="/terms-conditions">Terms &amp; Conditions</a>
+        <a href="/terms-conditions">Terms of Use</a>
+        <span>&middot;</span>
+        <a href="/service-terms">Service Terms</a>
+        <span>&middot;</span>
+        <a href="/sms-terms">SMS Terms</a>
+        <span>&middot;</span>
+        <a href="/privacy-policy#cookies" data-cc-open>Cookie preferences</a>
+        <span>&middot;</span>
+        <a href="/privacy-policy#your-privacy-choices">Your privacy choices</a>
       </div>
     </div>
   </footer>
@@ -1068,6 +1096,7 @@ document.addEventListener('DOMContentLoaded', function () {
     </button>
   </div>
 <script src="/reviews.js" defer></script>
+<script src="/consent.js" defer></script>
 <script src="/analytics.js" defer></script>
 </body>
 </html>

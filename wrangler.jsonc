@@ -21,12 +21,16 @@
       "/deep-cleaning.html",
       "/privacy-policy.html",
       "/terms-conditions.html",
+      "/service-terms.html",
+      "/sms-terms.html",
       // trailing slash -> no slash
       "/str-cleaning/",
       "/residential-cleaning/",
       "/deep-cleaning/",
       "/privacy-policy/",
       "/terms-conditions/",
+      "/service-terms/",
+      "/sms-terms/",
       // old WordPress site: whole /es/ and /en/ trees
       "/es",
       "/es/*",
