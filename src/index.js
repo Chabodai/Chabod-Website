@@ -185,6 +185,9 @@ h1, h2, h3 {
 .fab-nav.open .fab-icon::before { transform: translateY(-50%) rotate(90deg); opacity: 0; }
 .fab-nav.open .fab-icon::after { transform: translateX(-50%) rotate(0deg); }
 
+/* the closed menu column must not swallow taps meant for the page; only the button and open items take taps */
+.fab-nav { pointer-events: none; }
+.fab-button { pointer-events: auto; }
 .fab-menu { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; margin-bottom: 2px; }
 .fab-item {
   background: #fff; color: var(--blue);
