@@ -33,6 +33,10 @@ Effective date and version are at the top of each of the four pages (set again a
      cancels that booking, the deposit is NOT refunded. If Chabod cancels or cannot do the work, it is refunded in
      full.** Recurring clients pay no deposit. (Andres chose this wording; "Version B", credit-only for all prepaid
      money, was deleted.)
+   - **Moving the first visit:** a new client may move the date of the first visit up to 3 times and the deposit stays
+     with the booking. **What happens at a 4th move is undecided** (the text says "talk to us"). The 3-move limit
+     applies only to a new client's first booked visit; recurring visits keep the 24-hours'-notice rules in section 6.
+   - **The deposit forfeiture stays HIGH priority for the attorney.**
    - A non-refundable deposit can look like a cancellation fee or a penalty. The site and two posts say "no
      contracts" and "no penalty." Check against Texas consumer law (including the DTPA) and whether $50 is a
      reasonable estimate of loss.
@@ -135,6 +139,16 @@ Effective date and version are at the top of each of the four pages (set again a
 4. **No attorney. No liability insurance.** Say nothing about insurance, bonding or licensing anywhere on the site.
    Keep the clause that the client is responsible for insuring their own property.
 5. **Mailing address.** Email only for now (home@chabodcleaningservices.com).
+
+## Things to settle
+
+- **"You do not sign anything" (Service Terms) vs. the blog.** The post `trapped-cleaning-contract-san-antonio` says
+  Chabod asks every owner to sign a scope of work. Either the post or the terms need to change so they agree.
+- **"No contracts" and "no lock-in fees" stay** on all pages and footers (Andres's decision). The posts now say "no
+  cancellation fees" while the Service Terms say a new client's $50 deposit is not refunded if that booking is
+  cancelled. Attorney to look at whether those can both be said.
+- **Absolute wording that was left alone:** STR page "there's always a clear record of who was there and when" and
+  "so quality never depends on who shows up".
 
 ## Clauses Claude added that were not on the approved list (confirm or delete)
 
