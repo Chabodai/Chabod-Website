@@ -761,6 +761,7 @@ const PERMANENT_REDIRECTS = {
   "/terms-conditions.html": "/terms-conditions",
   "/service-terms.html": "/service-terms",
   "/sms-terms.html": "/sms-terms",
+  "/before-we-arrive.html": "/before-we-arrive",
 };
 
 // Pages from the previous WordPress/Elementor site (bilingual, 2021–2023) that

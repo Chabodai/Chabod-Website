@@ -23,6 +23,7 @@
       "/terms-conditions.html",
       "/service-terms.html",
       "/sms-terms.html",
+      "/before-we-arrive.html",
       // trailing slash -> no slash
       "/str-cleaning/",
       "/residential-cleaning/",
@@ -31,6 +32,7 @@
       "/terms-conditions/",
       "/service-terms/",
       "/sms-terms/",
+      "/before-we-arrive/",
       // old WordPress site: whole /es/ and /en/ trees
       "/es",
       "/es/*",
