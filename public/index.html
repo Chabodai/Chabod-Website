@@ -146,6 +146,23 @@ img.photo { background: none; border: none; padding: 0; display: block; max-widt
   font-family: 'Baloo 2', sans-serif; font-weight: 600; font-size: 15px;
   color: var(--coral); text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
 }
+/* Whole card is the link: the "See ..." link stretches over the photo and text. Hover lifts the card. */
+.service-card { position: relative; cursor: pointer; transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease; }
+.service-card .photo { transition: transform .45s ease; }
+.service-link::after { content: ""; position: absolute; inset: 0; z-index: 1; }
+.service-link .arr { display: inline-block; transition: transform .2s ease; }
+.service-card:focus-within { outline: 3px solid var(--teal-dark, #008eb5); outline-offset: 2px; }
+.service-link:focus-visible { outline: none; }
+@media (hover: hover) {
+  .service-card:hover { transform: translateY(-5px); box-shadow: 0 14px 30px rgba(41,75,155,0.18); border-color: var(--blue); }
+  .service-card:hover .photo { transform: scale(1.05); }
+  .service-card:hover .service-link { text-decoration: underline; }
+  .service-card:hover .service-link .arr { transform: translateX(4px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .service-card, .service-card .photo, .service-link .arr { transition: none; }
+  .service-card:hover, .service-card:hover .photo, .service-card:hover .service-link .arr { transform: none; }
+}
 
 .mid-cta { text-align: center; border-top: 1px solid var(--line); padding-top: 22px; margin-top: 6px; }
 .mid-cta p { font-size: 15.5px; color: #4a4a4a; margin-bottom: 12px; font-weight: 600; }
@@ -525,7 +542,7 @@ html.cc-wait #cc{display:block}
       <div class="service-card-body">
         <h3>Airbnb &amp; STR Turnovers</h3>
         <p>Same-day turnovers to a written SOP built for your property, photo-verified &mdash; a team that treats your rating like it's their own.</p>
-        <a href="/str-cleaning" class="service-link">See STR Cleaning &rarr;</a>
+        <a href="/str-cleaning" class="service-link">See STR Cleaning <span class="arr">&rarr;</span></a>
       </div>
     </div>
 
@@ -534,7 +551,7 @@ html.cc-wait #cc{display:block}
       <div class="service-card-body">
         <h3>Residential Cleaning</h3>
         <p>Usually the same trained team, in your home &mdash; weekly, biweekly, or monthly.</p>
-        <a href="/residential-cleaning" class="service-link">See Residential Cleaning &rarr;</a>
+        <a href="/residential-cleaning" class="service-link">See Residential Cleaning <span class="arr">&rarr;</span></a>
       </div>
     </div>
 
@@ -543,7 +560,7 @@ html.cc-wait #cc{display:block}
       <div class="service-card-body">
         <h3>Deep Cleaning</h3>
         <p>A full reset for move-ins, move-outs, or whenever your space needs more than a touch-up.</p>
-        <a href="/deep-cleaning" class="service-link">See Deep Cleaning &rarr;</a>
+        <a href="/deep-cleaning" class="service-link">See Deep Cleaning <span class="arr">&rarr;</span></a>
       </div>
     </div>
 
