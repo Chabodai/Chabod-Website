@@ -3,6 +3,7 @@
  *   Google Analytics 4   G-W2673C88JM   (the only Measurement ID for this site)
  *   Microsoft Clarity    ysa4js5f6n     (session recordings; only after "Accept all")
  *   Meta Pixel           578421348357572 (only after "Accept all"; it is NOT in any page any more)
+ *   GoHighLevel tracking tk_7f60d9dc4ed14bbeb923fbe8d285400b (only after "Accept all", loaded last, ~84 KB)
  *
  * ONE file, included on every page with <script src="/analytics.js" defer>, after /consent.js.
  * To switch ALL of it off, set ENABLED to false below (or empty this file): one edit.
@@ -10,7 +11,7 @@
  * CONSENT (the visitor's choice comes from /consent.js, cookie chabod_cc):
  *   no choice yet     Google Analytics only, with Google's ad storage / ad signals switched OFF.
  *                     Set GATE_GA4 = true to make even that wait for "Accept all".
- *   Accept all        Google Analytics + Microsoft Clarity + Meta Pixel.
+ *   Accept all        Google Analytics + Microsoft Clarity + Meta Pixel + GoHighLevel tracking.
  *   Reject / GPC      Nothing loads. Our own analytics cookies are deleted (_ga*, _fbp, _fbc,
  *                     _clck, _clsk) and Meta's / Clarity's browser storage is cleared.
  *   Changing from Accept to Reject reloads the page so nothing keeps running.
@@ -44,6 +45,8 @@
   var GATE_GA4 = false;          // true: even Google Analytics waits for "Accept all"
   var META_ENABLED = true;
   var META_ID = "578421348357572";
+  var GHL_ENABLED = true;        // GoHighLevel tracking (ties visits and form fills to contacts); only after "Accept all"
+  var GHL_ID = "tk_7f60d9dc4ed14bbeb923fbe8d285400b";
 
   if (!ENABLED) return;
 
@@ -62,7 +65,7 @@
   /* Remove what a rejected visitor must not keep: our side of the analytics cookies, and the
    * browser storage Meta and Clarity use. (Cookies those companies set on THEIR OWN domains can
    * only be removed from the browser's settings; the Privacy Policy says so.) */
-  var KILL = /^(_ga|_ga_.+|_gid|_gat.*|_fbp|_fbc|_clck|_clsk)$/;
+  var KILL = /^(_ga|_ga_.+|_gid|_gat.*|_fbp|_fbc|_clck|_clsk|lc_session_.+)$/;
   function cleanup() {
     try {
       var names = document.cookie.split(";");
@@ -154,6 +157,7 @@
     restStarted = true;
     loadClarity();
     loadMeta();
+    setTimeout(loadGhl, 1500);   // last in line: it is the biggest of the three
   }
   function scheduleTags() {
     if (tagsScheduled) return;
@@ -235,6 +239,17 @@
     window.fbq("set", "autoConfig", false, META_ID);
     window.fbq("init", META_ID);
     window.fbq("track", "PageView");
+  }
+
+  /* ---- GoHighLevel external tracking ----
+   * Records visits, clicks and form submissions so GHL can tie them to contacts. Loaded only after
+   * "Accept all", and after Clarity and the Pixel, so it never competes with the page. */
+  function loadGhl() {
+    if (!GHL_ENABLED || blocked || choice() !== 1 || document.getElementById("ghl-tracking")) return;
+    var s = document.createElement("script");
+    s.id = "ghl-tracking"; s.async = true; s.src = "https://link.msgsndr.com/js/external-tracking.js";
+    s.setAttribute("data-tracking-id", GHL_ID);
+    document.head.appendChild(s);
   }
 
   /* ---- start-up and later changes of mind ---- */

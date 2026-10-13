@@ -176,3 +176,14 @@ Effective date and version are at the top of each of the four pages (set again a
   (`sms-consent-v2-2026-10-04.txt`).
 - `legal-staging/` has the new fee-calculator post, the two reworded posts, and test screenshots. All tested on LOCAL
   KV only.
+
+## GoHighLevel tracking (added Oct 12, 2026)
+
+- Loads only after "Accept all", last in line (after Clarity and the Meta Pixel). Not loaded for no choice, Reject or
+  Global Privacy Control. Tracking id `tk_7f60d9dc4ed14bbeb923fbe8d285400b`.
+- **It sends what a visitor types into our forms (name, phone, email) to GoHighLevel**, plus page views, clicks, referrer,
+  device and time zone. Tested locally with a stand-in for GHL's server. Sets one first-party cookie,
+  `lc_session_tk_...` (1 day), deleted if the visitor rejects.
+- The Privacy Policy (sections 2, 3, 4, 5, 6 and the cookie table) now names GoHighLevel. Attorney to review.
+- Visitors who do not accept still reach us through Formspree only. Their form data does not go to GoHighLevel from the site.
+- Do not describe GoHighLevel as the texting platform until 10DLC registration is done.

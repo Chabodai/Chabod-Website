@@ -146,9 +146,6 @@ h1, h2 {
 
 /* ===== FAB NAV ===== */
 .fab-nav { position: fixed; bottom: 22px; right: 22px; z-index: 50; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
-/* the closed menu column must not swallow taps meant for the page; only the button and open items take taps */
-.fab-nav { pointer-events: none; }
-.fab-button { pointer-events: auto; }
 .fab-menu { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; margin-bottom: 4px; }
 .fab-item {
   background: #fff; color: var(--blue); font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 14px;
