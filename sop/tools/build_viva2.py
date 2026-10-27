@@ -262,16 +262,7 @@ FINISH = L.card("finish", "video", "Before you leave", "Antes de irte",
                      "Las dos puertas cerradas: la puerta peatonal y la puerta del garaje."),
                     ("Photo of the key back in the lockbox.", "Foto de la llave de vuelta en el lockbox."),
                 ]) +
-                f'<h3 class="sub2">{ic("camera", "ic")}{T("Required photos and video", "Fotos y video obligatorios")}</h3>' +
-                L.cklist("Required photos and video", [
-                    ("When everything is clean and restocked, photograph the whole house.",
-                     "Cuando todo esté limpio y restockeado, toma fotos de toda la casa."),
-                    ("Video walkthrough of the entire property with the date and time on screen (timestamp camera app).",
-                     "Graba un video recorriendo toda la propiedad con la fecha y la hora visibles en pantalla (app de cámara con timestamp)."),
-                    ("Go floor by floor. Show every room and every bathroom.", "Ve piso por piso. Muestra cada cuarto y cada baño."),
-                    ("Photos and video of the whole house are mandatory.", "Las fotos y el video de toda la casa son obligatorios."),
-                    ("Send them to the property's WhatsApp group.", "Envíalos al grupo de WhatsApp de la propiedad."),
-                ]), cls="card finish")
+                L.final_video([("Send the video to the property's WhatsApp group.", 'Envía el video al grupo de WhatsApp de la propiedad.')]), cls="card finish")
 
 # ---------- At a glance ----------
 GLANCE = L.glance(

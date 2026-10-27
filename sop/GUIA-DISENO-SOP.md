@@ -22,7 +22,7 @@ Para Claude (chat) y Claude Code. Lectura obligatoria antes de crear o cambiar c
 7. **Must-do rules**: tarjetas con icono y titulo corto (termostato, controles, pisos, mini splits, puertas, luces). Con foto de referencia cuando ayude.
 8. **Bed guide**: una tarjeta por tipo de cama con etiquetas de capas (Fitted, Flat sheet, Duvet, Decor pillows; "No duvet" tachado en coral; "Duvet folded / rolled" en amarillo). Indicar en que cuartos aplica.
 9. **Floor 1 / Floor 2** (o secciones propias): una tarjeta por zona en el orden en que se recorre la casa. Cada tarjeta: icono + titulo, tira de fotos, numeros grandes si hay (toallas), lista corta con puntos.
-10. **Before you leave**: lista final + "Required photos and video" (fotos de cada cuarto, video de toda la casa con camara con sello de hora, enviar al grupo de WhatsApp, reportar lo roto o faltante) + 1-2 fotos de ejemplo con sello de hora.
+10. **Before you leave**: lista final + "Final video". Las fotos de la casa van SOLO al comienzo (Start here); al final NO hay fotos de la casa. El producto final es UN video de toda la casa, zona por zona y despacio: con fecha y hora visibles (app con timestamp), abriendo los cajones, probando los televisores, enfocando las zonas especiales (cafe, bolsas de basura, papel higienico, cantidad de toallas) y cualquier detalle extra; despues se envia al grupo de WhatsApp. En las propiedades con ventanas que acumulan telaranas (Post Avenue), cada tarjeta de cuarto lleva la linea de limpiar las ventanas con plumero.
 11. Nota: "Door codes are sent with your assignment email. They are not on this page." y pie con fecha de actualizacion.
 
 ## 3. Componentes (clases en `tools/sop2.css`)

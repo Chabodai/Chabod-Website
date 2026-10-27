@@ -321,3 +321,13 @@ def finish(out_dir, page, media):
     assert not missing, f"missing files: {missing}"
     assert not unplaced, f"media not placed on the page: {sorted(unplaced)}"
     print("built", len(page), "bytes;", len(used), "media placed;", len(refs), "files referenced; all exist")
+
+
+def final_video(extra=()):
+    """Final-video block: ONE video, no photos at the end (photos belong to 'Start here')."""
+    items = list(zip(VID_EN, VID_ES)) + list(extra)
+    return (f'<h3 class="sub2">{ic("video", "ic")}{T("Final video", "Video final")}</h3>' +
+            cklist("Final video", items))
+
+VID_EN = ['Your final product is one video of the whole house, with the date and time on screen (timestamp camera app).', 'Go zone by zone, slowly: floor by floor, every room and every bathroom.', 'Open the drawers.', 'Test the TVs: show that they turn on.', 'Zoom in on the special areas: the coffee station, where the trash bags are, where the toilet paper is, and the number of towels.', 'Show any other extra detail there is.']
+VID_ES = ['El producto final es un video de toda la casa, con la fecha y la hora visibles en pantalla (app de cámara con timestamp).', 'Ve zona por zona, despacio: piso por piso, cada cuarto y cada baño.', 'Abre los cajones.', 'Prueba los televisores: muestra que prenden.', 'Enfoca bien las zonas especiales: la zona del café, donde están las bolsas de basura, donde están los papeles higiénicos y la cantidad de toallas.', 'Muestra cualquier otro detalle extra que exista.']

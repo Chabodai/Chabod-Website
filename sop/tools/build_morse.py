@@ -96,8 +96,6 @@ MEDIA = {
  "r2": P(54, "Fan remote 2 of 4", "Control del ventilador 2 de 4"),
  "r3": P(55, "Fan remote 3 of 4", "Control del ventilador 3 de 4"),
  "r4": P(56, "Fan remote 4 of 4", "Control del ventilador 4 de 4"),
- "ts1": P(47, "Example: timestamp photo", "Ejemplo: foto con sello de hora"),
- "ts2": P(68, "Example: timestamp photo", "Ejemplo: foto con sello de hora"),
 }
 used = set()
 
@@ -267,14 +265,17 @@ FINISH = f'''<section class="card finish" id="finish"><h2 class="ch">{ic("video"
 {ck("Pool towels: 16 in the black cabinets.", "Toallas de piscina: 16 en los gabinetes negros.")}
 {ck("Trash out. Pickup days: Tuesday and Friday.", "Basura afuera. Días de recolección: martes y viernes.")}
 </div>
-<h3 class="sub2">{ic("camera", "ic")}{T("Required photos and video", "Fotos y video obligatorios")}</h3>
+<h3 class="sub2">{ic("video", "ic")}{T("Final video", "Video final")}</h3>
 <div class="cks">
-{ck("Photos of every room, finished. Both floors, terraces and game room.", "Fotos de cada cuarto, terminado. Los dos pisos, las terrazas y el cuarto de juegos.")}
-{ck("Video of the whole house with a timestamp camera. Floor 1, then floor 2.", "Video de toda la casa con cámara con sello de hora. Piso 1 y luego piso 2.")}
-{ck("Send photos and video to this property's WhatsApp group.", "Manda las fotos y el video al grupo de WhatsApp de esta propiedad.")}
+{ck("Your final product is one video of the whole house, with the date and time on screen (timestamp camera app).", "El producto final es un video de toda la casa, con la fecha y la hora visibles en pantalla (app de cámara con timestamp).")}
+{ck("Go zone by zone, slowly: floor 1, then floor 2, terraces and game room. Every room and every bathroom.", "Ve zona por zona, despacio: piso 1 y luego piso 2, las terrazas y el cuarto de juegos. Cada cuarto y cada baño.")}
+{ck("Open the drawers.", "Abre los cajones.")}
+{ck("Test the TVs: show that they turn on.", "Prueba los televisores: muestra que prenden.")}
+{ck("Zoom in on the special areas: the coffee station, where the trash bags are, where the toilet paper is, and the number of towels.", "Enfoca bien las zonas especiales: la zona del café, donde están las bolsas de basura, donde están los papeles higiénicos y la cantidad de toallas.")}
+{ck("Show any other extra detail there is.", "Muestra cualquier otro detalle extra que exista.")}
+{ck("Send the video to this property's WhatsApp group.", "Envía el video al grupo de WhatsApp de esta propiedad.")}
 {ck("Report anything broken or missing to Andrés.", "Reporta a Andrés lo que esté roto o falte.")}
 </div>
-{gallery(["ts1", "ts2"])}
 
 </section>'''
 
@@ -303,7 +304,7 @@ body_main = (GLANCE + START + ALERTS + BEDS +
              FINISH)
 unplaced = set(MEDIA) - used
 assert not unplaced, unplaced
-PH = "/tmp/claude-0/-home-claude/b8672685-141b-5f7b-b10d-94381756def9/scratchpad/morse-photos/"
+PH = os.environ.get("MORSE_PHOTOS", "/tmp/claude-0/-home-claude/b8672685-141b-5f7b-b10d-94381756def9/scratchpad/morse-photos/")
 for m in sorted(used):
     f = MEDIA[m][0]
     shutil.copy(PH + f"{f}.jpg", OUT + f"/p/{f}.jpg")

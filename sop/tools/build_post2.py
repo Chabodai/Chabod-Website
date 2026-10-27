@@ -9,6 +9,22 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import sop_lib as L
 from sop_lib import T, ic, PH
 
+# Windows are dusted with a duster in every indoor room card (kitchen already says it in its own words).
+WIN = ("Dust all the windows with a duster. Cobwebs build up on them.",
+       "Limpia todas las ventanas con un plumero. Ahí se acumulan telarañas.")
+WIN_ZONES = {"bathrooms", "office", "music", "master", "master-bath", "sitting", "laundry", "dining", "coffee",
+             "halfbath", "living", "casita", "hallbath", "room-a", "room-b", "room-c"}
+_zone = L.zone
+
+
+def _zone_with_windows(zid, icon, en, es, tone, media, items, counters=(), notes=()):
+    if zid in WIN_ZONES:
+        items = list(items) + [WIN]
+    return _zone(zid, icon, en, es, tone, media, items, counters, notes)
+
+
+L.zone = _zone_with_windows
+
 S = sys.argv[1]
 CODE = "d4fb287aae3540b6"
 PAGE_ID = "8d6a61f2-6f93-42e4-a370-e8e8c70e9bc3"
@@ -245,17 +261,7 @@ FINISH = L.card("finish", "video", "Before you leave", "Antes de irte",
                     ("All TVs work.", "Todos los televisores funcionan."),
                     ("Every outside door closed and locked, shown in the final video.", "Todas las puertas de afuera cerradas y aseguradas, mostrado en el video final."),
                 ]) + L.gallery(["09"], SEC) +
-                f'<h3 class="sub2">{ic("camera", "ic")}{T("Required photos and video", "Fotos y video obligatorios")}</h3>' +
-                L.cklist("Required photos and video", [
-                    ("When everything is clean and restocked, photograph the whole house.",
-                     "Cuando todo esté limpio y restockeado, toma fotos de toda la casa."),
-                    ("Video walkthrough of the entire property with the date and time on screen (timestamp camera app).",
-                     "Graba un video recorriendo toda la propiedad con la fecha y la hora visibles en pantalla (app de cámara con timestamp)."),
-                    ("Go floor by floor. Show every room and every bathroom.", "Ve piso por piso. Muestra cada cuarto y cada baño."),
-                    ("The video MUST show you closing and locking the outside doors.", "El video DEBE mostrar cómo cierras y aseguras las puertas de afuera."),
-                    ("Photos and video of the whole house are mandatory.", "Las fotos y el video de toda la casa son obligatorios."),
-                    ("Send them to the property's WhatsApp group.", "Envíalos al grupo de WhatsApp de la propiedad."),
-                ]), cls="card finish")
+                L.final_video([('The video MUST show you closing and locking the outside doors.', 'El video DEBE mostrar cómo cierras y aseguras las puertas de afuera.'), ("Send the video to the property's WhatsApp group.", 'Envía el video al grupo de WhatsApp de la propiedad.')]), cls="card finish")
 
 # ---------- At a glance ----------
 GLANCE = L.glance(
