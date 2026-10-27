@@ -1,0 +1,7 @@
+/* sop3: small additions used by the Viva / Post pages (additive to sop.css + sop2.css) */
+/* soft room-level note: yellow line inside a zone card (never a red alert) */
+.rnote{margin:10px 0 2px;padding:9px 12px;background:#fff7d6;border-left:4px solid #e0b82e;border-radius:10px;font-size:14px;line-height:1.35;color:#4a3a00}
+/* several short paragraphs in one alert card */
+.acard p+p{margin-top:6px}
+/* house-wide header uses an icon instead of a floor number */
+.fl .ic{width:26px;height:26px}
