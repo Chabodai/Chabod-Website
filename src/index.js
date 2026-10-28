@@ -274,6 +274,12 @@ h1, h2, h3 {
   .fab-nav { display: none; }
 }
 
+@media (min-width: 700px) and (max-width: 799px) {
+  .desktop-nav { gap: 14px; }
+  .desktop-nav a { font-size: 13px; }
+}
+.logo-bar .bar-phone { white-space: nowrap; }
+
 /* ===== BLOG DESKTOP LAYOUT ===== */
 @media (min-width: 700px) {
   .blog-hero h1, .blog-hero p { max-width: 480px; margin-left: auto; margin-right: auto; }
@@ -326,6 +332,7 @@ function siteHeader(current) {
     { href: "/residential-cleaning", label: "Residential" },
     { href: "/deep-cleaning", label: "Deep Cleaning" },
     { href: "/blog", label: "Blog" },
+    { href: "/tools/fee-calculator", label: "Tools" },
   ];
   const navHtml = links.map(l =>
     `<a href="${l.href}"${l.label === current ? ' class="current"' : ""}>${l.label}</a>`
@@ -348,6 +355,7 @@ function floatingNav(current) {
     { href: "/residential-cleaning", label: "Residential" },
     { href: "/deep-cleaning", label: "Deep Cleaning" },
     { href: "/blog", label: "Blog" },
+    { href: "/tools/fee-calculator", label: "Free Tools" },
   ];
   const itemsHtml = links.map(l =>
     `<a href="${l.href}" class="fab-item${l.label === current ? " current" : ""}">${l.label}</a>`
@@ -387,6 +395,7 @@ function siteFooter() {
           <h4>Company</h4>
           <a href="/">Home</a>
           <a href="/blog">Blog</a>
+          <a href="/tools/fee-calculator">Free Tools</a>
           <a href="tel:+12104806224">Contact</a>
           <a href="/privacy-policy">Privacy Policy</a>
           <a href="/terms-conditions">Terms of Use</a>

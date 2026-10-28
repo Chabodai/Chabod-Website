@@ -330,6 +330,7 @@ img.photo { background: none; border: none; padding: 0; display: block; max-widt
 .fab-nav.open .fab-item:nth-child(3) { transition-delay: 0.11s; }
 .fab-nav.open .fab-item:nth-child(4) { transition-delay: 0.15s; }
 .fab-nav.open .fab-item:nth-child(5) { transition-delay: 0.19s; }
+.fab-nav.open .fab-item:nth-child(6) { transition-delay: 0.23s; }
 .fab-item.current { background: var(--grey); color: #999; pointer-events: none; }
 
 
@@ -410,6 +411,12 @@ img.photo { background: none; border: none; padding: 0; display: block; max-widt
   .desktop-nav a.current { opacity: 1; border-bottom: 2px solid var(--coral); padding-bottom: 3px; }
   .fab-nav { display: none; }
 }
+
+@media (min-width: 700px) and (max-width: 799px) {
+  .desktop-nav { gap: 14px; }
+  .desktop-nav a { font-size: 13px; }
+}
+.logo-bar .bar-phone { white-space: nowrap; }
 /* ===== FULL-BLEED BACKGROUND SECTIONS: undo the .pad width cap, keep children readable ===== */
 @media (min-width: 700px) {
   .docs > .btn, .family > .btn, .included > .btn, .liability > .btn, .pricing > .btn { display: block; margin-left: auto; margin-right: auto; }
@@ -630,6 +637,7 @@ html.cc-wait #cc{display:block}
       <a href="/residential-cleaning">Residential</a>
       <a href="/deep-cleaning" class="current">Deep Cleaning</a>
       <a href="/blog">Blog</a>
+      <a href="/tools/fee-calculator">Tools</a>
     </nav>
     <a href="tel:+12104806224" class="bar-phone">(210) 480-6224</a>
   </div>
@@ -822,6 +830,7 @@ document.addEventListener("click", function (e) {
           <h3>Company</h3>
           <a href="/">Home</a>
           <a href="/blog">Blog</a>
+          <a href="/tools/fee-calculator">Free Tools</a>
           <a href="tel:+12104806224">Contact</a>
           <a href="/privacy-policy">Privacy Policy</a>
           <a href="/terms-conditions">Terms of Use</a>
@@ -863,6 +872,7 @@ document.addEventListener("click", function (e) {
       <a href="/residential-cleaning" class="fab-item">Residential</a>
       <a href="/deep-cleaning" class="fab-item current">Deep Cleaning</a>
       <a href="/blog" class="fab-item">Blog</a>
+      <a href="/tools/fee-calculator" class="fab-item">Free Tools</a>
     </div>
     <button class="fab-button" id="fabButton" aria-label="Menu" aria-expanded="false">
       <span class="fab-icon"></span>
