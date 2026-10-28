@@ -345,7 +345,8 @@
   document.addEventListener("submit", function (e) {
     var f = e.target;
     if (!f || f.tagName !== "FORM") return;
-    if ((f.getAttribute("action") || "").indexOf("formspree.io") === -1) return;
+    var act = f.getAttribute("action") || "";
+    if (act.indexOf("formspree.io") === -1 && act.indexOf("services.leadconnectorhq.com") === -1) return;
     track("form_submit", { form_id: f.id || "quote_form", button_location: where(f) });
   }, true);
   // Click-to-play video poster tapped (the pages dispatch this). Which video and where, nothing else.
