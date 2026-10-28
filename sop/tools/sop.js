@@ -86,4 +86,29 @@
     var dx=e.changedTouches[0].clientX-sx;sx=null;
     if(Math.abs(dx)>60)step(dx<0?1:-1);
   },{passive:true});
+
+  /* photo strips: visible left/right arrows + "2 / 6" counter, so the strip can be moved without opening a photo */
+  function stripNav(g){
+    var wrap=document.createElement('div');wrap.className='gwrap';
+    g.parentNode.insertBefore(wrap,g);wrap.appendChild(g);
+    function mk(cls,label,txt){var b=document.createElement('button');b.type='button';b.className='gnav '+cls;b.setAttribute('aria-label',label);b.textContent=txt;wrap.appendChild(b);return b;}
+    var pb=mk('gprev','Previous photos','\u2039'),nb=mk('gnext','Next photos','\u203A');
+    var cnt=document.createElement('span');cnt.className='gcount';cnt.setAttribute('aria-hidden','true');wrap.appendChild(cnt);
+    function cells(){return g.querySelectorAll('.cell');}
+    function upd(){
+      var more=g.scrollWidth>g.clientWidth+4,x=g.scrollLeft;
+      pb.hidden=!more||x<4;nb.hidden=!more||x+g.clientWidth>=g.scrollWidth-4;
+      var cs=cells(),first=0,gap=cs.length>1?cs[1].offsetLeft-cs[0].offsetLeft:1;
+      if(gap>0)first=Math.min(cs.length-1,Math.round(x/gap));
+      cnt.hidden=!more;cnt.textContent=(first+1)+' / '+cs.length;
+    }
+    function go(d){var c=cells()[0];var step=(c?c.getBoundingClientRect().width:g.clientWidth*0.6)+8;g.scrollBy({left:d*step,behavior:'smooth'});}
+    pb.addEventListener('click',function(){go(-1);});
+    nb.addEventListener('click',function(){go(1);});
+    g.addEventListener('scroll',function(){window.requestAnimationFrame(upd);},{passive:true});
+    window.addEventListener('resize',upd);
+    window.addEventListener('load',upd);
+    upd();
+  }
+  document.querySelectorAll('.gallery.strip').forEach(stripNav);
 })();

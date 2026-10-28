@@ -140,3 +140,12 @@
 .hero{margin:14px 0 0;position:relative;border-radius:16px;overflow:hidden;background:#d6dae3}
 .hero img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;-webkit-user-drag:none;user-select:none}
 .hero figcaption{position:absolute;left:10px;bottom:10px;margin:0;background:rgba(27,35,51,.78);color:#fff;font:700 13px "Manrope",sans-serif;padding:6px 12px;border-radius:99px}
+
+/* strip arrows */
+.gwrap{position:relative}
+.strip.gallery{touch-action:pan-x pan-y;overscroll-behavior-x:contain}
+.gnav{position:absolute;top:calc(50% - 22px);z-index:2;width:44px;height:44px;border-radius:50%;border:0;padding:0 0 3px;background:rgba(255,255,255,.94);color:var(--ink);font:700 30px/1 system-ui,sans-serif;box-shadow:0 2px 10px rgba(0,0,0,.28);display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.gnav[hidden]{display:none}
+.gprev{left:6px}.gnext{right:6px}
+.gcount{position:absolute;right:8px;bottom:12px;z-index:2;background:rgba(0,0,0,.62);color:#fff;font:600 12px/1 system-ui,sans-serif;padding:5px 8px;border-radius:999px;pointer-events:none}
+.gcount[hidden]{display:none}
