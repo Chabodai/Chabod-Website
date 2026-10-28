@@ -16,8 +16,8 @@ OUT = os.path.join(S, "worker", "public", CODE)
 
 MEDIA = {
  "01": PH("01", "Living room", "Sala"),
- "02": PH("02", "Kitchen island and stove (the dining table shown is the previous one)",
-          "Isla de la cocina y estufa (el comedor de la foto es el anterior)"),
+ "02": PH("02", "Kitchen island and stove",
+          "Isla de la cocina y estufa"),
  "03": PH("03", "Coffee station", "Estación de café"),
  "04": PH("04", "Floor 1 queen bed", "Cama queen del piso 1"),
  "05": PH("05", "Master king bed", "Cama king del máster"),
@@ -198,9 +198,7 @@ Z2 = [
           "El cuadrito con el nombre y la clave del Wi-Fi está en el mesón. Debe estar siempre ahí."),
          ("Vacuum the rug.", "Aspira la alfombra.")]),
  L.zone("dining", "pot", "Dining", "Comedor", "t1", ["n18"],
-        [("The dining table is glass. It must look very clean.", "El comedor es de vidrio. Debe verse muy limpio.")],
-        notes=[("The kitchen reference photo shows the previous dining table.",
-                "La foto de referencia de la cocina muestra el comedor anterior.")]),
+        [("The dining table is glass. It must look very clean.", "El comedor es de vidrio. Debe verse muy limpio.")]),
  L.zone("kitchen", "pot", "Kitchen", "Cocina", "t1", ["02", "n13", "n14", "n11", "n12", "n08", "v07", "v08"],
         [("Clean all counters and the stove.", "Limpia todos los mesones y la estufa."),
          ("Nothing left in the oven. No food in the pantry or the fridge.",
