@@ -272,6 +272,11 @@ html.cc-wait #cc{display:block}
 .tool-cta-btn { display: inline-block; background: var(--coral); color: #fff; text-decoration: none; font-weight: 800; font-size: 16px; padding: 14px 26px; border-radius: 999px; box-shadow: 0 6px 18px rgba(235,92,61,.32); }
 .tool-cta-btn:hover { filter: brightness(1.06); }
 .tool-cta-btn:focus-visible { outline: 3px solid var(--teal-dark); outline-offset: 3px; }
+#chabod-fee-calc-root .lead-card .lead-checks { margin-top: 14px; }
+#chabod-fee-calc-root .lead-card label.lead-check { display: flex; gap: 10px; align-items: flex-start; font-size: 12.5px; font-weight: 400; line-height: 1.5; color: #dbe2f2; margin: 0 0 12px; cursor: pointer; }
+#chabod-fee-calc-root .lead-card .lead-check input[type="checkbox"] { flex: 0 0 22px; width: 22px; height: 22px; margin: 1px 0 0; accent-color: #eb5c3d; cursor: pointer; }
+#chabod-fee-calc-root .lead-card .lead-check a { color: #fff; text-decoration: underline; }
+#chabod-fee-calc-root .lead-card .lead-check input:focus-visible { outline: 3px solid #58bec2; outline-offset: 2px; }
 @media (min-width: 700px) {
   .tool-hero { padding: 44px 24px 40px; }
   .tool-hero h1 { font-size: 36px; }
@@ -976,6 +981,7 @@ html.cc-wait #cc{display:block}
       <input type="hidden" name="nightly_rate" id="chabod-hid-rate" value="">
       <input type="hidden" name="cleaning_fee" id="chabod-hid-clean" value="">
       <input type="hidden" name="source" value="fee-change-calculator">
+      <input type="hidden" name="consent_version" value="fee-calc-2026-10-27">
 
       <div class="lead-row">
         <div>
@@ -991,13 +997,12 @@ html.cc-wait #cc{display:block}
         <label for="chabod-lead-email">Email (optional)</label>
         <input type="email" id="chabod-lead-email" name="email" autocomplete="email" style="padding-left:14px;">
       </div>
+      <div class="lead-checks">
+        <label class="lead-check" for="chabod-lead-sms"><input type="checkbox" id="chabod-lead-sms" name="sms_consent" value="yes" required><span id="chabod-lead-sms-text">I agree to receive text messages from Chabod Cleaning Services at the number above about this request, including these calculator numbers and a quote for my property. Message frequency varies. Message and data rates may apply. Reply STOP to opt out or HELP for help. Agreeing is not a condition of buying anything. See the <a href="https://chabodcleaningservices.com/sms-terms" target="_blank" rel="noopener">SMS Terms</a>.</span></label>
+        <label class="lead-check" for="chabod-lead-terms"><input type="checkbox" id="chabod-lead-terms" name="terms_consent" value="yes" required><span id="chabod-lead-terms-text">I have read and agree to the <a href="https://chabodcleaningservices.com/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>, the <a href="https://chabodcleaningservices.com/terms-conditions" target="_blank" rel="noopener">Terms of Use</a> and the <a href="https://chabodcleaningservices.com/service-terms" target="_blank" rel="noopener">Service Terms</a>.</span></label>
+      </div>
       <button type="submit" class="lead-submit" id="chabod-lead-submit">Text me this</button>
-      <p class="lead-consent">
-        By tapping Text me this, you agree that Chabod Cleaning Services may text you about this request. Message and
-        data rates may apply. Reply STOP to opt out. See our
-        <a href="https://chabodcleaningservices.com/sms-terms" target="_blank" rel="noopener">SMS Terms</a> and
-        <a href="https://chabodcleaningservices.com/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>.
-      </p>
+      
       <div class="lead-error" id="chabod-lead-error" role="alert"></div>
     </form>
   </div>
@@ -1512,6 +1517,28 @@ document.addEventListener('DOMContentLoaded', function () {
     sent = true;
     try { if (window.fbq) window.fbq('track', 'Lead', { content_name: 'Airbnb + Vrbo Fee Calculator', content_category: 'STR Lead - San Antonio' }); } catch (e) {}
   }).observe(thanks, { attributes: true, attributeFilter: ['class'] });
+})();
+</script>
+<script>
+// Proof of consent: when the text-me form is submitted with both boxes ticked, the exact wording the visitor saw
+// is stored in Supabase by the record-consent function. The IP address is read there, server-side, not from this page.
+(function () {
+  var form = document.getElementById('chabod-lead-form');
+  if (!form) return;
+  var ENDPOINT = 'https://kzvjrpbkaqgrozqkmvuf.supabase.co/functions/v1/record-consent';
+  function text(id) { var el = document.getElementById(id); return el ? el.textContent.replace(/\s+/g, ' ').trim() : ''; }
+  form.addEventListener('submit', function () {
+    var sms = document.getElementById('chabod-lead-sms'), terms = document.getElementById('chabod-lead-terms');
+    if (!sms || !terms || !sms.checked || !terms.checked) return;
+    var v = function (id) { var el = document.getElementById(id); return el ? el.value : ''; };
+    var data = {
+      name: v('chabod-lead-name'), phone: v('chabod-lead-phone'), email: v('chabod-lead-email'),
+      sms_consent: true, terms_consent: true,
+      sms_consent_text: text('chabod-lead-sms-text'), terms_consent_text: text('chabod-lead-terms-text'),
+      consent_version: 'fee-calc-2026-10-27', source: 'fee-change-calculator', page_url: location.href
+    };
+    try { fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data), keepalive: true }).catch(function () {}); } catch (e) {}
+  }, true);
 })();
 </script>
 </body>
