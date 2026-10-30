@@ -441,14 +441,18 @@ function siteFooter() {
   </footer>`;
 }
 
-function pageShell({ title, description, current, bodyHtml, canonicalPath, image, extraSchema }) {
+function pageShell({ title, description, current, bodyHtml, canonicalPath, image, imageAlt, imageSize, extraSchema }) {
   const url = `https://chabodcleaningservices.com${canonicalPath}`;
   const extraSchemaTag = extraSchema
     ? `<script type="application/ld+json">\n${JSON.stringify(extraSchema, null, 2)}\n</script>\n`
     : "";
   const imageUrl = image ? `https://chabodcleaningservices.com${image}` : null;
   const imageTags = imageUrl
-    ? `<meta property="og:image" content="${imageUrl}">\n<meta name="twitter:image" content="${imageUrl}">\n`
+    ? `<meta property="og:image" content="${imageUrl}">\n` +
+      (imageSize ? `<meta property="og:image:type" content="image/jpeg">\n<meta property="og:image:width" content="${imageSize[0]}">\n<meta property="og:image:height" content="${imageSize[1]}">\n` : "") +
+      (imageAlt ? `<meta property="og:image:alt" content="${escapeHtml(imageAlt)}">\n` : "") +
+      `<meta name="twitter:image" content="${imageUrl}">\n` +
+      (imageAlt ? `<meta name="twitter:image:alt" content="${escapeHtml(imageAlt)}">\n` : "")
     : "";
   return `<!DOCTYPE html>
 <html lang="en">
@@ -697,7 +701,10 @@ ${featuredHtml}
       current: "Blog",
       bodyHtml: body,
       canonicalPath: "/blog",
-      image: featured ? featured.image : null,
+      // the blog index has its own 1200x630 share picture (posts keep their featured image)
+      image: "/og/blog.jpg",
+      imageSize: [1200, 630],
+      imageAlt: "The Chabod Blog: Cleaning Tips for Hosts and Businesses. San Antonio, written by the owner.",
     }),
     { headers: { "content-type": "text/html;charset=UTF-8" } }
   );
