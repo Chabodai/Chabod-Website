@@ -274,9 +274,10 @@ h1, h2, h3 {
   .fab-nav { display: none; }
 }
 
-@media (min-width: 700px) and (max-width: 799px) {
-  .desktop-nav { gap: 14px; }
-  .desktop-nav a { font-size: 13px; }
+/* seven links do not fit next to the logo and phone below 900px: the floating menu stays */
+@media (min-width: 700px) and (max-width: 899px) {
+  .desktop-nav { display: none; }
+  .fab-nav { display: flex; }
 }
 .logo-bar .bar-phone { white-space: nowrap; }
 
@@ -331,6 +332,7 @@ function siteHeader(current) {
     { href: "/str-cleaning", label: "STR Cleaning" },
     { href: "/residential-cleaning", label: "Residential" },
     { href: "/deep-cleaning", label: "Deep Cleaning" },
+    { href: "/commercial-cleaning", label: "Commercial" },
     { href: "/blog", label: "Blog" },
     { href: "/tools/fee-calculator", label: "Tools" },
   ];
@@ -354,6 +356,7 @@ function floatingNav(current) {
     { href: "/str-cleaning", label: "STR Cleaning" },
     { href: "/residential-cleaning", label: "Residential" },
     { href: "/deep-cleaning", label: "Deep Cleaning" },
+    { href: "/commercial-cleaning", label: "Commercial" },
     { href: "/blog", label: "Blog" },
     { href: "/tools/fee-calculator", label: "Free Tools" },
   ];
@@ -390,6 +393,8 @@ function siteFooter() {
           <a href="/str-cleaning">Airbnb &amp; STR Cleaning</a>
           <a href="/residential-cleaning">Residential Cleaning</a>
           <a href="/deep-cleaning">Deep Cleaning</a>
+          <a href="/commercial-cleaning">Commercial Cleaning</a>
+          <a href="/commercial-cleaning-service-areas">Commercial service areas</a>
         </div>
         <div class="f-col">
           <h4>Company</h4>
@@ -771,6 +776,8 @@ const PERMANENT_REDIRECTS = {
   "/service-terms.html": "/service-terms",
   "/sms-terms.html": "/sms-terms",
   "/before-we-arrive.html": "/before-we-arrive",
+  "/commercial-cleaning.html": "/commercial-cleaning",
+  "/commercial-cleaning-service-areas.html": "/commercial-cleaning-service-areas",
   "/tools/fee-calculator.html": "/tools/fee-calculator",
 };
 
@@ -786,7 +793,6 @@ const LEGACY_SLUGS = {
   "contactanos": "/",
   "contact-us": "/",
   "emprende-con-nosotros": "/",
-  "commercial-cleaning": "/",
   "terminos-y-condiciones": "/terms-conditions",
   "politicas-de-privacidad": "/privacy-policy",
 };

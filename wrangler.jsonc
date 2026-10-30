@@ -24,6 +24,8 @@
       "/service-terms.html",
       "/sms-terms.html",
       "/before-we-arrive.html",
+      "/commercial-cleaning.html",
+      "/commercial-cleaning-service-areas.html",
       "/tools/fee-calculator.html",
       // trailing slash -> no slash
       "/str-cleaning/",
@@ -34,6 +36,7 @@
       "/service-terms/",
       "/sms-terms/",
       "/before-we-arrive/",
+      "/commercial-cleaning-service-areas/",
       "/tools/fee-calculator/",
       // old WordPress site: whole /es/ and /en/ trees
       "/es",

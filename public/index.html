@@ -296,6 +296,7 @@ img.photo { background: none; border: none; padding: 0; display: block; max-widt
 .fab-nav.open .fab-item:nth-child(4) { transition-delay: 0.15s; }
 .fab-nav.open .fab-item:nth-child(5) { transition-delay: 0.19s; }
 .fab-nav.open .fab-item:nth-child(6) { transition-delay: 0.23s; }
+.fab-nav.open .fab-item:nth-child(7) { transition-delay: 0.27s; }
 .fab-item.current { background: var(--grey); color: #999; pointer-events: none; }
 
 
@@ -407,9 +408,10 @@ img.photo { background: none; border: none; padding: 0; display: block; max-widt
   .fab-nav { display: none; }
 }
 
-@media (min-width: 700px) and (max-width: 799px) {
-  .desktop-nav { gap: 14px; }
-  .desktop-nav a { font-size: 13px; }
+/* seven links do not fit next to the logo and phone below 900px: the floating menu stays */
+@media (min-width: 700px) and (max-width: 899px) {
+  .desktop-nav { display: none; }
+  .fab-nav { display: flex; }
 }
 .logo-bar .bar-phone { white-space: nowrap; }
 /* ===== FULL-BLEED BACKGROUND SECTIONS: undo the .pad width cap, keep children readable ===== */
@@ -489,6 +491,7 @@ html.cc-wait #cc{display:block}
       <a href="/str-cleaning">STR Cleaning</a>
       <a href="/residential-cleaning">Residential</a>
       <a href="/deep-cleaning">Deep Cleaning</a>
+      <a href="/commercial-cleaning">Commercial</a>
       <a href="/blog">Blog</a>
       <a href="/tools/fee-calculator">Tools</a>
     </nav>
@@ -686,6 +689,8 @@ html.cc-wait #cc{display:block}
           <a href="/str-cleaning">Airbnb &amp; STR Cleaning</a>
           <a href="/residential-cleaning">Residential Cleaning</a>
           <a href="/deep-cleaning">Deep Cleaning</a>
+          <a href="/commercial-cleaning">Commercial Cleaning</a>
+          <a href="/commercial-cleaning-service-areas">Commercial service areas</a>
         </div>
         <div class="f-col">
           <h3>Company</h3>
@@ -737,6 +742,7 @@ html.cc-wait #cc{display:block}
       <a href="/str-cleaning" class="fab-item">STR Cleaning</a>
       <a href="/residential-cleaning" class="fab-item">Residential</a>
       <a href="/deep-cleaning" class="fab-item">Deep Cleaning</a>
+      <a href="/commercial-cleaning" class="fab-item">Commercial</a>
       <a href="/blog" class="fab-item">Blog</a>
       <a href="/tools/fee-calculator" class="fab-item">Free Tools</a>
     </div>
