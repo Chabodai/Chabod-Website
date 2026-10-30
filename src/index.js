@@ -152,6 +152,13 @@ h1, h2, h3 {
 .blog-cta { background: var(--grey); text-align: center; padding: 26px 24px; }
 .blog-cta h2 { font-size: 19px; margin-bottom: 8px; }
 .blog-cta p { font-size: 14.5px; color: #555; margin-bottom: 16px; }
+.related { max-width: 680px; margin: 0 auto; padding: 26px 24px 8px; }
+.related h2 { font-size: 20px; margin-bottom: 12px; }
+.related ul { list-style: none; margin: 0; padding: 0; }
+.related li { border-top: 1px solid var(--line); }
+.related li:last-child { border-bottom: 1px solid var(--line); }
+.related a { display: block; padding: 12px 0; font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 15.5px; line-height: 1.4; color: var(--blue); text-decoration: none; }
+.related a:hover { color: var(--coral); }
 .btn {
   display: inline-block; background: var(--coral); color: #fff;
   font-family: 'Baloo 2', sans-serif; font-weight: 600; font-size: 17px;
@@ -591,23 +598,30 @@ function previewAllowed(url, env) {
   return Boolean(key && env.GBP_ADMIN_KEY) && safeEqual(key, env.GBP_ADMIN_KEY);
 }
 
-// sitemap.xml is a static file that lists every post, scheduled ones included.
-// Strip the entries for posts that are not live yet, so Google is never pointed
-// at a page that would 404.
+// sitemap.xml: the static file lists the pages only (home, services, commercial, blog index, tools).
+// Every LIVE blog post is added here from the KV index, so a new post is in the sitemap the minute it goes
+// live and a scheduled one never shows up early. Nothing to edit by hand.
 async function serveSitemap(request, env) {
   const asset = await env.ASSETS.fetch(new Request(request.url, { method: "GET" }));
   if (!asset.ok) return asset;
   let xml = await asset.text();
   try {
     const raw = await env.BLOG_POSTS.get("index");
-    const hidden = (raw ? JSON.parse(raw) : [])
-      .filter((p) => !isLive(p))
-      .map((p) => `<loc>https://chabodcleaningservices.com/blog/${p.slug}</loc>`);
-    if (hidden.length) {
-      xml = xml.replace(/<url>[\s\S]*?<\/url>\s*/g, (block) => (hidden.some((loc) => block.includes(loc)) ? "" : block));
+    const live = (raw ? JSON.parse(raw) : [])
+      .filter((p) => p && /^[a-z0-9-]+$/.test(p.slug || "") && isLive(p))
+      .sort((x, y) => String(y.date_published).localeCompare(String(x.date_published)));
+    // drop any post entries the static file may still carry, then add the live ones
+    xml = xml.replace(/\s*<url>\s*<loc>https:\/\/chabodcleaningservices\.com\/blog\/[^<]+<\/loc>[\s\S]*?<\/url>/g, "");
+    const entries = live
+      .map((p) => `  <url>\n    <loc>https://chabodcleaningservices.com/blog/${p.slug}</loc>\n    <lastmod>${String(p.date_published).slice(0, 10)}</lastmod>\n  </url>`)
+      .join("\n");
+    if (entries) xml = xml.replace("</urlset>", entries + "\n</urlset>");
+    if (live.length) {
+      // the blog index changes whenever a post goes live
+      xml = xml.replace(/(<loc>https:\/\/chabodcleaningservices\.com\/blog<\/loc>\s*<lastmod>)[^<]*(<\/lastmod>)/, `$1${String(live[0].date_published).slice(0, 10)}$2`);
     }
   } catch {
-    // Unreadable index: serve the sitemap exactly as written.
+    // Unreadable index: serve the sitemap exactly as written (pages only).
   }
   return new Response(xml, {
     headers: {
@@ -689,6 +703,64 @@ ${featuredHtml}
   );
 }
 
+// Search-result title and description for specific posts. Used instead of the post's own title (which is also the
+// on-page headline) when the headline is too long for Google or does not promise the answer.
+// Title tags stay under 60 characters and descriptions under 155.
+const POST_SEO = {
+  "vrbo-12-percent-commission-san-antonio": {
+    title: "Vrbo's 12% Commission: What Hosts Pay From Oct 29 | Chabod",
+    description: "Vrbo's 12% commission starts Oct 29, 2026: what it covers (rate plus cleaning fee, not taxes), the 3% processing conflict and San Antonio payout math.",
+  },
+  "airbnb-payout-change-september-2026-san-antonio": {
+    title: "Airbnb's 15.5% Fee: A $100 Night Now Pays $84.50 | Chabod",
+    description: "Airbnb's single 15.5% host fee started Sept 15, 2026. A $100 night paid $97 before and $84.50 now. See the cleaning-fee impact and the repricing math.",
+  },
+  "hildebrand-construction-cleaning-access-san-antonio": {
+    title: "Hildebrand Closures Until March 2027: Cleaning Access Plan",
+    description: "SAWS closes parts of Hildebrand 24/7 from Oct 26, 2026 to about March 2027. You don't need to cancel cleanings, you need an access plan. Here's how.",
+  },
+};
+
+// The service page each blog category points to (a post can override it with a "service_url" field).
+const CATEGORY_SERVICE = {
+  "STR & Airbnb Hosts": { href: "/str-cleaning", lead: "Need a dependable short-term rental cleaner in San Antonio?", cta: "See Airbnb & STR cleaning" },
+  "San Antonio Local": { href: "/str-cleaning", lead: "Need a dependable short-term rental cleaner in San Antonio?", cta: "See Airbnb & STR cleaning" },
+  "Behind the Scenes": { href: "/str-cleaning", lead: "Want a cleaning team that works like this?", cta: "See Airbnb & STR cleaning" },
+  "Residential Tips": { href: "/residential-cleaning", lead: "Looking for house cleaning in San Antonio?", cta: "See house cleaning" },
+  "Commercial Cleaning": { href: "/commercial-cleaning", lead: "Need commercial deep cleaning in San Antonio?", cta: "See commercial cleaning" },
+};
+
+function serviceCtaHtml(post) {
+  const svc = CATEGORY_SERVICE[post.category] || CATEGORY_SERVICE["STR & Airbnb Hosts"];
+  const href = typeof post.service_url === "string" && post.service_url.startsWith("/") ? post.service_url : svc.href;
+  return `<div class="blog-cta" style="margin-top: 20px;">
+    <h2>${escapeHtml(svc.lead)}</h2>
+    <p>Family-owned, 5-star Google rating. Call or text Andres at (210) 480-6224.</p>
+    <a href="${href}" class="btn">${escapeHtml(svc.cta)}</a>
+  </div>`;
+}
+
+// Three other live posts: same category first, then the newest of the rest. New posts get links
+// automatically from the newest posts around them, with the post's own title as the link text.
+async function relatedPostsHtml(env, post, slug) {
+  try {
+    const raw = await env.BLOG_POSTS.get("index");
+    const all = (raw ? JSON.parse(raw) : []).filter((p) => p && p.slug && p.slug !== slug && isLive(p));
+    const newest = (a, b) => String(b.date_published).localeCompare(String(a.date_published));
+    const picks = all.filter((p) => p.category === post.category).sort(newest)
+      .concat(all.filter((p) => p.category !== post.category).sort(newest)).slice(0, 3);
+    if (!picks.length) return "";
+    return `<section class="related">
+    <h2>Related reading</h2>
+    <ul>
+      ${picks.map((p) => `<li><a href="/blog/${encodeURIComponent(p.slug)}">${escapeHtml(p.title)}</a></li>`).join("\n      ")}
+    </ul>
+  </section>`;
+  } catch {
+    return "";
+  }
+}
+
 async function renderBlogPost(env, slug, preview = false) {
   const raw = await env.BLOG_POSTS.get(`post:${slug}`);
   const post = raw ? JSON.parse(raw) : null;
@@ -716,6 +788,11 @@ async function renderBlogPost(env, slug, preview = false) {
     postHeaders["x-robots-tag"] = "noindex";
   }
 
+  const seo = POST_SEO[slug] || {};
+  const metaDescription = seo.description || post.meta_description || post.excerpt || post.title;
+  const titleTag = seo.title || post.seo_title || `${post.title} | Chabod Cleaning Services Blog`;
+  const related = await relatedPostsHtml(env, post, slug);
+
   const body = `
   ${previewBanner}<div class="post-hero">
     <a href="/blog">&larr; Back to Blog</a>
@@ -728,6 +805,8 @@ async function renderBlogPost(env, slug, preview = false) {
       ${wrapTables(post.content_html)}
     </div>
   </article>
+  ${serviceCtaHtml(post)}
+  ${related}
   <div class="blog-cta reveal" style="margin-top: 20px;">
     <h2>Have a topic you want covered?</h2>
     <p>Text us what you're curious about &mdash; we might write about it.</p>
@@ -736,8 +815,8 @@ async function renderBlogPost(env, slug, preview = false) {
 
   return new Response(
     pageShell({
-      title: `${post.title} | Chabod Cleaning Services Blog`,
-      description: post.meta_description || post.excerpt || post.title,
+      title: titleTag,
+      description: metaDescription,
       current: "Blog",
       bodyHtml: body,
       canonicalPath: `/blog/${slug}`,
@@ -745,7 +824,7 @@ async function renderBlogPost(env, slug, preview = false) {
         "@context": "https://schema.org",
         "@type": "BlogPosting",
         "headline": post.title,
-        "description": post.meta_description || post.excerpt || post.title,
+        "description": metaDescription,
         "datePublished": toCentralIso(post.publish_at || post.date_published),
         "author": { "@id": "https://chabodcleaningservices.com/#business" },
         "publisher": { "@id": "https://chabodcleaningservices.com/#business" },

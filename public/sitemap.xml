@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Pages only. Blog posts are added automatically by the Worker (src/index.js, serveSitemap) from the KV index, live posts only. Do not list noindex pages here. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://chabodcleaningservices.com/</loc>
-    <lastmod>2026-09-05</lastmod>
+    <lastmod>2026-10-29</lastmod>
   </url>
   <url>
     <loc>https://chabodcleaningservices.com/str-cleaning</loc>
-    <lastmod>2026-09-05</lastmod>
+    <lastmod>2026-10-29</lastmod>
   </url>
   <url>
     <loc>https://chabodcleaningservices.com/residential-cleaning</loc>
-    <lastmod>2026-09-05</lastmod>
+    <lastmod>2026-10-29</lastmod>
   </url>
   <url>
     <loc>https://chabodcleaningservices.com/deep-cleaning</loc>
-    <lastmod>2026-09-05</lastmod>
+    <lastmod>2026-10-29</lastmod>
   </url>
   <url>
     <loc>https://chabodcleaningservices.com/commercial-cleaning</loc>
@@ -24,116 +25,12 @@
     <loc>https://chabodcleaningservices.com/commercial-cleaning-service-areas</loc>
     <lastmod>2026-10-29</lastmod>
   </url>
-<url>
-    <loc>https://chabodcleaningservices.com/blog</loc>
-    <lastmod>2026-10-02</lastmod>
-  </url>
   <url>
-    <loc>https://chabodcleaningservices.com/blog/airbnb-amenity-listing-inventory-audit-san-antonio</loc>
+    <loc>https://chabodcleaningservices.com/blog</loc>
     <lastmod>2026-10-29</lastmod>
   </url>
   <url>
-    <loc>https://chabodcleaningservices.com/blog/airbnb-grocery-delivery-fridge-handoff-san-antonio</loc>
-    <lastmod>2026-10-27</lastmod>
-  </url>
-  <url>
-    <loc>https://chabodcleaningservices.com/blog/airbnb-house-rules-checkout-chores-november-2026</loc>
-    <lastmod>2026-10-22</lastmod>
-  </url>
-  <url>
-    <loc>https://chabodcleaningservices.com/blog/halloween-cleanup-san-antonio-routine-vs-quote</loc>
-    <lastmod>2026-10-22</lastmod>
-  </url>
-  <url>
-    <loc>https://chabodcleaningservices.com/blog/hildebrand-construction-cleaning-access-san-antonio</loc>
-    <lastmod>2026-10-20</lastmod>
-  </url>
-  <url>
-    <loc>https://chabodcleaningservices.com/blog/dia-de-los-muertos-downtown-cleaner-access-san-antonio</loc>
-    <lastmod>2026-10-16</lastmod>
-  </url>
-  <url>
-    <loc>https://chabodcleaningservices.com/blog/airbnb-laundry-responsibility-san-antonio</loc>
-    <lastmod>2026-10-15</lastmod>
-  </url>
-  <url>
-    <loc>https://chabodcleaningservices.com/blog/commercial-facility-deep-cleaning-employee-care-san-antonio</loc>
-    <lastmod>2026-10-06</lastmod>
-  </url>
-  <url>
-    <loc>https://chabodcleaningservices.com/blog/vrbo-12-percent-commission-san-antonio</loc>
-    <lastmod>2026-10-04</lastmod>
-  </url>
-  <url>
-    <loc>https://chabodcleaningservices.com/blog/san-antonio-str-permit-fee-increase-october-2026</loc>
-    <lastmod>2026-10-02</lastmod>
-  </url>
-  <url>
-    <loc>https://chabodcleaningservices.com/blog/airbnb-turnover-cleaning-cost-san-antonio</loc>
-    <lastmod>2026-09-17</lastmod>
-  </url>
-  <url>
-    <loc>https://chabodcleaningservices.com/blog/airbnb-payout-change-september-2026-san-antonio</loc>
-    <lastmod>2026-09-17</lastmod>
-  </url>
-  <url>
-    <loc>https://chabodcleaningservices.com/blog/what-guests-notice-first-5-minutes-san-antonio-airbnb</loc>
-    <lastmod>2026-09-04</lastmod>
-  </url>
-  <url>
-    <loc>https://chabodcleaningservices.com/blog/why-we-report-problems-san-antonio</loc>
-    <lastmod>2026-09-03</lastmod>
-  </url>
-  <url>
-    <loc>https://chabodcleaningservices.com/blog/deep-clean-vs-regular-clean-san-antonio</loc>
-    <lastmod>2026-09-01</lastmod>
-  </url>
-  <url>
-    <loc>https://chabodcleaningservices.com/blog/trapped-cleaning-contract-san-antonio</loc>
-    <lastmod>2026-08-28</lastmod>
-  </url>
-  <url>
-    <loc>https://chabodcleaningservices.com/blog/superhost-status-cleaning-company-san-antonio</loc>
-    <lastmod>2026-08-25</lastmod>
-  </url>
-  <url>
     <loc>https://chabodcleaningservices.com/tools/fee-calculator</loc>
-    <lastmod>2026-10-27</lastmod>
-  </url>
-  <url>
-    <loc>https://chabodcleaningservices.com/blog/commercial-cleaning-scope-of-work-checklist-san-antonio</loc>
-    <lastmod>2026-10-30</lastmod>
-  </url>
-  <url>
-    <loc>https://chabodcleaningservices.com/blog/commercial-cleaning-cost-san-antonio-per-visit-vs-per-month</loc>
-    <lastmod>2026-11-02</lastmod>
-  </url>
-  <url>
-    <loc>https://chabodcleaningservices.com/blog/commercial-deep-cleaning-vs-janitorial-service-san-antonio</loc>
-    <lastmod>2026-11-04</lastmod>
-  </url>
-  <url>
-    <loc>https://chabodcleaningservices.com/blog/commercial-cleaning-no-long-term-contract-what-to-put-in-writing</loc>
-    <lastmod>2026-11-06</lastmod>
-  </url>
-  <url>
-    <loc>https://chabodcleaningservices.com/blog/commercial-cleaning-inspection-report-san-antonio</loc>
-    <lastmod>2026-11-09</lastmod>
-  </url>
-  <url>
-    <loc>https://chabodcleaningservices.com/blog/listing-prep-cleaning-san-antonio-realtors</loc>
-    <lastmod>2026-11-11</lastmod>
-  </url>
-  <url>
-    <loc>https://chabodcleaningservices.com/blog/cleaning-vendor-certificate-of-insurance-texas-san-antonio</loc>
-    <lastmod>2026-11-13</lastmod>
-  </url>
-  <url>
-    <loc>https://chabodcleaningservices.com/blog/texas-sales-tax-commercial-cleaning-san-antonio</loc>
-    <lastmod>2026-11-16</lastmod>
-  </url>
-  <url>
-    <loc>https://chabodcleaningservices.com/blog/switching-commercial-cleaning-companies-30-day-transition-san-antonio</loc>
-    <lastmod>2026-11-18</lastmod>
+    <lastmod>2026-10-28</lastmod>
   </url>
 </urlset>
