@@ -441,18 +441,25 @@ function siteFooter() {
   </footer>`;
 }
 
-function pageShell({ title, description, current, bodyHtml, canonicalPath, image, imageAlt, imageSize, extraSchema }) {
+function pageShell({ title, description, current, bodyHtml, canonicalPath, image, imageAlt, imageSize, extraSchema, ogType, articleTimes }) {
   const url = `https://chabodcleaningservices.com${canonicalPath}`;
   const extraSchemaTag = extraSchema
     ? `<script type="application/ld+json">\n${JSON.stringify(extraSchema, null, 2)}\n</script>\n`
     : "";
   const imageUrl = image ? `https://chabodcleaningservices.com${image}` : null;
+  const imageType = /\.webp$/i.test(image || "") ? "image/webp" : "image/jpeg";
   const imageTags = imageUrl
     ? `<meta property="og:image" content="${imageUrl}">\n` +
-      (imageSize ? `<meta property="og:image:type" content="image/jpeg">\n<meta property="og:image:width" content="${imageSize[0]}">\n<meta property="og:image:height" content="${imageSize[1]}">\n` : "") +
+      `<meta property="og:image:type" content="${imageType}">\n` +
+      (imageSize ? `<meta property="og:image:width" content="${imageSize[0]}">\n<meta property="og:image:height" content="${imageSize[1]}">\n` : "") +
       (imageAlt ? `<meta property="og:image:alt" content="${escapeHtml(imageAlt)}">\n` : "") +
       `<meta name="twitter:image" content="${imageUrl}">\n` +
       (imageAlt ? `<meta name="twitter:image:alt" content="${escapeHtml(imageAlt)}">\n` : "")
+    : "";
+  // Blog posts pass ogType "article" plus articleTimes; every other page stays "website".
+  const articleTags = articleTimes
+    ? `<meta property="article:published_time" content="${escapeHtml(articleTimes.published)}">\n` +
+      (articleTimes.modified ? `<meta property="article:modified_time" content="${escapeHtml(articleTimes.modified)}">\n` : "")
     : "";
   return `<!DOCTYPE html>
 <html lang="en">
@@ -465,12 +472,12 @@ function pageShell({ title, description, current, bodyHtml, canonicalPath, image
 <link rel="canonical" href="${url}">
 <link rel="icon" type="image/png" href="/favicon.png">
 <meta name="description" content="${escapeHtml(description)}">
-<meta property="og:type" content="website">
+<meta property="og:type" content="${ogType || "website"}">
 <meta property="og:site_name" content="Chabod Cleaning Services">
 <meta property="og:title" content="${escapeHtml(title)}">
 <meta property="og:description" content="${escapeHtml(description)}">
 <meta property="og:url" content="${url}">
-${imageTags}<meta name="twitter:card" content="${imageUrl ? "summary_large_image" : "summary"}">
+${imageTags}${articleTags}<meta name="twitter:card" content="${imageUrl ? "summary_large_image" : "summary"}">
 <meta name="twitter:title" content="${escapeHtml(title)}">
 <meta name="twitter:description" content="${escapeHtml(description)}">
 <script type="application/ld+json">
@@ -842,7 +849,17 @@ async function renderBlogPost(env, slug, preview = false) {
         ...(post.image ? { image: `https://chabodcleaningservices.com${post.image}` } : {}),
         ...(post.category ? { articleSection: post.category } : {}),
       },
-      image: post.image || null,
+      // The share card uses a dedicated social image when the post has one (always a
+      // .jpg, since some platforms do not render WebP); older posts without one fall
+      // back to the on-page featured image.
+      image: post.og_image || post.image || null,
+      imageAlt: post.image_alt || null,
+      imageSize: post.og_image_size || null,
+      ogType: "article",
+      articleTimes: {
+        published: post.publish_at || toCentralIso(post.date_published),
+        modified: post.date_modified ? toCentralIso(post.date_modified) : null,
+      },
     }),
     { headers: postHeaders }
   );

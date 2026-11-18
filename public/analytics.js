@@ -4,14 +4,15 @@
  *   Microsoft Clarity    ysa4js5f6n     (session recordings; only after "Accept all")
  *   Meta Pixel           578421348357572 (only after "Accept all"; it is NOT in any page any more)
  *   GoHighLevel tracking tk_7f60d9dc4ed14bbeb923fbe8d285400b (only after "Accept all", loaded last, ~84 KB)
+ *   GoHighLevel chat     6af93279a68c8c5d0363897f (the "Have a question?" bubble; everyone except "Reject")
  *
  * ONE file, included on every page with <script src="/analytics.js" defer>, after /consent.js.
  * To switch ALL of it off, set ENABLED to false below (or empty this file): one edit.
  *
  * CONSENT (the visitor's choice comes from /consent.js, cookie chabod_cc):
- *   no choice yet     Google Analytics only, with Google's ad storage / ad signals switched OFF.
- *                     Set GATE_GA4 = true to make even that wait for "Accept all".
- *   Accept all        Google Analytics + Microsoft Clarity + Meta Pixel + GoHighLevel tracking.
+ *   no choice yet     Google Analytics (with Google's ad storage / ad signals switched OFF) + the chat bubble.
+ *                     Set GATE_GA4 = true to make even Google Analytics wait for "Accept all".
+ *   Accept all        Google Analytics + Microsoft Clarity + Meta Pixel + GoHighLevel tracking + the chat bubble.
  *   Reject / GPC      Nothing loads. Our own analytics cookies are deleted (_ga*, _fbp, _fbc,
  *                     _clck, _clsk) and Meta's / Clarity's browser storage is cleared.
  *   Changing from Accept to Reject reloads the page so nothing keeps running.
@@ -47,6 +48,8 @@
   var META_ID = "578421348357572";
   var GHL_ENABLED = true;        // GoHighLevel tracking (ties visits and form fills to contacts); only after "Accept all"
   var GHL_ID = "tk_7f60d9dc4ed14bbeb923fbe8d285400b";
+  var CHAT_ENABLED = true;       // GoHighLevel chat bubble; never for visitors who rejected (or GPC)
+  var CHAT_ID = "6af93279a68c8c5d0363897f";
 
   if (!ENABLED) return;
 
@@ -80,6 +83,11 @@
       localStorage.removeItem("lastExternalReferrer");
       localStorage.removeItem("lastExternalReferrerTime");
       sessionStorage.removeItem("_cltk");
+      // what the chat bubble keeps in the browser (its session and message history)
+      for (var k = localStorage.length - 1; k >= 0; k--) {
+        var key = localStorage.key(k);
+        if (/^v[0-9]_(history|session_history|contact_session|first_session_event)_/.test(key)) localStorage.removeItem(key);
+      }
     } catch (e) {}
   }
 
@@ -148,7 +156,7 @@
     if (!gtagStarted) {
       gtagStarted = true;
       var g = loadGtag();
-      afterGtag(g, startRest);
+      afterGtag(g, function () { startRest(); loadChat(); });
     }
   }
   // Clarity + Meta Pixel: only for visitors who chose "Accept all".
@@ -252,6 +260,54 @@
     document.head.appendChild(s);
   }
 
+  /* ---- GoHighLevel chat bubble ("Have a question?") ----
+   * A feature the visitor can use, not a measuring tool, so it does not need "Accept all": it loads
+   * for everyone who has not rejected. Like the other tags it waits for a real visitor and for
+   * Google Analytics to finish, so it never competes with the page.
+   * Its look, texts and corner (bottom right or left) are set in GoHighLevel, not here.
+   * Turn it off on its own with CHAT_ENABLED = false. */
+  var chatStarted = false;
+  function loadChat() {
+    if (!CHAT_ENABLED || chatStarted || blocked || choice() === 0) return;
+    chatStarted = true;
+    var s = document.createElement("script");
+    s.id = "ghl-chat"; s.async = true; s.src = "https://widgets.leadconnectorhq.com/loader.js";
+    s.setAttribute("data-resources-url", "https://widgets.leadconnectorhq.com/chat-widget/loader.js");
+    s.setAttribute("data-widget-id", CHAT_ID);
+    document.body.appendChild(s);
+    watchChat(0);
+  }
+  // The bubble and our menu button both want the bottom-right corner. While the bubble is on the
+  // right, the menu button (and the cookie pop-up above it) move up to sit above it; if the bubble
+  // is moved to the left in GoHighLevel, nothing moves. Typed chat text is masked for Clarity.
+  function watchChat(n) {
+    var w = document.querySelector("chat-widget");
+    var box = w && w.shadowRoot && w.shadowRoot.getElementById("lc_text-widget");
+    if (!box) { if (n < 40) setTimeout(function () { watchChat(n + 1); }, 500); return; }
+    w.setAttribute("data-clarity-mask", "True");
+    var st = document.createElement("style");
+    st.id = "chat-shift";
+    document.head.appendChild(st);
+    var queued = false;
+    function fit() {
+      queued = false;
+      // The round bubble, and the "Have a question?" prompt above it while that is showing.
+      var btn = w.shadowRoot.getElementById("lc_text-widget--btn");
+      var prompt = w.shadowRoot.getElementById("lc_text-widget");
+      var b = btn ? btn.getBoundingClientRect() : null;
+      if (!b || !b.width || b.left + b.width / 2 < window.innerWidth / 2) { st.textContent = ""; return; }
+      var top = b.top, p = prompt ? prompt.getBoundingClientRect() : null;
+      if (p && p.width && p.height <= 260) top = Math.min(top, p.top);   // taller than that = the open chat, which covers the corner anyway
+      var up = Math.max(22, Math.round(window.innerHeight - top + 12));
+      st.textContent = ".fab-nav{bottom:" + up + "px!important}#cc.cc-pop{bottom:" + (up + 70) + "px!important}";
+    }
+    function later() { if (!queued) { queued = true; setTimeout(fit, 150); } }
+    fit();
+    if (window.MutationObserver) new MutationObserver(later).observe(w.shadowRoot, { childList: true, subtree: true, attributes: true });
+    if (window.ResizeObserver) new ResizeObserver(later).observe(box);
+    window.addEventListener("resize", later);
+  }
+
   /* ---- start-up and later changes of mind ---- */
   if (choice() === 0) {
     cleanup();   // rejected, or Global Privacy Control: nothing loads on this page
@@ -275,7 +331,7 @@
       window["ga-disable-" + GA4_ID] = true;
       if (gaReady) gtag("consent", "update", { analytics_storage: "denied" });
       cleanup();
-      if (d.prev === 1) location.reload();               // Clarity / Pixel were running: start clean
+      if (d.prev === 1 || chatStarted) location.reload(); // Clarity / Pixel / chat were running: start clean
     }
   });
 

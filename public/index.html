@@ -331,7 +331,8 @@ img.photo { background: none; border: none; padding: 0; display: block; max-widt
 
   /* Service cards: 3 across */
   .pad.services { max-width: 960px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; align-items: start; }
-  .pad.services > h2, .pad.services > .lead, .pad.services > .mid-cta { grid-column: 1 / -1; }
+  .pad.services > h2, .pad.services > .lead, .pad.services > .mid-cta, .pad.services > .tool-banner { grid-column: 1 / -1; }
+  .pad.services > .tool-banner { margin: 0; }
 
   /* Hero: split layout at desktop — text on the left, photo + CTAs on the right (independent-height flex columns, not grid rows) */
   .hero {
@@ -511,7 +512,7 @@ html.cc-wait #cc{display:block}
         <path d="M2,4 C18,26 52,26 68,4" stroke="#eb5c3d" stroke-width="5" fill="none" stroke-linecap="round"/>
       </svg>
       <p class="sub">Chabod Cleaning Services has cleaned San Antonio homes and Airbnb rentals for 8+ years &mdash; the same dedicated team, no contracts.</p>
-      <div class="proof">5.0 ON GOOGLE &middot; 44 REVIEWS &bull; 60+ STR PROPERTIES</div>
+      <div class="proof">5.0 ON GOOGLE &middot; 50 REVIEWS &bull; 60+ STR PROPERTIES</div>
     </div>
     <div class="hero-visual">
       <img class="photo" src="homepage-hero-fridge.webp" alt="Chabod Cleaning Services team member cleaning inside a refrigerator in a San Antonio home" width="1600" height="900" style="object-position: 72% center;">
@@ -536,7 +537,7 @@ html.cc-wait #cc{display:block}
         <div class="stat-label">+ Years in San Antonio</div>
       </div>
       <div class="stat-block">
-        <div class="stat-num" data-count="44">0</div>
+        <div class="stat-num" data-count="50">0</div>
         <div class="stat-label">Reviews on Google (5.0)</div>
       </div>
       <div class="stat-block">
@@ -554,6 +555,9 @@ html.cc-wait #cc{display:block}
   <div class="pad awards reveal">
     <p class="awards-label">As Recognized By</p>
     <div class="awards-row">
+      <a href="https://www.expertise.com/tx/san-antonio/house-cleaning" target="_blank" rel="noopener" class="award-badge">
+        <img src="badge-expertise-2026.svg" alt="Expertise.com Top House Cleaning in San Antonio 2026" width="200" height="160">
+      </a>
       <a href="https://www.expertise.com/" target="_blank" rel="noopener" class="award-badge">
         <img src="badge-expertise-2025.webp" alt="Expertise.com Best House Cleaning Services in San Antonio 2025">
       </a>
@@ -628,7 +632,7 @@ html.cc-wait #cc{display:block}
       <div class="gr-summary">
         <div class="gr-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
         <p class="gr-rating">5.0 on Google</p>
-        <p class="gr-count">Based on 44 Google reviews</p>
+        <p class="gr-count">Based on 50 Google reviews</p>
         <a class="gr-link" href="https://www.google.com/search?q=Chabod+Cleaning+Services&amp;hl=en&amp;ludocid=14112719458435320457#lrd=0x865c678de926f8db:0xc3da739336c7ca89,1,,," target="_blank" rel="noopener">Read our reviews on Google</a>
       </div>
       <div class="gr-slot" data-gr-slot style="min-height:340px"></div>

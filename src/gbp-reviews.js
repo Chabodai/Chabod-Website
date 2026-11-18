@@ -26,10 +26,11 @@ const SCOPE = "https://www.googleapis.com/auth/business.manage";
 const REDIRECT_PATH = "/admin/gbp/callback";
 const CACHE_TTL_SECONDS = 6 * 60 * 60; // refresh cadence
 const SERVE_STALE_SECONDS = 7 * 24 * 60 * 60; // keep showing old data this long if refreshes fail
-const MAX_REVIEWS = 8;
+const MAX_REVIEWS = 8; // cards on the page at one time
+const POOL_MAX = 40; // reviews sent to the page to rotate through
 // Bump when the shape of the cached payload changes. A cache written by an older
 // version is still served, but triggers a background refresh (see serveReviews).
-const PAYLOAD_VERSION = 2;
+const PAYLOAD_VERSION = 3;
 
 // The existing static link, used as the fallback everywhere.
 const PROFILE_URL = "https://www.google.com/search?q=Chabod+Cleaning+Services&hl=en&ludocid=14112719458435320457#lrd=0x865c678de926f8db:0xc3da739336c7ca89,1,,,";
@@ -255,40 +256,30 @@ function abbreviateName(name) {
 }
 
 // ---- which reviews to show ---------------------------------------------------
-// Up to MAX_REVIEWS. Prefer 5-star reviews with real substance, put the
-// short-term-rental ones first (the niche we are trying to win) and mix in a few
-// residential ones. This only chooses and orders; review text is never edited.
-const STR_RE = /\b(airbnb|air ?bnb|vrbo|short[- ]?term|str|turn[- ]?overs?|hosts?|rentals?|check[- ]?(?:in|out)|listings?|superhost)\b/i;
-const RES_RE = /\b(house|home|apartment|condo|spring clean\w*|move[- ]?(?:in|out)|deep clean\w*|bi-?weekly|weekly|family|kids?|pets?)\b/i;
-const RES_MAX = 3;
-
+// The site shows MAX_REVIEWS cards at a time, but the feed carries a larger pool
+// (up to POOL_MAX) so the page can rotate them: the newest reviews lead and the
+// rest change from visit to visit (see pick() in public/reviews.js).
+//
+// The pool is every 5-star review that says something, newest first. Reviews
+// that came with photos are in it like any other: the API returns their text,
+// not the pictures. This only chooses and orders; review text is never edited.
 function hasSubstance(r) {
-  return r.text.length >= 80 && r.text.split(/\s+/).length >= 15;
+  return r.text.length >= 40 && r.text.split(/\s+/).length >= 8;
 }
-// longer (more substantive) first, then newer
-function byQuality(a, b) {
-  return (b.text.length - a.text.length) || (a.date < b.date ? 1 : a.date > b.date ? -1 : 0);
+function newestFirst(a, b) {
+  return a.date < b.date ? 1 : a.date > b.date ? -1 : 0;
 }
 
-export function selectReviews(items, max = MAX_REVIEWS) {
+export function selectReviews(items, max = POOL_MAX) {
   const usable = items.filter((r) => r && r.text && r.rating);
-  const five = usable.filter((r) => r.rating === 5 && hasSubstance(r)).sort(byQuality);
-  const kind = (r) => (STR_RE.test(r.text) ? "str" : RES_RE.test(r.text) ? "res" : "gen");
+  const out = usable.filter((r) => r.rating === 5 && hasSubstance(r)).sort(newestFirst);
 
-  const res = five.filter((r) => kind(r) === "res").slice(0, RES_MAX);
-  const base = five.filter((r) => kind(r) !== "res"); // STR and general, best first, STR before general
-  base.sort((a, b) => (kind(a) === "str" ? 0 : 1) - (kind(b) === "str" ? 0 : 1) || byQuality(a, b));
-
-  // First three are STR/general; residential ones are mixed in from the fourth card on.
-  const out = base.slice(0, Math.max(0, max - res.length));
-  res.forEach((r, i) => { out.splice(Math.min(3 + i * 2, out.length), 0, r); });
-
-  // Still room? Next best: other 5-star reviews, then 4-star with substance.
-  if (out.length < max) {
+  // Not enough to fill the slider? Add short 5-star ones, then 4-star with substance.
+  if (out.length < MAX_REVIEWS) {
     const used = new Set(out);
     const rest = usable.filter((r) => !used.has(r) && (r.rating === 5 || (r.rating === 4 && hasSubstance(r))));
-    rest.sort((a, b) => (b.rating - a.rating) || byQuality(a, b));
-    for (const r of rest) { if (out.length >= max) break; out.push(r); }
+    rest.sort((a, b) => (b.rating - a.rating) || newestFirst(a, b));
+    for (const r of rest) { if (out.length >= MAX_REVIEWS) break; out.push(r); }
   }
   return out.slice(0, max);
 }
@@ -312,7 +303,11 @@ async function fetchReviews(env, token) {
       date: (r.createTime || r.updateTime || "").slice(0, 10),
     }))
     .filter((r) => r.rating !== null);
-  const reviews = selectReviews(items, MAX_REVIEWS);
+  const pool = selectReviews(items, POOL_MAX);
+  // "reviews" alone is a complete answer (the newest ones) for any cached copy of the
+  // old page script; "more" is the rest of the pool the current script rotates through.
+  const reviews = pool.slice(0, MAX_REVIEWS);
+  const more = pool.slice(MAX_REVIEWS);
 
   const rating = typeof data.averageRating === "number" ? Math.round(data.averageRating * 10) / 10 : null;
   const total = typeof data.totalReviewCount === "number" ? data.totalReviewCount : all.length || null;
@@ -323,6 +318,7 @@ async function fetchReviews(env, token) {
     rating,
     total,
     reviews,
+    more,
     profileUrl: PROFILE_URL,
     fetchedAt: new Date().toISOString(),
   };

@@ -2,7 +2,7 @@
  * /residential-cleaning and /deep-cleaning.
  *
  * What the page contains without this script: the section heading, the
- * "5.0 on Google / Based on 44 Google reviews" header and the
+ * "5.0 on Google / Based on 50 Google reviews" header and the
  * "Read our reviews on Google" button, all plain HTML. That is also the fallback:
  * if the API fails, returns nothing, or JavaScript is off, that is what stays.
  * No empty slider, no error.
@@ -10,6 +10,10 @@
  * What this adds: when the section is about to scroll into view (never at page
  * load) it loads reviews.css, fetches /api/reviews and builds a scroll-snap
  * slider of the real reviews. It never auto-advances. No libraries.
+ *
+ * Which reviews: the API sends a pool, newest first. Each visit shows SHOW of
+ * them: the first LEAD cards come from the NEWEST most recent reviews, the rest
+ * are drawn at random from the whole pool, so the section is not always the same.
  *
  * Review text is third-party content: it is only ever written with textContent,
  * never innerHTML, and it is shown exactly as returned by the API.
@@ -25,6 +29,9 @@
   var reduceMotion = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
   var MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   var started = false;
+  var SHOW = 8;   // cards per visit
+  var LEAD = 3;   // cards at the front that are always recent reviews
+  var NEWEST = 6; // ...drawn from this many of the most recent
 
   function h(tag, cls, text) {
     var n = document.createElement(tag);
@@ -95,7 +102,7 @@
       countEl.textContent = "Based on " + data.total + " Google review" + (data.total === 1 ? "" : "s");
     }
 
-    var reviews = (data.reviews || []).filter(function (r) { return r && r.text && r.rating; });
+    var reviews = pick((data.reviews || []).concat(data.more || []).filter(function (r) { return r && r.text && r.rating; }));
     if (!reviews.length) { collapse(); return; }
 
     var slider = build(reviews);
@@ -103,6 +110,23 @@
     slot.appendChild(slider.el);
     // min-height stays as a floor: it can only grow, never collapse, so nothing below jumps
     slider.init();
+  }
+
+  function shuffle(a) {
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+
+  // pool arrives newest first; with SHOW or fewer there is nothing to rotate
+  function pick(pool) {
+    if (pool.length <= SHOW) return pool;
+    var recent = shuffle(pool.slice(0, NEWEST));
+    var lead = recent.slice(0, LEAD);
+    var rest = shuffle(recent.slice(LEAD).concat(pool.slice(NEWEST)));
+    return lead.concat(rest.slice(0, SHOW - LEAD));
   }
 
   function monthYear(iso) {
